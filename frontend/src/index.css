@@ -1,0 +1,441 @@
+/* Importando fonte mais orgânica do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+
+/* Definindo variáveis CSS para cores botânicas */
+:root {
+  --forest-green: #2d5016;
+  --leaf-green: #4a7c59;
+  --sage-green: #87a96b;
+  --mint-green: #c9e4ca;
+  --cream: #faf8f5;
+  --earth-brown: #8b5a3c;
+  --soft-shadow: rgba(45, 80, 22, 0.1);
+  --warm-shadow: rgba(139, 90, 60, 0.05);
+  --text-dark: #2d3a2e;
+  --text-light: #5a6b5d;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, var(--cream) 0%, #f0f4f0 100%);
+  color: var(--text-dark);
+  min-height: 100vh;
+  line-height: 1.6;
+  position: relative;
+}
+
+/* Padrão mais botânico no fundo com formas orgânicas */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    /* Simulando folhas espalhadas */
+    radial-gradient(ellipse 30px 15px at 15% 20%, rgba(74, 124, 89, 0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 25px 12px at 85% 30%, rgba(135, 169, 107, 0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 20px 10px at 45% 60%, rgba(201, 228, 202, 0.1) 0%, transparent 70%),
+    radial-gradient(ellipse 35px 18px at 75% 80%, rgba(74, 124, 89, 0.05) 0%, transparent 70%),
+    radial-gradient(ellipse 28px 14px at 25% 75%, rgba(135, 169, 107, 0.07) 0%, transparent 70%),
+    /* Padrão de textura orgânica */
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 15px,
+      rgba(135, 169, 107, 0.01) 15px,
+      rgba(135, 169, 107, 0.01) 16px
+    );
+  pointer-events: none;
+  z-index: -1;
+}
+
+code {
+  font-family: 'Courier New', monospace;
+  background-color: var(--mint-green);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+.container {
+  max-width: 680px;
+  margin: 40px auto;
+  padding: 32px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 
+    0 8px 32px var(--soft-shadow),
+    0 2px 8px var(--warm-shadow);
+  border: 1px solid rgba(135, 169, 107, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Container com mais elementos botânicos */
+.container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, 
+    var(--forest-green) 0%, 
+    var(--leaf-green) 25%, 
+    var(--sage-green) 50%, 
+    var(--mint-green) 75%, 
+    var(--sage-green) 100%);
+}
+
+.container::after {
+  content: '🌿 🍃 🌱 🌿 🍃';
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--cream);
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 0.8em;
+  border: 2px solid var(--mint-green);
+  opacity: 0.7;
+}
+
+h1, h2 {
+  font-family: 'Crimson Text', serif;
+  color: var(--forest-green);
+  text-align: center;
+  margin-bottom: 24px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  position: relative;
+}
+
+h1 {
+  font-size: 2.2em;
+  margin-bottom: 8px;
+}
+
+h2 {
+  font-size: 1.8em;
+  color: var(--leaf-green);
+}
+
+/* Decoração mais botânica para títulos */
+h1::after {
+  content: '🌿 Plant Care Hub 🌿';
+  display: block;
+  font-size: 0.4em;
+  margin-top: 12px;
+  opacity: 0.8;
+  color: var(--sage-green);
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+}
+
+h2::before {
+  content: '🌱 ';
+  opacity: 0.7;
+}
+
+h2::after {
+  content: ' 🌱';
+  opacity: 0.7;
+}
+
+form div {
+  margin-bottom: 20px;
+}
+
+form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: var(--text-dark);
+  font-size: 0.95em;
+  letter-spacing: 0.01em;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+textarea {
+  width: calc(100% - 24px);
+  padding: 14px 12px;
+  border: 2px solid var(--mint-green);
+  border-radius: 12px;
+  font-size: 16px;
+  font-family: 'Inter', sans-serif;
+  background-color: rgba(250, 248, 245, 0.8);
+  color: var(--text-dark);
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+form input:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--sage-green);
+  background-color: #fff;
+  box-shadow: 0 0 0 3px rgba(135, 169, 107, 0.1);
+  transform: translateY(-1px);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 120px;
+  font-family: 'Inter', sans-serif;
+}
+
+button {
+  background: linear-gradient(135deg, var(--leaf-green) 0%, var(--sage-green) 100%);
+  color: white;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  width: 100%;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+  letter-spacing: 0.02em;
+  position: relative;
+  overflow: hidden;
+}
+
+button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+button:hover::before {
+  left: 100%;
+}
+
+button:hover {
+  background: linear-gradient(135deg, var(--forest-green) 0%, var(--leaf-green) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(45, 80, 22, 0.3);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+p {
+  text-align: center;
+  margin-top: 24px;
+  color: var(--text-light);
+}
+
+p a {
+  color: var(--leaf-green);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+p a:hover {
+  color: var(--forest-green);
+  text-decoration: underline;
+}
+
+/* Estilos para a lista de plantas - mais orgânicos */
+.plant-list {
+  margin-top: 32px;
+  border-top: 2px solid var(--mint-green);
+  padding-top: 32px;
+  position: relative;
+}
+
+.plant-list::before {
+  content: '🌱 Suas Plantas';
+  position: absolute;
+  top: -12px;
+  left: 20px;
+  background: var(--cream);
+  padding: 0 12px;
+  font-weight: 600;
+  color: var(--leaf-green);
+  font-size: 0.9em;
+}
+
+.plant-item {
+  background: linear-gradient(135deg, 
+    rgba(201, 228, 202, 0.4) 0%, 
+    rgba(255, 255, 255, 0.9) 30%,
+    rgba(201, 228, 202, 0.2) 100%);
+  border: 2px solid var(--mint-green);
+  border-radius: 20px;
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: 
+    0 4px 16px var(--soft-shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  text-align: left;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.plant-item::before {
+  content: '🌿';
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  font-size: 4em;
+  opacity: 0.08;
+  z-index: 0;
+  transform: rotate(15deg);
+}
+
+.plant-item::after {
+  content: '🍃';
+  position: absolute;
+  bottom: -10px;
+  left: -10px;
+  font-size: 2.5em;
+  opacity: 0.06;
+  z-index: 0;
+  transform: rotate(-25deg);
+}
+
+.plant-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(45, 80, 22, 0.15);
+  border-color: var(--sage-green);
+}
+
+.plant-item h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  color: var(--forest-green);
+  font-family: 'Crimson Text', serif;
+  font-size: 1.4em;
+  font-weight: 600;
+  position: relative;
+  z-index: 1;
+}
+
+.plant-item p {
+  margin: 8px 0;
+  font-size: 0.95em;
+  color: var(--text-light);
+  text-align: left;
+  line-height: 1.5;
+  position: relative;
+  z-index: 1;
+}
+
+.button-link {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--leaf-green) 0%, var(--sage-green) 100%);
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  margin-top: 20px;
+  width: auto;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px var(--soft-shadow);
+}
+
+.button-link:hover {
+  background: linear-gradient(135deg, var(--forest-green) 0%, var(--leaf-green) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(45, 80, 22, 0.25);
+}
+
+.plant-actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  position: relative;
+  z-index: 1;
+}
+
+.small-button {
+  padding: 12px 20px;
+  font-size: 0.9em;
+  font-weight: 500;
+  border-radius: 10px;
+  width: 120px; /* Botões do mesmo tamanho */
+  text-align: center;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.edit-button {
+  background: linear-gradient(135deg, #ff8a50 0%, #ff7043 100%);
+  color: white;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(255, 112, 67, 0.3);
+}
+
+.edit-button:hover {
+  background: linear-gradient(135deg, #ff7043 0%, #ff5722 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 87, 34, 0.4);
+}
+
+.delete-button {
+  background: linear-gradient(135deg, #e57373 0%, #ef5350 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(239, 83, 80, 0.3);
+}
+
+.delete-button:hover {
+  background: linear-gradient(135deg, #ef5350 0%, #f44336 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(244, 67, 54, 0.4);
+}
+
+/* Removido animações de flutuação para manter cards estáticos */
+
+/* Responsividade para mobile */
+@media (max-width: 768px) {
+  .container {
+    margin: 20px;
+    padding: 24px;
+    border-radius: 16px;
+  }
+  
+  h1 {
+    font-size: 1.8em;
+  }
+  
+  h2 {
+    font-size: 1.5em;
+  }
+  
+  .plant-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .small-button {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+}
