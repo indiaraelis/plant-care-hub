@@ -1,6 +1,6 @@
 # 🌿 Plant-Care Hub: Seu Gerenciador de Plantas Inteligente
 
-![Print da tela do site](image.png)
+
 
 Um aplicativo web full-stack desenvolvido para ajudar entusiastas de plantas a gerenciar seus cuidados, com lembretes de rega e adubação, e organização personalizada.
 
@@ -53,7 +53,7 @@ Você precisará de um banco de dados MongoDB (recomenda-se [MongoDB Atlas](http
 ### 1. Clonar o Repositório
 
 ```bash
-git clone <URL_DO_SEU_REPOSITORIO_GITHUB>
+git clone <https://github.com/indiaraelis/plant-care-hub>
 cd plant-care-hub
 
 ### 2. Configurar o Backend
@@ -97,20 +97,20 @@ npm start
 O aplicativo será aberto em seu navegador em http://localhost:3000.
 ```
 
-💻 Uso da Aplicação
-Registro: Acesse http://localhost:3000/register para criar uma nova conta.
-Login: Faça login com suas credenciais em http://localhost:3000/login.
+## 💻 Uso da Aplicação
+**Registro:** Acesse http://localhost:3000/register para criar uma nova conta.
+**Login:** Faça login com suas credenciais em http://localhost:3000/login.
 Dashboard: Após o login, você será redirecionado para o dashboard (/dashboard), onde poderá ver, adicionar, editar e excluir suas plantas.  
 
 ## 💡 Próximos Passos e Melhorias Futuras
-*Lembretes por Notificação:* Implementar envio de notificações (e-mail, push) para lembrar o usuário de regar/adubar.
+**Lembretes por Notificação:** Implementar envio de notificações (e-mail, push) para lembrar o usuário de regar/adubar.
 Pesquisa e Filtros: Adicionar funcionalidades de busca e filtragem de plantas no dashboard.  
 
-*Detalhes da Planta:* Criar uma página dedicada para detalhes de cada planta.
+**Detalhes da Planta:** Criar uma página dedicada para detalhes de cada planta.
 Upload de Imagens: Permitir que os usuários adicionem fotos de suas plantas.
 Internacionalização: Suporte a múltiplos idiomas.  
 
-*Testes:* Escrever testes unitários e de integração para backend e frontend.
+**Testes:** Escrever testes unitários e de integração para backend e frontend.
 Dockerização: Empacotar a aplicação em contêineres Docker para facilitar a implantação.  
 
 ## 👨‍💻 Contribuição
