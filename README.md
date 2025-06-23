@@ -61,12 +61,12 @@ cd plant-care-hub
 ### 2. Configurar o Backend
 
 Navegue até a pasta backend e instale as dependências:
-```
 
 ```bash
 cd backend
 npm install
 ```
+
 Crie um arquivo .env na raiz da pasta backend e adicione suas variáveis de ambiente. Você pode usar o .env.example como modelo:  
 
 # backend/.env
