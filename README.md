@@ -55,7 +55,7 @@ Você precisará de um banco de dados MongoDB (recomenda-se [MongoDB Atlas](http
 ```bash
 git clone <https://github.com/indiaraelis/plant-care-hub>
 cd plant-care-hub
-
+```
 ### 2. Configurar o Backend
 
 Navegue até a pasta backend e instale as dependências:
