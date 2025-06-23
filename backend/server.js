@@ -25,6 +25,7 @@ const connectDB = async () => {
 };
 connectDB();
 
+
 // Middlewares
 app.use(cors());
 app.use(express.json());
@@ -41,9 +42,10 @@ app.use('/api/auth', authRoutes);
 // Todas as rotas definidas em plantRoutes serão agora protegidas pelo middleware 'protect'
 // Ou seja, precisarão de um JWT válido no cabeçalho 'Authorization'
 app.use('/api/plants', protect, plantRoutes);
-
+app.use('/api/trefle', require('./routes/trefleRoutes')); // Rota para buscar plantas do Trefle.io
 // Inicia o Servidor
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
     console.log(`Acesse: http://localhost:${PORT}`);
 });
+

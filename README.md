@@ -10,6 +10,7 @@ Um aplicativo web full-stack desenvolvido para ajudar entusiastas de plantas a g
 
 * **Autenticação de Usuário:** Registro e Login seguros com JWT (JSON Web Tokens).
 * **Gerenciamento de Plantas (CRUD):** Adicione, visualize, edite e exclua suas plantas personalizadas.
+* **Busca de Plantas Externas (Trefle.io):** Pesquise um vasto banco de dados de espécies de plantas para preencher automaticamente os detalhes ao adicionar uma nova planta.
 * **Lembretes de Cuidado:** Veja rapidamente quais plantas precisam de atenção com base nas suas últimas ações e frequência definida.
 * **Interface Intuitiva:** Um design limpo e responsivo para facilitar a navegação e o gerenciamento.
 * **Proteção de Rotas:** Acesso aos dados das plantas restrito a usuários autenticados.
@@ -26,6 +27,7 @@ Este projeto foi construído utilizando uma stack moderna e robusta:
 * **Express.js:** Framework web para Node.js, para construção da API.
 * **MongoDB:** Banco de dados NoSQL flexível e escalável (hospedado no MongoDB Atlas).
 * **Mongoose:** ODM (Object Data Modeling) para Node.js e MongoDB.
+* **Axios:** Cliente HTTP para fazer requisições à API do Trefle.io.
 * **bcryptjs:** Para hashing seguro de senhas.
 * **jsonwebtoken (JWT):** Para autenticação baseada em tokens.
 * **dotenv:** Para gerenciamento de variáveis de ambiente.
@@ -74,6 +76,7 @@ JWT_SECRET=UM_SEGREDO_BEM_FORTE_E_ALEATORIO
 Substitua SUA_STRING_DE_CONEXAO_DO_MONGODB_ATLAS pela sua URL de conexão do 
 MongoDB Atlas.  
 Substitua UM_SEGREDO_BEM_FORTE_E_ALEATORIO por uma string segura e única.
+TREFLE_API_KEY=SUA_CHAVE_DE_API_DO_TREFLE
 
 # Inicie o servidor backend:
 
