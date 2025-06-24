@@ -1,7 +1,5 @@
 # 🌿 Plant-Care Hub: Seu Gerenciador de Plantas Inteligente
 
-
-
 Um aplicativo web full-stack desenvolvido para ajudar entusiastas de plantas a gerenciar seus cuidados, com lembretes de rega e adubação, e organização personalizada.
 
 ---
