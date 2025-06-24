@@ -133,7 +133,7 @@ function AddPlant() {
 
       {/* Seção de Busca no Trefle.io */}
       <div className="search-section">
-        <h3>Buscar Plantas (Trefle.io)</h3>
+        <h2>Buscar Plantas (Trefle.io)</h2>
         <form onSubmit={handleTrefleSearch}>
           <input
             type="text"

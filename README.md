@@ -10,7 +10,7 @@ Um aplicativo web full-stack desenvolvido para ajudar entusiastas de plantas a g
 
 * **Autenticação de Usuário:** Registro e Login seguros com JWT (JSON Web Tokens).
 * **Gerenciamento de Plantas (CRUD):** Adicione, visualize, edite e exclua suas plantas personalizadas.
-* **Busca de Plantas Externas (Trefle.io):** Pesquise um vasto banco de dados de espécies de plantas para preencher automaticamente os detalhes ao adicionar uma nova planta.
+* **Busca de Plantas Externas (Trefle.io):** Pesquise um vasto banco de dados de espécies de plantas para preencher automaticamente os detalhes ao adicionar uma nova planta. (Nota: A funcionalidade de busca utiliza a filtragem por nome comum/científico, pois o endpoint de busca geral da API do Trefle.io pode apresentar instabilidades.)
 * **Lembretes de Cuidado:** Veja rapidamente quais plantas precisam de atenção com base nas suas últimas ações e frequência definida.
 * **Interface Intuitiva:** Um design limpo e responsivo para facilitar a navegação e o gerenciamento.
 * **Proteção de Rotas:** Acesso aos dados das plantas restrito a usuários autenticados.
@@ -27,7 +27,7 @@ Este projeto foi construído utilizando uma stack moderna e robusta:
 * **Express.js:** Framework web para Node.js, para construção da API.
 * **MongoDB:** Banco de dados NoSQL flexível e escalável (hospedado no MongoDB Atlas).
 * **Mongoose:** ODM (Object Data Modeling) para Node.js e MongoDB.
-* **Axios:** Cliente HTTP para fazer requisições à API do Trefle.io.
+* **Axios:** Cliente HTTP para fazer requisições à API do Trefle.io. **Observação sobre a Trefle.io API:** Durante o desenvolvimento, foi identificado que o endpoint /api/v1/plants/search da Trefle.io pode retornar erros 500 Internal Server Error ou Invalid access token mesmo com requisições válidas. A funcionalidade de busca foi implementada utilizando o endpoint /api/v1/plants com o filtro filter[common_name] ou filter[scientific_name] para maior estabilidade.
 * **bcryptjs:** Para hashing seguro de senhas.
 * **jsonwebtoken (JWT):** Para autenticação baseada em tokens.
 * **dotenv:** Para gerenciamento de variáveis de ambiente.
