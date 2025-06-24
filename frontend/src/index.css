@@ -284,9 +284,9 @@ p a:hover {
 .plant-item {
   /* MODIFICAÇÃO AQUI: Ajustando a opacidade do branco no gradiente */
   background: linear-gradient(135deg,
-    rgba(184, 212, 184, 0.3) 0%,
-    rgba(255, 255, 255, 0.7) 25%, /* Diminuído de 0.95 para 0.7 */
-    rgba(184, 212, 184, 0.15) 100%);
+    rgba(184, 212, 184, 0.5) 0%,
+    rgba(255, 255, 255, 0.1) 25%,
+    rgba(184, 212, 184, 0.3) 100%);
   border: 2px solid var(--mint-light);
   border-radius: 24px;
   padding: 28px;
@@ -305,10 +305,10 @@ p a:hover {
 .plant-item::before {
   content: '';
   position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 50px;
-  height: 50px;
+  top: 05px;
+  right: 40px;
+  width: 30px;
+  height: 30px;
   background-image: url('../public/ícone de planta em p.png'); /* Caminho ajustado */
   background-repeat: no-repeat;
   background-size: contain;
