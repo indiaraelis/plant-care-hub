@@ -1,13 +1,13 @@
 // frontend/src/components/Layout.js
-
 import React from 'react';
-import { ToastContainer } from 'react-toastify'; // Importa ToastContainer
-import 'react-toastify/dist/ReactToastify.css'; // Importa os estilos do Toastify
+import { ToastContainer } from 'react-toastify';
 
 function Layout({ children }) {
   return (
     <>
-      {children}
+      <div className="main-app-content"> {/* Add a wrapper for your content */}
+        {children}
+      </div>
       <ToastContainer
         position="top-right"
         autoClose={5000}

@@ -1,150 +1,157 @@
 /* Importando fonte mais orgânica do Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
 
 /* Definindo variáveis CSS para cores botânicas */
 :root {
+  --deep-forest: #1a3b1a;
   --forest-green: #2d5016;
-  --leaf-green: #4a7c59;
+  --emerald-leaf: #228b22;
   --sage-green: #87a96b;
-  --mint-green: #c9e4ca;
-  --cream: #faf8f5;
-  --earth-brown: #8b5a3c;
-  --soft-shadow: rgba(45, 80, 22, 0.1);
-  --warm-shadow: rgba(139, 90, 60, 0.05);
-  --text-dark: #2d3a2e;
-  --text-light: #5a6b5d;
+  --mint-light: #b8d4b8;
+  --cream-white: #faf8f3;
+  --warm-beige: #f4f1eb;
+  --earth-brown: #8b6f47;
+  --soft-shadow: rgba(26, 59, 26, 0.12);
+  --warm-shadow: rgba(139, 111, 71, 0.08);
+  --text-primary: #1a3b1a;
+  --text-secondary: #2d5016;
+  --text-muted: #5a6b5a;
+  --accent-gold: #d4af37;
 }
 
+/* Base global styles for a clean slate and botanical theme */
 body {
   margin: 0;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, var(--cream) 0%, #f0f4f0 100%);
-  color: var(--text-dark);
+  color: var(--text-primary);
   min-height: 100vh;
   line-height: 1.6;
   position: relative;
+  overflow-x: hidden; /* Prevent horizontal scroll from background elements */
+
+  /* CORREÇÃO AQUI: Caminho relativo da imagem */
+  background-image: url('../public/fundo marfim com tex.png'); /* Caminho ajustado */
+  background-size: cover; /* Garante que a imagem cubra toda a área */
+  background-position: center center; /* Centraliza a imagem */
+  background-repeat: no-repeat; /* Evita que a imagem se repita */
+  background-attachment: fixed; /* Fixa a imagem para não rolar com o conteúdo */
+  background-color: var(--warm-beige); /* Cor de fallback caso a imagem não carregue ou para transições */
 }
 
-/* Fundo sofisticado com folhas detalhadas tipo costela de adão */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: 
-    /* Costela de adão grande */
-    url("data:image/svg+xml,%3Csvg width='180' height='200' viewBox='0 0 180 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%234a7c59' fill-opacity='0.04'%3E%3Cpath d='M90 10 C75 10 65 20 65 35 L65 50 C50 52 40 60 45 75 L50 85 C45 90 42 95 48 105 L55 120 C50 125 48 135 58 145 L70 160 C65 165 68 175 80 180 L90 185 L100 180 C112 175 115 165 110 160 L122 145 C132 135 130 125 125 120 L132 105 C138 95 135 90 130 85 L135 75 C140 60 130 52 115 50 L115 35 C115 20 105 10 90 10 Z M80 60 L80 80 M100 60 L100 80 M70 90 L70 110 M110 90 L110 110 M85 130 L85 150 M95 130 L95 150' stroke='%234a7c59' stroke-opacity='0.03' stroke-width='2' fill='none'/%3E%3C/g%3E%3C/svg%3E"),
-    /* Costela de adão média */
-    url("data:image/svg+xml,%3Csvg width='120' height='140' viewBox='0 0 120 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2387a96b' fill-opacity='0.05'%3E%3Cpath d='M60 8 C50 8 42 15 42 25 L42 35 C32 37 25 42 28 52 L32 60 C28 63 26 67 30 75 L35 85 C32 88 33 95 40 102 L48 115 C45 118 47 125 55 128 L60 130 L65 128 C73 125 75 118 72 115 L80 102 C87 95 88 88 85 85 L90 75 C94 67 92 63 88 60 L92 52 C95 42 88 37 78 35 L78 25 C78 15 70 8 60 8 Z M52 42 L52 56 M68 42 L68 56 M46 65 L46 78 M74 65 L74 78 M56 88 L56 102 M64 88 L64 102' stroke='%2387a96b' stroke-opacity='0.04' stroke-width='1.5' fill='none'/%3E%3C/g%3E%3C/svg%3E"),
-    /* Folha pequena detalhada */
-    url("data:image/svg+xml,%3Csvg width='80' height='100' viewBox='0 0 80 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23c9e4ca' fill-opacity='0.06'%3E%3Cpath d='M40 5 C32 5 26 10 26 18 L26 25 C20 26 16 30 18 36 L20 42 C18 44 17 47 20 52 L24 58 C22 60 23 65 28 70 L34 78 C32 80 33 85 38 87 L40 88 L42 87 C47 85 48 80 46 78 L52 70 C57 65 58 60 56 58 L60 52 C63 47 62 44 60 42 L62 36 C64 30 60 26 54 25 L54 18 C54 10 48 5 40 5 Z M34 28 L34 38 M46 28 L46 38 M30 45 L30 55 M50 45 L50 55 M36 62 L36 72 M44 62 L44 72' stroke='%23c9e4ca' stroke-opacity='0.05' stroke-width='1' fill='none'/%3E%3C/g%3E%3C/svg%3E"),
-    /* Folhas menores espalhadas */
-    url("data:image/svg+xml,%3Csvg width='50' height='60' viewBox='0 0 50 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%234a7c59' fill-opacity='0.03'%3E%3Cpath d='M25 3 C20 3 17 6 17 12 L17 16 C13 17 11 19 12 23 L13 27 C12 28 11 30 13 33 L15 37 C14 38 14 41 17 44 L21 49 C20 50 20 53 23 54 L25 55 L27 54 C30 53 30 50 29 49 L33 44 C36 41 36 38 35 37 L37 33 C39 30 38 28 37 27 L38 23 C39 19 37 17 33 16 L33 12 C33 6 30 3 25 3 Z M21 18 L21 24 M29 18 L29 24 M19 29 L19 35 M31 29 L31 35 M22 40 L22 46 M28 40 L28 46' stroke='%234a7c59' stroke-opacity='0.025' stroke-width='0.8' fill='none'/%3E%3C/g%3E%3C/svg%3E");
-  background-position: 
-    200px 80px,
-    50px 300px, 
-    400px 150px,
-    150px 400px,
-    350px 50px,
-    80px 200px;
-  background-repeat: repeat;
-  background-size: 
-    180px 200px,
-    120px 140px,
-    80px 100px,
-    50px 60px;
-  pointer-events: none;
-  z-index: -1;
+/* NOVO: Estilos para o wrapper do conteúdo principal no Layout.js */
+.main-app-content {
+  min-height: 100vh; /* Garante que ocupe a altura total do viewport */
+  display: flex; /* Permite que o conteúdo interno use flexbox se necessário */
+  flex-direction: column; /* Organiza o conteúdo em coluna */
+  background-color: transparent; /* Garante que não tenha um fundo opaco que cubra o body */
+  position: relative; /* Para que seus filhos possam se posicionar em relação a ele */
+  z-index: 1; /* Altere para 1 ou superior para garantir que o conteúdo fique acima do fundo */
+  box-sizing: border-box; /* Para padding/border contarem na largura/altura */
+  width: 100%; /* Garante que ele ocupe a largura total */
 }
 
 code {
   font-family: 'Courier New', monospace;
-  background-color: var(--mint-green);
-  padding: 2px 6px;
-  border-radius: 4px;
+  background-color: var(--mint-light);
+  padding: 3px 8px;
+  border-radius: 6px;
   font-size: 0.9em;
+  color: var(--text-secondary);
 }
 
+/* --- Main Content Container --- */
 .container {
-  max-width: 680px;
+  max-width: 720px;
   margin: 40px auto;
-  padding: 32px;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  box-shadow: 
-    0 8px 32px var(--soft-shadow),
-    0 2px 8px var(--warm-shadow);
-  border: 1px solid rgba(135, 169, 107, 0.1);
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.96); /* Slightly transparent white for content */
+  backdrop-filter: blur(12px); /* Frosted glass effect */
+  border-radius: 24px;
+  box-shadow:
+    0 12px 40px var(--soft-shadow),
+    0 4px 12px var(--warm-shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(135, 169, 107, 0.15);
   position: relative;
   overflow: hidden;
+  animation: fadeIn 0.8s ease-out; /* Apply fade-in animation to containers */
 }
 
-/* Container com decoração mais sutil */
+/* Container com decoração botânica elegante (top border) */
 .container::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 6px;
-  background: linear-gradient(90deg, 
-    var(--forest-green) 0%, 
-    var(--leaf-green) 25%, 
-    var(--sage-green) 50%, 
-    var(--mint-green) 75%, 
-    var(--sage-green) 100%);
-  border-radius: 0 0 3px 3px;
+  height: 8px;
+  background: linear-gradient(90deg,
+    var(--deep-forest) 0%,
+    var(--emerald-leaf) 20%,
+    var(--sage-green) 40%,
+    var(--accent-gold) 50%,
+    var(--sage-green) 60%,
+    var(--emerald-leaf) 80%,
+    var(--deep-forest) 100%);
+  border-radius: 0 0 4px 4px;
 }
 
+/* --- Headings --- */
 h1, h2 {
-  font-family: 'Crimson Text', serif;
-  color: var(--forest-green);
+  font-family: 'Playfair Display', serif;
+  color: var(--deep-forest);
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
   font-weight: 600;
   letter-spacing: -0.02em;
   position: relative;
 }
 
 h1 {
-  font-size: 2.2em;
-  margin-bottom: 8px;
+  font-size: 2.4em;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, var(--deep-forest) 0%, var(--emerald-leaf) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 h2 {
-  font-size: 1.8em;
-  color: var(--leaf-green);
+  font-size: 1.9em;
+  color: var(--forest-green);
+  /* Ajuste para centralizar o h2 da seção */
+  margin-bottom: 30px; /* Aumentar um pouco o espaço abaixo do título da seção */
 }
 
-/* Decoração mais elegante para títulos */
+/* Decoração sofisticada para títulos */
 h1::after {
-  content: 'Plant Care Hub';
-  display: block;
-  font-size: 0.35em;
-  margin-top: 12px;
-  opacity: 0.6;
+  content: '🌿 Plant Care Hub 🌿'; /* Custom text below main heading */
+  display: auto;
+  font-size: 0.32em;
+  margin-top: 16px;
+  opacity: 0.7;
   color: var(--sage-green);
   font-family: 'Inter', sans-serif;
-  font-weight: 300;
-  letter-spacing: 0.15em;
+  font-weight: 400;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
+  background: none; /* Override parent gradient */
+  -webkit-text-fill-color: var(--sage-green); /* Ensure color is visible */
 }
 
+/* --- Form Elements --- */
 form div {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 form label {
-  display: block;
-  margin-bottom: 8px;
+  display: auto;
+  margin-bottom: 10px;
   font-weight: 500;
-  color: var(--text-dark);
-  font-size: 0.95em;
+  color: var(--text-primary);
+  font-size: 0.96em;
   letter-spacing: 0.01em;
 }
 
@@ -152,422 +159,444 @@ form input[type="text"],
 form input[type="email"],
 form input[type="password"],
 textarea {
-  width: calc(100% - 24px);
-  padding: 14px 12px;
-  border: 2px solid var(--mint-green);
-  border-radius: 12px;
+  width: 100%;
+  padding: 16px 14px;
+  border: 2px solid var(--mint-light);
+  border-radius: 14px;
   font-size: 16px;
   font-family: 'Inter', sans-serif;
-  background-color: rgba(250, 248, 245, 0.8);
-  color: var(--text-dark);
-  transition: all 0.3s ease;
-  box-sizing: border-box;
+  background-color: rgba(250, 248, 243, 0.9); /* Subtle background for inputs */
+  color: var(--text-primary);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box; /* Include padding/border in element's total width/height */
 }
 
 form input:focus,
 textarea:focus {
   outline: none;
-  border-color: var(--sage-green);
-  background-color: #fff;
-  box-shadow: 0 0 0 3px rgba(135, 169, 107, 0.1);
-  transform: translateY(-1px);
+  border-color: var(--emerald-leaf);
+  background-color: #fff; /* White background on focus */
+  box-shadow: 0 0 0 4px rgba(34, 139, 34, 0.1);
+  transform: translateY(-2px); /* Slight lift on focus */
 }
 
 textarea {
   resize: vertical;
-  min-height: 120px;
+  min-height: 130px;
   font-family: 'Inter', sans-serif;
 }
 
-button {
-  background: linear-gradient(135deg, var(--leaf-green) 0%, var(--sage-green) 100%);
+/* --- Buttons (Standardized and Subtle) --- */
+button,
+.button-link { /* General styles for all main buttons and links styled as buttons */
+  background: linear-gradient(135deg, var(--emerald-leaf) 0%, var(--sage-green) 100%);
   color: white;
   padding: 16px 24px;
   border: none;
-  border-radius: 12px;
+  border-radius: 14px;
   cursor: pointer;
   font-size: 16px;
   font-weight: 500;
-  width: 100%;
+  width: 100%; /* Full width for main buttons */
+  min-height: 56px; /* Consistent height */
   box-sizing: border-box;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   letter-spacing: 0.02em;
   position: relative;
   overflow: hidden;
-  min-height: 52px;
   display: flex;
   align-items: center;
   justify-content: center;
+  text-decoration: none; /* Remove underline for links styled as buttons */
+  box-shadow: 0 4px 16px rgba(34, 139, 34, 0.2);
 }
 
-button::before {
+button::before,
+.button-link::before { /* Shimmer effect on hover */
   content: '';
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-  transition: left 0.5s;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.6s;
 }
 
-button:hover::before {
+button:hover::before,
+.button-link:hover::before {
   left: 100%;
 }
 
-button:hover {
-  background: linear-gradient(135deg, var(--forest-green) 0%, var(--leaf-green) 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(45, 80, 22, 0.3);
+button:hover,
+.button-link:hover {
+  background: linear-gradient(135deg, var(--deep-forest) 0%, var(--emerald-leaf) 100%);
+  transform: translateY(-3px); /* Lift effect on hover */
+  box-shadow: 0 8px 25px rgba(26, 59, 26, 0.3);
 }
 
-button:active {
-  transform: translateY(0);
+button:active,
+.button-link:active {
+  transform: translateY(-1px); /* Press effect */
 }
 
+/* --- Paragraphs and Links --- */
 p {
   text-align: center;
-  margin-top: 24px;
-  color: var(--text-light);
+  margin-top: 28px;
+  color: var(--text-muted);
 }
 
 p a {
-  color: var(--leaf-green);
+  color: var(--emerald-leaf);
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s ease;
 }
 
 p a:hover {
-  color: var(--forest-green);
+  color: var(--deep-forest);
   text-decoration: underline;
 }
 
-/* Estilos para a lista de plantas - mais orgânicos */
+/* --- Plant List with Botanical Design --- */
 .plant-list {
-  margin-top: 32px;
-  border-top: 2px solid var(--mint-green);
-  padding-top: 32px;
+  margin-top: 40px;
+  border-top: 3px solid var(--mint-light);
+  padding-top: 40px;
   position: relative;
 }
 
 .plant-list::before {
-  content: '🌱 Suas Plantas';
+  content: '🌱 Suas Plantas Cultivadas';
   position: absolute;
-  top: -12px;
-  left: 20px;
-  background: var(--cream);
-  padding: 0 12px;
+  top: -16px;
+  left: 24px;
+  background: var(--cream-white);
+  padding: 0 16px;
   font-weight: 600;
-  color: var(--leaf-green);
-  font-size: 0.9em;
+  color: var(--emerald-leaf);
+  font-size: 0.95em;
+  font-family: 'Playfair Display', serif;
+  letter-spacing: 0.02em;
 }
 
 .plant-item {
-  background: linear-gradient(135deg, 
-    rgba(201, 228, 202, 0.4) 0%, 
-    rgba(255, 255, 255, 0.9) 30%,
-    rgba(201, 228, 202, 0.2) 100%);
-  border: 2px solid var(--mint-green);
-  border-radius: 20px;
-  padding: 24px;
-  margin-bottom: 20px;
-  box-shadow: 
-    0 4px 16px var(--soft-shadow),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  /* MODIFICAÇÃO AQUI: Ajustando a opacidade do branco no gradiente */
+  background: linear-gradient(135deg,
+    rgba(184, 212, 184, 0.3) 0%,
+    rgba(255, 255, 255, 0.7) 25%, /* Diminuído de 0.95 para 0.7 */
+    rgba(184, 212, 184, 0.15) 100%);
+  border: 2px solid var(--mint-light);
+  border-radius: 24px;
+  padding: 28px;
+  margin-bottom: 24px;
+  box-shadow:
+    0 6px 20px var(--soft-shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
   text-align: left;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
+  animation: fadeIn 0.6s ease-out; /* Animation for individual items */
 }
 
+/* Ícones botânicos realistas para os itens da lista */
 .plant-item::before {
   content: '';
   position: absolute;
-  top: 15px;
-  right: 15px;
-  width: 40px;
-  height: 40px;
-  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%234a7c59' fill-opacity='0.1'%3E%3Cpath d='M20 2c-6 0-12 6-12 12 0 9 12 18 12 18s12-9 12-18c0-6-6-12-12-12z' transform='rotate(25 20 20)'/%3E%3C/g%3E%3C/svg%3E");
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background-image: url('../public/ícone de planta em p.png'); /* Caminho ajustado */
   background-repeat: no-repeat;
   background-size: contain;
-  z-index: 0;
-}
-
-.plant-item::after {
-  content: '';
-  position: absolute;
-  bottom: 15px;
-  left: 15px;
-  width: 25px;
-  height: 25px;
-  background-image: url("data:image/svg+xml,%3Csvg width='25' height='25' viewBox='0 0 25 25' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2387a96b' fill-opacity='0.08'%3E%3Cpath d='M12.5 1c-4 0-8 4-8 8 0 6 8 12 8 12s8-6 8-12c0-4-4-8-8-8z' transform='rotate(-15 12.5 12.5)'/%3E%3C/g%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-size: contain;
-  z-index: 0;
+  z-index: -1;
 }
 
 .plant-item:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(45, 80, 22, 0.15);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 35px rgba(26, 59, 26, 0.18);
   border-color: var(--sage-green);
 }
 
 .plant-item h3 {
   margin-top: 0;
-  margin-bottom: 12px;
-  color: var(--forest-green);
-  font-family: 'Crimson Text', serif;
-  font-size: 1.4em;
+  margin-bottom: 16px;
+  color: var(--deep-forest);
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5em;
   font-weight: 600;
   position: relative;
-  z-index: 1;
+  z-index: -1;
 }
 
 .plant-item p {
-  margin: 8px 0;
-  font-size: 0.95em;
-  color: var(--text-light);
+  margin: 10px 0;
+  font-size: 0.96em;
+  color: var(--text-muted);
   text-align: left;
-  line-height: 1.5;
+  line-height: 1.6;
   position: relative;
-  z-index: 1;
-}
-
-.button-link {
-  display: inline-block;
-  background: linear-gradient(135deg, var(--leaf-green) 0%, var(--sage-green) 100%);
-  color: white;
-  padding: 16px 24px;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: 500;
-  text-decoration: none;
-  margin-top: 24px;
-  width: auto;
-  min-width: 180px;
-  min-height: 52px;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 8px var(--soft-shadow);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
-.button-link:hover {
-  background: linear-gradient(135deg, var(--forest-green) 0%, var(--leaf-green) 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(45, 80, 22, 0.25);
+  z-index: -1;
 }
 
 .plant-actions {
-  margin-top: 20px;
+  margin-top: 24px;
   display: flex;
-  gap: 12px;
+  gap: 16px;
   justify-content: flex-end;
   position: relative;
-  z-index: 1;
+  z-index: -1;
 }
 
+/* Botões pequenos padronizados para ações como Edit/Delete */
 .small-button {
-  padding: 12px 20px;
+  padding: 14px 20px;
   font-size: 0.9em;
   font-weight: 500;
-  border-radius: 10px;
-  width: 120px; /* Botões do mesmo tamanho */
+  border-radius: 12px;
+  width: 140px; /* Fixed width for consistency */
+  min-height: 48px; /* Consistent height */
   text-align: center;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: none;
   cursor: pointer;
   box-sizing: border-box;
-}
-
-.edit-button {
-  background: linear-gradient(135deg, #ff8a50 0%, #ff7043 100%);
-  color: white;
-  text-decoration: none;
-  box-shadow: 0 2px 8px rgba(255, 112, 67, 0.3);
-}
-
-.edit-button:hover {
-  background: linear-gradient(135deg, #ff7043 0%, #ff5722 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(255, 87, 34, 0.4);
-}
-
-.delete-button {
-  background: linear-gradient(135deg, #e57373 0%, #ef5350 100%);
-  color: white;
-  box-shadow: 0 2px 8px rgba(239, 83, 80, 0.3);
-}
-
-.delete-button:hover {
-  background: linear-gradient(135deg, #ef5350 0%, #f44336 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(244, 67, 54, 0.4);
-}
-
-/* Removido animações de flutuação para manter cards estáticos */
-
-/* Responsividade para mobile */
-@media (max-width: 768px) {
-  .container {
-    margin: 20px;
-    padding: 24px;
-    border-radius: 16px;
-  }
-  
-  h1 {
-    font-size: 1.8em;
-  }
-  
-  h2 {
-    font-size: 1.5em;
-  }
-  
-  .plant-actions {
-    flex-direction: column;
-    gap: 8px;
-  }
-  
-  .small-button {
-    width: 100%;
-    margin-bottom: 8px;
-  }
-}
-
-/* Seção de busca seguindo o padrão do design */
-.search-section {
-  background: linear-gradient(135deg, 
-    rgba(201, 228, 202, 0.3) 0%, 
-    rgba(255, 255, 255, 0.8) 30%,
-    rgba(201, 228, 202, 0.1) 100%);
-  border: 2px solid var(--mint-green);
-  border-radius: 20px;
-  padding: 24px;
-  margin-bottom: 32px;
-  box-shadow: 
-    0 4px 16px var(--soft-shadow),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
-  position: relative;
-  overflow: hidden;
-}
-
-.search-section::before {
-  content: '🔍 Buscar Plantas';
-  position: absolute;
-  top: -12px;
-  left: 20px;
-  background: var(--cream);
-  padding: 0 12px;
-  font-weight: 600;
-  color: var(--leaf-green);
-  font-size: 0.9em;
-}
-
-.search-section h3 {
-  font-family: 'Crimson Text', serif;
-  color: var(--forest-green);
-  text-align: center;
-  margin-top: 0;
-  margin-bottom: 20px;
-  font-weight: 600;
-  font-size: 1.4em;
-  letter-spacing: -0.02em;
-}
-
-.search-section form {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 24px;
-}
-
-.search-section input[type="text"] {
-  flex-grow: 1;
-  padding: 14px 12px;
-  border: 2px solid var(--mint-green);
-  border-radius: 12px;
-  font-size: 16px;
-  font-family: 'Inter', sans-serif;
-  background-color: rgba(250, 248, 245, 0.8);
-  color: var(--text-dark);
-  transition: all 0.3s ease;
-  box-sizing: border-box;
-}
-
-.search-section input[type="text"]:focus {
-  outline: none;
-  border-color: var(--sage-green);
-  background-color: #fff;
-  box-shadow: 0 0 0 3px rgba(135, 169, 107, 0.1);
-  transform: translateY(-1px);
-}
-
-.search-section button {
-  width: auto;
-  padding: 14px 24px;
-  background: linear-gradient(135deg, var(--leaf-green) 0%, var(--sage-green) 100%);
-  color: white;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  letter-spacing: 0.02em;
-  position: relative;
-  overflow: hidden;
-  min-height: 52px;
-  display: flex;
+  display: flex; /* Ensure centering for text/icons */
   align-items: center;
   justify-content: center;
+  text-decoration: none; /* For links styled as buttons */
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1); /* Lighter shadow for small buttons */
+  position: relative;
+  overflow: hidden;
 }
 
-.search-section button::before {
+.small-button::before { /* Reapply shimmer effect for small buttons */
   content: '';
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-  transition: left 0.5s;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.6s;
 }
 
-.search-section button:hover::before {
+.small-button:hover::before {
   left: 100%;
 }
 
-.search-section button:hover {
-  background: linear-gradient(135deg, var(--forest-green) 0%, var(--leaf-green) 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(45, 80, 22, 0.3);
+.edit-button {
+  background: linear-gradient(135deg, #ff8a50 0%, #ff7043 100%); /* Orange palette */
+  color: white;
+  box-shadow: 0 4px 16px rgba(255, 112, 67, 0.25);
 }
 
-.search-section button:active {
-  transform: translateY(0);
+.edit-button:hover {
+  background: linear-gradient(135deg, #ff7043 0%, #ff5722 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(255, 87, 34, 0.35);
+}
+
+.delete-button {
+  background: linear-gradient(135deg, #e57373 0%, #ef5350 100%); /* Red palette */
+  color: white;
+  box-shadow: 0 4px 16px rgba(239, 83, 80, 0.25);
+}
+
+.delete-button:hover {
+  background: linear-gradient(135deg, #ef5350 0%, #f44336 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(244, 67, 54, 0.35);
+}
+
+/* --- Base para Seções de Formulário (Adicionar e Buscar) --- */
+/* Estas propriedades serão copiadas para .add-plant-section e .search-section */
+.form-section-base-styles {
+  background: linear-gradient(135deg,
+    rgba(184, 212, 184, 0.25) 0%,
+    rgba(255, 255, 255, 0.9) 25%,
+    rgba(184, 212, 184, 0.1) 100%);
+  border: 2px solid var(--mint-light);
+  border-radius: 24px;
+  padding: 32px;
+  margin-bottom: 40px;
+  box-shadow:
+    0 6px 20px var(--soft-shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  position: relative;
+  overflow: hidden;
+  animation: fadeIn 0.7s ease-out;
+}
+
+/* --- Seção de Adicionar Nova Planta --- */
+.add-plant-section {
+    /* Copiando os estilos base manualmente, já que 'composes' não é usado */
+    background: linear-gradient(135deg,
+      rgba(184, 212, 184, 0.25) 0%,
+      rgba(255, 255, 255, 0.9) 25%,
+      rgba(184, 212, 184, 0.1) 100%);
+    border: 2px solid var(--mint-light);
+    border-radius: 24px;
+    padding: 32px;
+    margin-bottom: 40px;
+    box-shadow:
+      0 6px 20px var(--soft-shadow),
+      inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    position: relative;
+    overflow: hidden;
+    animation: fadeIn 0.7s ease-out;
+}
+
+.add-plant-section::before {
+    /* Ícone de folha para 'Adicionar Nova Planta' */
+    content: ''; /* Usaremos background-image para o ícone */
+    position: absolute;
+    top: -20px; /* Ajuste a posição vertical */
+    left: 24px;
+    width: 60px; /* Tamanho do ícone */
+    height: 60px; /* Tamanho do ícone */
+    /* Ícone de folha (SVG otimizado, exemplo de um ícone de "adicionar" ou "folha com sinal de mais") */
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23228b22"%3E%3Cpath d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/%3E%3C/svg%3E'); /* Ícone de folha com sinal de mais */
+    background-size: 70%; /* Ajuste o tamanho do ícone dentro do espaço */
+    background-position: center; /* Centraliza o ícone */
+    background-repeat: no-repeat;
+    background-color: var(--cream-white); /* Cor de fundo para "recortar" o ícone */
+    border-radius: 50%; /* Faz a base parecer um círculo */
+    padding: 8px; /* Espaçamento interno para o ícone dentro do círculo */
+    box-shadow: 0 4px 12px rgba(34, 139, 34, 0.15); /* Sombra sutil */
+    z-index: 2; /* Garante que o ícone esteja acima da borda da seção */
+}
+
+.add-plant-section h2 {
+    /* Ajuste para o h2 da seção de adicionar */
+    margin-top: 40px; /* Afasta o título do ícone */
+    margin-bottom: 24px; /* Espaço para o formulário */
+}
+
+/* --- Seção de Buscar Plantas (Ajustada) --- */
+.search-section {
+  /* Copiando os estilos base manualmente, já que 'composes' não é usado */
+  background: linear-gradient(135deg,
+    rgba(184, 212, 184, 0.25) 0%,
+    rgba(255, 255, 255, 0.9) 25%,
+    rgba(184, 212, 184, 0.1) 100%);
+  border: 2px solid var(--mint-light);
+  border-radius: 24px;
+  padding: 32px;
+  margin-bottom: 40px;
+  box-shadow:
+    0 6px 20px var(--soft-shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  position: relative;
+  overflow: hidden;
+  animation: fadeIn 0.7s ease-out;
+}
+
+.search-section h2 {
+  font-family: 'Playfair Display', serif;
+  color: var(--deep-forest);
+  margin-top: 40px;
+  margin-bottom: 24px;
+  font-weight: 600;
+  font-size: 1.9em;
+  letter-spacing: -0.02em;
+  z-index: 1; /* Mantenha um z-index para a seção, se necessário */
+
+  /* Propriedades Flexbox para o H2 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative; /* Importante para z-index e se precisar de posicionamento interno futuro */
+}
+
+.search-section h2::before {
+  content: ''; /* Mantemos vazio e usamos background-image */
+  /* Ajustar o tamanho para garantir que seja visível */
+  width: 32px; /* Aumentar um pouco o tamanho */
+  height: 32px; /* Aumentar um pouco o tamanho */
+
+  /* O SVG da lupa */
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%232d5016"%3E%3Cpath d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/%3E%3C/svg%3E');
+  /* Cor do preenchimento alterada para --forest-green (#2d5016) para maior contraste */
+
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  flex-shrink: 0;
+
+  /* Adicionar uma borda temporária para debug visual */
+  /* border: 1px solid red; */ /* Descomente esta linha para ver onde o elemento ::before está */
+}
+
+.search-section form {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.search-section input[type="text"] {
+  flex-grow: 1;
+  padding: 16px 14px;
+  border: 2px solid var(--mint-light);
+  border-radius: 14px;
+  font-size: 16px;
+  font-family: 'Inter', sans-serif;
+  background-color: rgba(250, 248, 243, 0.9);
+  color: var(--text-primary);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
+}
+
+.search-section input[type="text"]:focus {
+  outline: none;
+  border-color: var(--emerald-leaf);
+  background-color: #fff;
+  box-shadow: 0 0 0 4px rgba(34, 139, 34, 0.1);
+  transform: translateY(-2px);
+}
+
+.search-section button {
+  width: 140px;
+  padding: 16px 24px;
+  background: linear-gradient(135deg, var(--emerald-leaf) 0%, var(--sage-green) 100%);
+  color: white;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  letter-spacing: 0.02em;
+  position: relative;
+  overflow: hidden;
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(34, 139, 34, 0.2);
 }
 
 .search-results-list {
-  max-height: 280px;
+  max-height: 320px;
   overflow-y: auto;
-  border: 2px solid var(--mint-green);
-  border-radius: 16px;
-  padding: 16px;
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(5px);
-  box-shadow: 0 4px 12px var(--soft-shadow);
+  border: 2px solid var(--mint-light);
+  border-radius: 20px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 6px 16px var(--soft-shadow);
 }
 
 .search-results-list h4 {
   margin-top: 0;
-  margin-bottom: 16px;
-  color: var(--forest-green);
-  font-family: 'Crimson Text', serif;
-  font-size: 1.2em;
+  margin-bottom: 20px;
+  color: var(--deep-forest);
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3em;
   font-weight: 600;
   text-align: center;
 }
@@ -575,14 +604,15 @@ p a:hover {
 .search-result-item {
   display: flex;
   align-items: center;
-  padding: 16px;
-  border-bottom: 1px solid var(--mint-green);
+  padding: 20px;
+  border-bottom: 1px solid var(--mint-light);
   cursor: pointer;
-  transition: all 0.3s ease;
-  gap: 12px;
-  border-radius: 12px;
-  margin-bottom: 8px;
-  background: rgba(250, 248, 245, 0.5);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  gap: 16px;
+  border-radius: 16px;
+  margin-bottom: 12px;
+  background: rgba(250, 248, 243, 0.6);
+  animation: fadeIn 0.5s ease-out;
 }
 
 .search-result-item:last-child {
@@ -591,77 +621,579 @@ p a:hover {
 }
 
 .search-result-item:hover {
-  background: linear-gradient(135deg, 
-    rgba(201, 228, 202, 0.4) 0%, 
-    rgba(255, 255, 255, 0.9) 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px var(--soft-shadow);
+  background: linear-gradient(135deg,
+    rgba(184, 212, 184, 0.3) 0%,
+    rgba(255, 255, 255, 0.95) 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px var(--soft-shadow);
   border-color: var(--sage-green);
 }
 
 .search-result-item img {
-  border-radius: 8px;
-  box-shadow: 0 2px 8px var(--soft-shadow);
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 2px solid var(--mint-light);
+  transition: border-color 0.3s ease;
 }
 
-.search-result-item strong {
-  color: var(--forest-green);
-  font-family: 'Crimson Text', serif;
+.search-result-item:hover img {
+  border-color: var(--sage-green);
+}
+
+.search-result-item-content {
+  flex-grow: 1;
+}
+
+.search-result-item-content h5 {
+  margin: 0 0 8px 0;
+  color: var(--deep-forest);
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2em;
   font-weight: 600;
+}
+
+.search-result-item-content p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.9em;
+  line-height: 1.5;
+  text-align: left;
+}
+
+/* Botão de adicionar planta nos resultados */
+.add-plant-button {
+  background: linear-gradient(135deg, var(--accent-gold) 0%, #e6c76b 100%);
+  color: var(--deep-forest);
+  padding: 12px 18px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.88em;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  letter-spacing: 0.02em;
+  min-width: 120px;
+  box-shadow: 0 3px 12px rgba(212, 175, 55, 0.25);
+  text-transform: uppercase;
+  font-family: 'Inter', sans-serif;
+  display: flex; /* For consistent button styling */
+  align-items: center;
+  justify-content: center;
+}
+
+.add-plant-button:hover {
+  background: linear-gradient(135deg, #e6c76b 0%, #daa520 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(218, 165, 32, 0.35);
+}
+
+/* --- Alerts and Messages --- */
+.alert {
+  padding: 20px 24px;
+  border-radius: 16px;
+  margin-bottom: 28px;
+  font-weight: 500;
+  font-size: 0.95em;
+  border: 2px solid;
+  backdrop-filter: blur(8px);
+  position: relative;
+  overflow: hidden;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.alert::before { /* Top border for alerts */
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  border-radius: 0 0 4px 4px;
+}
+
+.alert-success {
+  background: linear-gradient(135deg,
+    rgba(184, 212, 184, 0.2) 0%,
+    rgba(255, 255, 255, 0.9) 100%);
+  color: var(--deep-forest);
+  border-color: var(--sage-green);
+}
+
+.alert-success::before {
+  background: linear-gradient(90deg, var(--emerald-leaf) 0%, var(--sage-green) 100%);
+}
+
+.alert-error {
+  background: linear-gradient(135deg,
+    rgba(229, 115, 115, 0.15) 0%,
+    rgba(255, 255, 255, 0.9) 100%);
+  color: #c62828;
+  border-color: #ef5350;
+}
+
+.alert-error::before {
+  background: linear-gradient(90deg, #ef5350 0%, #e57373 100%);
+}
+
+.alert-info {
+  background: linear-gradient(135deg,
+    rgba(100, 181, 246, 0.15) 0%,
+    rgba(255, 255, 255, 0.9) 100%);
+  color: #1976d2;
+  border-color: #42a5f5;
+}
+
+.alert-info::before {
+  background: linear-gradient(90deg, #42a5f5 0%, #64b5f6 100%);
+}
+
+/* --- Navigation Tabs --- */
+.nav-tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 32px;
+  border-bottom: 3px solid var(--mint-light);
+  padding-bottom: 0;
+  gap: 4px;
+}
+
+.nav-tab {
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--text-muted);
+  padding: 16px 28px;
+  border: none;
+  border-radius: 16px 16px 0 0;
+  cursor: pointer;
+  font-size: 0.95em;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: 0.01em;
+  border-bottom: 4px solid transparent; /* Highlight current tab */
+  margin-bottom: -3px; /* Overlap with border-bottom of nav-tabs */
+  animation: slideIn 0.4s ease-out; /* Animation for tabs */
+}
+
+.nav-tab:hover {
+  background: rgba(184, 212, 184, 0.3);
+  color: var(--forest-green);
+  transform: translateY(-2px);
+}
+
+.nav-tab.active {
+  background: linear-gradient(135deg, var(--emerald-leaf) 0%, var(--sage-green) 100%);
+  color: white;
+  border-bottom-color: var(--deep-forest); /* Stronger indicator for active tab */
+}
+
+/* --- Info Cards --- */
+.info-card {
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(184, 212, 184, 0.1) 100%);
+  border: 2px solid var(--mint-light);
+  border-radius: 20px;
+  padding: 28px;
+  margin-bottom: 24px;
+  box-shadow:
+    0 6px 20px var(--soft-shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  position: relative;
+  overflow: hidden;
+  animation: fadeIn 0.6s ease-out;
+}
+
+.info-card::before { /* Top border for info cards */
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg,
+    var(--accent-gold) 0%,
+    var(--emerald-leaf) 50%,
+    var(--sage-green) 100%);
+  border-radius: 0 0 4px 4px;
+}
+
+.info-card h3 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  color: var(--deep-forest);
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4em;
+  font-weight: 600;
+}
+
+.info-card p {
+  margin-bottom: 16px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  text-align: left;
+}
+
+.info-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.info-card li {
+  position: relative;
+  padding-left: 28px;
+  margin-bottom: 12px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.info-card li::before {
+  content: '🌱'; /* Bullet point as a small plant icon */
+  position: absolute;
+  left: 0;
+  top: 0;
   font-size: 1.1em;
 }
 
-.search-result-item p {
-  margin: 4px 0 0 0;
-  font-size: 0.9em;
-  color: var(--text-light);
-  text-align: left;
-  line-height: 1.4;
-  font-family: 'Inter', sans-serif;
+/* --- Statistics Section --- */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
+  margin: 32px 0;
 }
 
-/* Responsividade para mobile */
+.stat-card {
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(184, 212, 184, 0.2) 100%);
+  border: 2px solid var(--mint-light);
+  border-radius: 18px;
+  padding: 24px;
+  text-align: center;
+  box-shadow:
+    0 4px 16px var(--soft-shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  animation: fadeIn 0.7s ease-out;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(26, 59, 26, 0.15);
+  border-color: var(--sage-green);
+}
+
+.stat-card::before { /* Top border for stat cards */
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--emerald-leaf) 0%, var(--sage-green) 100%);
+  border-radius: 0 0 2px 2px;
+}
+
+.stat-number {
+  font-size: 2.2em;
+  font-weight: 700;
+  color: var(--emerald-leaf);
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.9em;
+  color: var(--text-muted);
+  margin-top: 8px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* --- Care Calendar --- */
+.care-calendar {
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(184, 212, 184, 0.1) 100%);
+  border: 2px solid var(--mint-light);
+  border-radius: 20px;
+  padding: 28px;
+  margin: 32px 0;
+  box-shadow:
+    0 6px 20px var(--soft-shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  position: relative;
+  overflow: hidden;
+  animation: fadeIn 0.8s ease-out;
+}
+
+.care-calendar::before {
+  content: '📅 Calendário de Cuidados';
+  position: absolute;
+  top: -16px;
+  left: 24px;
+  background: var(--cream-white);
+  padding: 0 16px;
+  font-weight: 600;
+  color: var(--emerald-leaf);
+  font-size: 0.95em;
+  font-family: 'Playfair Display', serif;
+  letter-spacing: 0.02em;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.calendar-day {
+  aspect-ratio: 1; /* Make squares */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  font-size: 0.9em;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  border: 1px solid rgba(135, 169, 107, 0.1); /* Subtle border for days */
+  background-color: rgba(250, 248, 243, 0.8); /* Light background for days */
+}
+
+.calendar-day.today {
+  background: var(--emerald-leaf);
+  color: white;
+  box-shadow: 0 2px 8px rgba(34, 139, 34, 0.3);
+  font-weight: 600;
+}
+
+.calendar-day.has-care {
+  background: var(--accent-gold);
+  color: var(--deep-forest);
+}
+
+.calendar-day.has-care::after {
+  content: '🌿'; /* Small plant icon for days with care */
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  font-size: 0.7em;
+  line-height: 1;
+}
+
+.calendar-day:hover {
+  background: var(--sage-green);
+  color: white;
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(135, 169, 107, 0.3);
+}
+
+/* --- Botanical Footer --- */
+.footer {
+  margin-top: 60px;
+  padding: 40px 0;
+  text-align: center;
+  border-top: 3px solid var(--mint-light);
+  position: relative;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 40px;
+  background-image: url("data:image/svg+xml,%3Csvg width='80' height='40' viewBox='0 0 80 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='footerLeaf' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23228b22' stop-opacity='0.3'/%3E%3Cstop offset='100%25' stop-color='%232d5016' stop-opacity='0.2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg%3E%3Cpath d='M40 5 C35 5 30 10 30 18 C30 25 35 30 40 35 C45 30 50 25 50 18 C50 10 45 5 40 5 Z M40 15 L40 35 M35 20 C37 18 40 17 43 18 C46 17 49 18 45 20' fill='url(%23footerLeaf)' stroke='%23228b22' stroke-opacity='0.2' stroke-width='1.5'/%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-color: var(--cream-white); /* Match body background to "cut out" the leaf */
+  border-radius: 50%; /* Make it look more like a distinct emblem */
+}
+
+.footer p {
+  color: var(--text-muted);
+  font-size: 0.9em;
+  margin: 16px 0;
+}
+
+.footer a {
+  color: var(--emerald-leaf);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.footer a:hover {
+  color: var(--deep-forest);
+  text-decoration: underline;
+}
+
+/* --- Responsividade Aprimorada --- */
 @media (max-width: 768px) {
   .container {
-    margin: 20px;
-    padding: 24px;
-    border-radius: 16px;
+    margin: 20px 16px;
+    padding: 28px 20px;
+    border-radius: 20px;
   }
-  
+
   h1 {
-    font-size: 1.8em;
+    font-size: 2em;
   }
-  
+
   h2 {
-    font-size: 1.5em;
+    font-size: 1.6em;
   }
-  
-  .plant-actions {
-    flex-direction: column;
-    gap: 8px;
-  }
-  
-  .small-button {
-    width: 100%;
-    margin-bottom: 8px;
-  }
-  
+
   .search-section form {
     flex-direction: column;
-    gap: 12px;
+    gap: 16px;
   }
-  
+
   .search-section button {
     width: 100%;
   }
-  
+
+  .plant-actions {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .small-button {
+    width: 100%; /* Full width on smaller screens */
+  }
+
+  .nav-tabs {
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: space-around; /* Distribute tabs evenly */
+  }
+
+  .nav-tab {
+    flex: 1; /* Allow tabs to grow */
+    min-width: 120px;
+    padding: 14px 20px;
+    font-size: 0.9em;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .calendar-grid {
+    gap: 4px;
+  }
+
+  .calendar-day {
+    font-size: 0.8em;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    margin: 16px 12px;
+    padding: 24px 16px;
+  }
+
+  h1 {
+    font-size: 1.8em;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr; /* Single column for stats on very small screens */
+  }
+
   .search-result-item {
     flex-direction: column;
     text-align: center;
-    gap: 8px;
+    gap: 12px;
   }
-  
-  .search-result-item p {
-    text-align: center;
+
+  .add-plant-button {
+    min-width: 100px;
+    font-size: 0.85em;
+    width: 100%; /* Make button full width in results on tiny screens */
   }
+
+  .nav-tab {
+    min-width: unset; /* Remove min-width to allow more flexibility */
+    padding: 12px 16px;
+    font-size: 0.85em;
+  }
+}
+
+/* --- Animações Suaves --- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* --- Efeitos de Loading --- */
+.loading {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border: 3px solid var(--mint-light);
+  border-radius: 50%;
+  border-top-color: var(--emerald-leaf);
+  animation: spin 1s ease-in-out infinite;
+  margin: 10px auto; /* Centering for standalone loading indicator */
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* --- Scrollbar Customizada --- */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--warm-beige);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, var(--sage-green) 0%, var(--emerald-leaf) 100%);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, var(--emerald-leaf) 0%, var(--deep-forest) 100%);
 }
