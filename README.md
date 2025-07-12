@@ -1,125 +1,156 @@
-# 🌿 Plant-Care Hub: Seu Gerenciador de Plantas Inteligente
+# 🌱 Plant-Care Hub
+
+[![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
+[![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
+[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+
+## 📝 About the Project
+
+The **Plant-Care Hub** is a full-stack web application designed to help users efficiently manage and track the care routines for their plants. Built with **React** for a dynamic frontend and **Node.js with Express.js** for a robust backend, it allows users to securely register, log in, and maintain a personalized dashboard of their plants.
+
+The application enables comprehensive CRUD (Create, Read, Update, Delete) operations for plant records, including details like watering and fertilizing frequencies. It also integrates with the **Trefle.io API** to provide detailed information about plant species, making it easier for users to identify and care for their greenery.
 
 ![Login](https://github.com/user-attachments/assets/1b6695e1-1f4c-456b-bcfd-000e903186ac)
 ![Suas Plantas](https://github.com/user-attachments/assets/af9620cf-911e-4247-97dc-8b1a65080f63)
 ![Adicionar Planta](https://github.com/user-attachments/assets/ee387d78-5b99-45c2-a7b8-5d48a5d15582)
 
-Um aplicativo web full-stack desenvolvido para ajudar entusiastas de plantas a gerenciar seus cuidados, com lembretes de rega e adubação, e organização personalizada.
+## ✨ Features
 
----
+The Plant-Care Hub offers a range of functionalities to simplify plant care:
 
-## ✨ Funcionalidades
+* **Secure User Authentication:** Register and log in using email and password, secured with JSON Web Tokens (JWT).
+* **Dashboard Overview:** View a personalized list of all your registered plants at a glance.
+* **Plant Management (CRUD):**
+    * **Add New Plants:** Input essential details like name, species, watering schedule, last watered date, fertilizing schedule, last fertilized date, and custom notes.
+    * **Edit Plant Details:** Easily update any information for existing plants.
+    * **Delete Plants:** Remove plants from your collection when no longer needed.
+* **Trefle.io API Integration:** Search for plant species and retrieve detailed information from the Trefle.io database to enrich your plant records.
+* **Intuitive User Interface:** A responsive and user-friendly frontend built with React for a smooth experience.
+* **Notifications:** Real-time feedback and alerts using toast notifications for successful operations or errors.
 
-* **Autenticação de Usuário:** Registro e Login seguros com JWT (JSON Web Tokens).
-* **Gerenciamento de Plantas (CRUD):** Adicione, visualize, edite e exclua suas plantas personalizadas.
-* **Busca de Plantas Externas (Trefle.io):** Pesquise um vasto banco de dados de espécies de plantas para preencher automaticamente os detalhes ao adicionar uma nova planta. (Nota: A funcionalidade de busca utiliza a filtragem por nome comum/científico, pois o endpoint de busca geral da API do Trefle.io pode apresentar instabilidades.)
-* **Lembretes de Cuidado:** Veja rapidamente quais plantas precisam de atenção com base nas suas últimas ações e frequência definida.
-* **Interface Intuitiva:** Um design limpo e responsivo para facilitar a navegação e o gerenciamento.
-* **Proteção de Rotas:** Acesso aos dados das plantas restrito a usuários autenticados.
+## 💻 Technologies Used
 
----
+**Backend:**
 
-## 🚀 Tecnologias Utilizadas
+* **Node.js**: Server-side JavaScript runtime.
+* **Express.js**: Fast, unopinionated, minimalist web framework for Node.js.
+* **MongoDB**: NoSQL database for flexible data storage.
+* **Mongoose**: MongoDB object data modeling (ODM) for Node.js.
+* **Bcryptjs**: For secure password hashing.
+* **JSON Web Token (JWT)**: For stateless user authentication.
+* **Axios**: HTTP client for making requests to external APIs (Trefle.io).
+* **Dotenv**: To manage environment variables securely.
 
-Este projeto foi construído utilizando uma stack moderna e robusta:
+**Frontend:**
 
-### Backend (API RESTful)
+* **React**: JavaScript library for building user interfaces.
+* **React Router DOM**: For client-side routing within the application.
+* **Axios**: HTTP client for making requests to the backend API.
+* **React Toastify**: For customizable toast notifications.
+* **HTML5, CSS3, JavaScript**: Core web technologies for structure, styling, and interactivity.
 
-* **Node.js:** Ambiente de execução JavaScript.
-* **Express.js:** Framework web para Node.js, para construção da API.
-* **MongoDB:** Banco de dados NoSQL flexível e escalável (hospedado no MongoDB Atlas).
-* **Mongoose:** ODM (Object Data Modeling) para Node.js e MongoDB.
-* **Axios:** Cliente HTTP para fazer requisições à API do Trefle.io. **Observação sobre a Trefle.io API:** Durante o desenvolvimento, foi identificado que o endpoint /api/v1/plants/search da Trefle.io pode retornar erros 500 Internal Server Error ou Invalid access token mesmo com requisições válidas. A funcionalidade de busca foi implementada utilizando o endpoint /api/v1/plants com o filtro filter[common_name] ou filter[scientific_name] para maior estabilidade.
-* **bcryptjs:** Para hashing seguro de senhas.
-* **jsonwebtoken (JWT):** Para autenticação baseada em tokens.
-* **dotenv:** Para gerenciamento de variáveis de ambiente.
-* **cors:** Para permitir requisições cross-origin entre frontend e backend.
+## 🚀 Getting Started
 
-### Frontend (Aplicação SPA)
+Follow these steps to set up and run the Plant-Care Hub on your local machine for development and testing.
 
-* **React.js:** Biblioteca JavaScript para construção de interfaces de usuário.
-* **React Router DOM:** Para gerenciamento de rotas na aplicação single-page.
-* **Axios:** Cliente HTTP baseado em Promises para fazer requisições à API.
-* **react-toastify:** Para notificações estilizadas e feedback ao usuário.
-* **HTML5 & CSS3:** Para estrutura e estilização da interface.
+### Prerequisites
 
----
+Ensure you have the following installed:
 
-## 🛠️ Como Rodar o Projeto Localmente
+* **Node.js** (includes npm): [Download & Install Node.js](https://nodejs.org/en/download/)
+* **MongoDB**: [Install MongoDB Community Server](https://www.mongodb.com/try/download/community) or set up a free cluster on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas).
 
-Siga estes passos para configurar e executar o Plant-Care Hub na sua máquina.
+### Installation
 
-### Pré-requisitos
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/indiaraelis/plant-care-hub.git](https://github.com/indiaraelis/plant-care-hub.git)
+    cd plant-care-hub
+    ```
 
-Certifique-se de ter o [Node.js](https://nodejs.org/) (com NPM) instalado.
-Você precisará de um banco de dados MongoDB (recomenda-se [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) para o cluster gratuito).  
+2.  **Backend Setup:**
+    Navigate to the `backend` directory, install dependencies, and configure environment variables.
 
-### 1. Clonar o Repositório
+    ```bash
+    cd backend
+    npm install
+    ```
 
-```bash
-git clone <https://github.com/indiaraelis/plant-care-hub>
-cd plant-care-hub
-```
-### 2. Configurar o Backend
+    Create a `.env` file in the `backend` directory with the following content:
 
-Navegue até a pasta backend e instale as dependências:
+    ```env
+    PORT=5000
+    MONGODB_URI=your_mongodb_connection_string
+    JWT_SECRET=a_very_secret_key_for_jwt
+    TREFLE_API_KEY=your_trefle_api_key
+    ```
+    *Replace `your_mongodb_connection_string` with your MongoDB URI (e.g., from MongoDB Atlas).*
+    *Replace `a_very_secret_key_for_jwt` with a strong, random string.*
+    *Replace `your_trefle_api_key` with your API key obtained from [Trefle.io](https://trefle.io/).*
 
-```bash
-cd backend
-npm install
-```
+3.  **Frontend Setup:**
+    Navigate to the `frontend` directory and install dependencies.
 
-Crie um arquivo .env na raiz da pasta backend e adicione suas variáveis de ambiente. Você pode usar o .env.example como modelo:  
+    ```bash
+    cd ../frontend
+    npm install
+    ```
 
-# backend/.env
-PORT=5000
-MONGODB_URI=SUA_STRING_DE_CONEXAO_DO_MONGODB_ATLAS
-JWT_SECRET=UM_SEGREDO_BEM_FORTE_E_ALEATORIO
-Substitua SUA_STRING_DE_CONEXAO_DO_MONGODB_ATLAS pela sua URL de conexão do 
-MongoDB Atlas.  
-Substitua UM_SEGREDO_BEM_FORTE_E_ALEATORIO por uma string segura e única.
-TREFLE_API_KEY=SUA_CHAVE_DE_API_DO_TREFLE
+    The frontend is configured to communicate with `http://localhost:5000` by default.
 
-# Inicie o servidor backend:
+### Running the Application
 
-```bash
-npm start
-```
-O servidor estará rodando em http://localhost:5000.
+1.  **Start the Backend Server:**
+    From the `backend` directory:
 
-### 3. Configurar o Frontend
-Abra um novo terminal e navegue de volta para a pasta raiz do projeto e, em seguida, para a pasta frontend:  
+    ```bash
+    npm start
+    ```
+    The backend server will start on `http://localhost:5000`.
 
-```bash
-cd .. # Volta para a pasta plant-care-hub
-cd frontend
-npm install
-```
-Inicie o aplicativo frontend:
+2.  **Start the Frontend Development Server:**
+    From the `frontend` directory:
 
-```bash
-npm start
-O aplicativo será aberto em seu navegador em http://localhost:3000.
-```
+    ```bash
+    npm start
+    ```
+    The React development server will start (typically on `http://localhost:3000`) and open the application in your default web browser.
 
-## 💻 Uso da Aplicação
-**Registro:** Acesse http://localhost:3000/register para criar uma nova conta.
-**Login:** Faça login com suas credenciais em http://localhost:3000/login.
-Dashboard: Após o login, você será redirecionado para o dashboard (/dashboard), onde poderá ver, adicionar, editar e excluir suas plantas.  
+You can now register a new account, log in, and begin managing your plants!
 
-## 💡 Próximos Passos e Melhorias Futuras
-**Lembretes por Notificação:** Implementar envio de notificações (e-mail, push) para lembrar o usuário de regar/adubar.
-Pesquisa e Filtros: Adicionar funcionalidades de busca e filtragem de plantas no dashboard.  
+## API Endpoints
 
-**Detalhes da Planta:** Criar uma página dedicada para detalhes de cada planta.
-Upload de Imagens: Permitir que os usuários adicionem fotos de suas plantas.
-Internacionalização: Suporte a múltiplos idiomas.  
+The backend provides the following RESTful API endpoints:
 
-**Testes:** Escrever testes unitários e de integração para backend e frontend.
-Dockerização: Empacotar a aplicação em contêineres Docker para facilitar a implantação.  
+**Authentication:**
 
-## 👨‍💻 Contribuição
-Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou pull requests.
+* `POST /api/auth/register` - Registers a new user.
+* `POST /api/auth/login` - Authenticates a user and returns a JWT.
 
-## 📄 Licença
-Este projeto está licenciado sob a Licença MIT.
+**Plants (requires JWT in `Authorization: Bearer <token>` header):**
+
+* `GET /api/plants` - Retrieves all plants belonging to the authenticated user.
+* `POST /api/plants` - Creates a new plant for the authenticated user.
+* `GET /api/plants/:id` - Retrieves a specific plant by its ID.
+* `PUT /api/plants/:id` - Updates an existing plant by its ID.
+* `DELETE /api/plants/:id` - Deletes a plant by its ID.
+
+**Trefle.io Integration (requires JWT in `Authorization: Bearer <token>` header):**
+
+* `GET /api/trefle/search?query=plantName` - Searches for plant information using the Trefle.io API and returns results.
+
+### Contributing
+
+Contributions are welcome! If you have suggestions for features, improvements, or bug fixes, please feel free to open an issue or submit a pull request.
+
+### License
+
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/indiaraelis/plant-care-hub/blob/main/LICENSE) file for details.
+
+### 👩‍💻 Author
+
+Made with 💚 by **Indiara Elis**
+
+Geotechnology specialist passionate about transforming data into decisions.
