@@ -1,6 +1,6 @@
 // frontend/src/pages/Dashboard.js
 
-import React, { useEffect, useState, } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -9,8 +9,8 @@ function Dashboard() {
   const [plants, setPlants] = useState([]);
   const navigate = useNavigate();
 
-  // Função para buscar as plantas (útil para reutilizar após criar/editar/deletar)
-  const fetchPlants = async () => {
+  // Corrigido: função fetchPlants agora é memoizada com useCallback
+  const fetchPlants = useCallback(async () => {
     const token = localStorage.getItem('token');
     if (!token) {
       navigate('/login');
@@ -35,11 +35,11 @@ function Dashboard() {
         toast.error('Erro ao carregar plantas: ' + (error.response ? error.response.data.msg : error.message));
       }
     }
-  };
+  }, [navigate]);
 
-useEffect(() => {
-  fetchPlants();
-}, [navigate, fetchPlants]);
+  useEffect(() => {
+    fetchPlants();
+  }, [fetchPlants]);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -49,7 +49,7 @@ useEffect(() => {
   // Função para deletar uma planta
   const handleDeletePlant = async (plantId) => {
     if (!window.confirm('Tem certeza que deseja excluir esta planta?')) {
-      return; // Cancela se o usuário não confirmar
+      return;
     }
 
     const token = localStorage.getItem('token');
@@ -67,7 +67,7 @@ useEffect(() => {
       };
       await axios.delete(`http://localhost:5000/api/plants/${plantId}`, config);
       toast.success('Planta excluída com sucesso!');
-      fetchPlants(); // Atualiza a lista de plantas após a exclusão
+      fetchPlants();
     } catch (error) {
       console.error('Erro ao excluir planta:', error.response ? error.response.data : error.message);
       if (error.response && error.response.status === 401) {
@@ -84,7 +84,7 @@ useEffect(() => {
     <div className="container">
       <h2>Suas Plantas</h2>
       <button onClick={handleLogout} style={{ float: 'right', marginBottom: '20px' }}>Sair</button>
-      <div style={{ clear: 'both' }}></div> {/* Limpa o float para o conteúdo abaixo */}
+      <div style={{ clear: 'both' }}></div>
 
       {plants.length === 0 ? (
         <p>Você ainda não tem plantas cadastradas. Que tal adicionar uma?</p>
@@ -96,14 +96,12 @@ useEffect(() => {
               <p>Frequência de Rega: {plant.wateringFrequencyDays} dias</p>
               <p>Última Rega: {new Date(plant.lastWatered).toLocaleDateString()}</p>
               {plant.fertilizingFrequencyDays > 0 && (
-                  <p>Frequência de Adubação: {plant.fertilizingFrequencyDays} dias</p>
+                <p>Frequência de Adubação: {plant.fertilizingFrequencyDays} dias</p>
               )}
               {plant.lastFertilized && (
-                  <p>Última Adubação: {new Date(plant.lastFertilized).toLocaleDateString()}</p>
+                <p>Última Adubação: {new Date(plant.lastFertilized).toLocaleDateString()}</p>
               )}
-              {plant.notes && (
-                  <p>Notas: {plant.notes}</p>
-              )}
+              {plant.notes && <p>Notas: {plant.notes}</p>}
 
               <div className="plant-actions">
                 <Link to={`/edit-plant/${plant._id}`} className="button-link small-button edit-button">Editar</Link>
