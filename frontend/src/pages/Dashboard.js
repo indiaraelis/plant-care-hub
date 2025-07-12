@@ -2,14 +2,13 @@
 
 import React, { useEffect, useState, useCallback } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
+import API from '../api';  // importando a instância axios configurada
 import { toast } from 'react-toastify';
 
 function Dashboard() {
   const [plants, setPlants] = useState([]);
   const navigate = useNavigate();
 
-  // Corrigido: função fetchPlants agora é memoizada com useCallback
   const fetchPlants = useCallback(async () => {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -23,7 +22,7 @@ function Dashboard() {
           Authorization: `Bearer ${token}`,
         },
       };
-      const res = await axios.get('http://localhost:5000/api/plants', config);
+      const res = await API.get('/api/plants', config);
       setPlants(res.data);
     } catch (error) {
       console.error('Erro ao buscar plantas:', error.response ? error.response.data : error.message);
@@ -46,7 +45,6 @@ function Dashboard() {
     navigate('/login');
   };
 
-  // Função para deletar uma planta
   const handleDeletePlant = async (plantId) => {
     if (!window.confirm('Tem certeza que deseja excluir esta planta?')) {
       return;
@@ -65,7 +63,7 @@ function Dashboard() {
           Authorization: `Bearer ${token}`,
         },
       };
-      await axios.delete(`http://localhost:5000/api/plants/${plantId}`, config);
+      await API.delete(`/api/plants/${plantId}`, config);
       toast.success('Planta excluída com sucesso!');
       fetchPlants();
     } catch (error) {
