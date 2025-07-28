@@ -1,13 +1,13 @@
 // PlantAutocomplete.js
 // Componente de autocomplete para seleção de plantas
-// Permite busca por nome português ou científico
+// Permite busca por nome português ou científico, e agora, busca externa (opcional)
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { 
   searchPlantsByPortuguese, 
   searchPlantsByScientific, 
   getPlantById 
-} from './PlantDatabase';
+} from './PlantDatabase'; // Assumindo que PlantDatabase.js existe
 
 const PlantAutocomplete = ({ 
   value, 
@@ -15,13 +15,18 @@ const PlantAutocomplete = ({
   placeholder = "Digite o nome da planta...",
   className = "",
   disabled = false,
-  maxResults = 10 
+  maxResults = 10,
+  // Nova prop: função para buscar em uma API externa (ex: Trefle.io)
+  onSearchExternal = null, 
+  // Nova prop: booleano para indicar se deve buscar externamente
+  useExternalSearch = false 
 }) => {
   const [inputValue, setInputValue] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [selectedPlant, setSelectedPlant] = useState(null);
+  const [loadingExternal, setLoadingExternal] = useState(false); // Novo estado para carregamento externo
   
   const inputRef = useRef(null);
   const suggestionsRef = useRef(null);
@@ -29,52 +34,96 @@ const PlantAutocomplete = ({
   // Atualiza o input quando o valor externo muda
   useEffect(() => {
     if (value) {
-      const plant = getPlantById(value);
-      if (plant) {
-        setInputValue(plant.commonNamePt);
-        setSelectedPlant(plant);
+      // Verifica se o ID é de uma planta externa (Trefle)
+      if (value.startsWith('trefle-')) {
+        // Se for externa, não podemos usar getPlantById diretamente.
+        // Precisaríamos de um mecanismo para armazenar ou buscar plantas Trefle por ID.
+        // Por simplicidade, se for externa e o valor for definido, apenas exibe o nome comum
+        // que foi previamente selecionado, sem buscar detalhes adicionais aqui.
+        // Em um cenário real, você poderia ter um cache ou uma API para buscar detalhes de Trefle por ID.
+        setInputValue(selectedPlant?.commonNamePt || ''); // Usa o nome da planta já selecionada
+      } else {
+        // Se for ID local
+        const plant = getPlantById(value); 
+        if (plant) {
+          setInputValue(plant.commonNamePt);
+          setSelectedPlant(plant);
+        }
       }
     } else {
       setInputValue('');
       setSelectedPlant(null);
     }
-  }, [value]);
+  }, [value, selectedPlant]); // Adicionado selectedPlant como dependência
 
-  // Função para buscar sugestões
-  const searchPlants = (query) => {
+  // Função para buscar sugestões (local ou externa)
+  const searchPlants = useCallback(async (query) => {
     if (query.length < 2) {
       return [];
     }
 
-    // Busca por nome português
+    let results = [];
+
+    // Prioriza a busca na base de dados local
     const portugueseResults = searchPlantsByPortuguese(query);
-    
-    // Busca por nome científico
     const scientificResults = searchPlantsByScientific(query);
     
-    // Combina resultados, removendo duplicatas
-    const allResults = [...portugueseResults];
+    results = [...portugueseResults];
     scientificResults.forEach(plant => {
-      if (!allResults.find(p => p.id === plant.id)) {
-        allResults.push(plant);
+      if (!results.find(p => p.id === plant.id)) {
+        results.push(plant);
       }
     });
 
-    // Ordena por relevância (nome português primeiro)
-    return allResults
+    // Se houver uma função de busca externa e for para usá-la
+    if (useExternalSearch && onSearchExternal && results.length === 0) {
+      setLoadingExternal(true);
+      try {
+        // Chama a função de busca externa
+        const externalData = await onSearchExternal(query);
+        // Mapeia os resultados externos para o formato interno esperado
+        const mappedExternalResults = externalData.map(plant => ({
+          id: `trefle-${plant.id}`, // Prefixo para evitar conflito de IDs
+          commonNamePt: plant.common_name || plant.scientific_name,
+          scientificName: plant.scientific_name,
+          family: plant.family,
+          origin: plant.distribution?.native?.join(', ') || 'N/A', // Exemplo de como Trefle pode retornar
+          habit: plant.growth?.form || 'N/A',
+          alternativeNamesPt: [], // Trefle pode não ter outros nomes em PT
+          imageUrl: plant.image_url, // Adiciona URL da imagem
+          isExternal: true, // Flag para identificar planta externa
+          originalTrefleData: plant // Mantém os dados originais do Trefle para referência
+        }));
+        results = [...results, ...mappedExternalResults];
+      } catch (error) {
+        console.error('Erro ao buscar plantas externas:', error);
+        // Tratar erro de busca externa
+      } finally {
+        setLoadingExternal(false);
+      }
+    }
+
+    // Ordena por relevância (nome português primeiro para resultados locais)
+    // Para resultados externos, a ordem pode ser diferente ou já vir ordenada
+    return results
       .sort((a, b) => {
-        const aMatchesPt = a.commonNamePt.toLowerCase().includes(query.toLowerCase());
-        const bMatchesPt = b.commonNamePt.toLowerCase().includes(query.toLowerCase());
+        // Prioriza resultados locais
+        if (!a.isExternal && b.isExternal) return -1;
+        if (a.isExternal && !b.isExternal) return 1;
+
+        // Dentro do mesmo tipo (local ou externo), ordena por nome
+        const aMatchesPt = (a.commonNamePt || '').toLowerCase().includes(query.toLowerCase());
+        const bMatchesPt = (b.commonNamePt || '').toLowerCase().includes(query.toLowerCase());
         
         if (aMatchesPt && !bMatchesPt) return -1;
         if (!aMatchesPt && bMatchesPt) return 1;
         
-        return a.commonNamePt.localeCompare(b.commonNamePt, 'pt-BR');
+        return (a.commonNamePt || '').localeCompare((b.commonNamePt || ''), 'pt-BR');
       })
       .slice(0, maxResults);
-  };
+  }, [onSearchExternal, useExternalSearch, maxResults]);
 
-  const handleInputChange = (event) => {
+  const handleInputChange = async (event) => {
     const newValue = event.target.value;
     setInputValue(newValue);
     
@@ -89,7 +138,7 @@ const PlantAutocomplete = ({
         plant: null
       });
     } else {
-      const results = searchPlants(newValue);
+      const results = await searchPlants(newValue); // Aguarda a busca
       setSuggestions(results);
       setShowSuggestions(true);
       setSelectedIndex(-1);
@@ -146,16 +195,15 @@ const PlantAutocomplete = ({
   };
 
   const handleBlur = (event) => {
-    // Delay para permitir clique nas sugestões
     setTimeout(() => {
       setShowSuggestions(false);
       setSelectedIndex(-1);
     }, 200);
   };
 
-  const handleFocus = () => {
+  const handleFocus = async () => {
     if (inputValue.length >= 2) {
-      const results = searchPlants(inputValue);
+      const results = await searchPlants(inputValue); // Aguarda a busca
       setSuggestions(results);
       setShowSuggestions(true);
     }
@@ -212,15 +260,17 @@ const PlantAutocomplete = ({
             <div
               key={plant.id}
               className={`suggestion-item ${index === selectedIndex ? 'selected' : ''}`}
+              onMouseDown={(e) => e.preventDefault()} // Evita que o blur feche antes do click
               onClick={() => handleSuggestionClick(plant)}
             >
               <div className="suggestion-main">
                 <span className="plant-name-pt">{plant.commonNamePt}</span>
-                {plant.alternativeNamesPt.length > 0 && (
+                {plant.alternativeNamesPt && plant.alternativeNamesPt.length > 0 && (
                   <span className="plant-alternatives">
                     ({plant.alternativeNamesPt.join(', ')})
                   </span>
                 )}
+                {plant.isExternal && <span className="external-tag">(Trefle.io)</span>}
               </div>
               <div className="suggestion-scientific">
                 <em>{plant.scientificName}</em>
@@ -228,12 +278,21 @@ const PlantAutocomplete = ({
               <div className="suggestion-family">
                 {plant.family}
               </div>
+              {plant.imageUrl && plant.isExternal && (
+                <img 
+                  src={plant.imageUrl} 
+                  alt={plant.commonNamePt} 
+                  style={{ width: '40px', height: '40px', objectFit: 'cover', borderRadius: '4px', marginLeft: 'auto' }} 
+                />
+              )}
             </div>
           ))}
         </div>
       )}
+      {loadingExternal && (
+        <div className="loading-message">Buscando na base internacional...</div>
+      )}
 
-      {/* Informações da planta selecionada */}
       {selectedPlant && (
         <PlantInfo plant={selectedPlant} />
       )}
@@ -241,25 +300,36 @@ const PlantAutocomplete = ({
   );
 };
 
-// Componente para exibir informações da planta selecionada
+// Componente para exibir informações da planta selecionada (pode ser ajustado para exibir dados de Trefle)
 const PlantInfo = ({ plant }) => {
+  if (!plant) return null;
+
   return (
     <div className="plant-info">
       <div className="plant-info-item">
         <strong>Nome científico:</strong> <em>{plant.scientificName}</em>
       </div>
       <div className="plant-info-item">
-        <strong>Família:</strong> {plant.family}
+        <strong>Família:</strong> {plant.family || 'N/A'}
       </div>
-      <div className="plant-info-item">
-        <strong>Origem:</strong> {plant.origin}
-      </div>
-      <div className="plant-info-item">
-        <strong>Hábito:</strong> {plant.habit}
-      </div>
-      {plant.alternativeNamesPt.length > 0 && (
+      {plant.origin && (
+        <div className="plant-info-item">
+          <strong>Origem:</strong> {plant.origin}
+        </div>
+      )}
+      {plant.habit && (
+        <div className="plant-info-item">
+          <strong>Hábito:</strong> {plant.habit}
+        </div>
+      )}
+      {plant.alternativeNamesPt && plant.alternativeNamesPt.length > 0 && (
         <div className="plant-info-item">
           <strong>Outros nomes:</strong> {plant.alternativeNamesPt.join(', ')}
+        </div>
+      )}
+       {plant.isExternal && plant.originalTrefleData?.image_url && (
+        <div className="plant-info-item">
+          <strong>Imagem:</strong> <a href={plant.originalTrefleData.image_url} target="_blank" rel="noopener noreferrer">Ver Imagem (Trefle.io)</a>
         </div>
       )}
     </div>
@@ -267,132 +337,3 @@ const PlantInfo = ({ plant }) => {
 };
 
 export default PlantAutocomplete;
-
-// CSS sugerido (adicionar ao seu arquivo CSS)
-/*
-.plant-autocomplete {
-  position: relative;
-  width: 100%;
-}
-
-.autocomplete-input-container {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.autocomplete-input {
-  width: 100%;
-  padding: 8px 32px 8px 12px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 14px;
-  background-color: white;
-}
-
-.autocomplete-input:focus {
-  outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
-}
-
-.autocomplete-input:disabled {
-  background-color: #f5f5f5;
-  cursor: not-allowed;
-}
-
-.clear-button {
-  position: absolute;
-  right: 8px;
-  background: none;
-  border: none;
-  font-size: 18px;
-  cursor: pointer;
-  color: #999;
-  padding: 0;
-  width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.clear-button:hover {
-  color: #666;
-}
-
-.suggestions-container {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  background: white;
-  border: 1px solid #ddd;
-  border-top: none;
-  border-radius: 0 0 4px 4px;
-  max-height: 300px;
-  overflow-y: auto;
-  z-index: 1000;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.suggestion-item {
-  padding: 10px 12px;
-  cursor: pointer;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.suggestion-item:last-child {
-  border-bottom: none;
-}
-
-.suggestion-item:hover,
-.suggestion-item.selected {
-  background-color: #f8f9fa;
-}
-
-.suggestion-main {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 2px;
-}
-
-.plant-name-pt {
-  font-weight: 500;
-  color: #333;
-}
-
-.plant-alternatives {
-  font-size: 12px;
-  color: #666;
-}
-
-.suggestion-scientific {
-  font-size: 12px;
-  color: #666;
-  margin-bottom: 2px;
-}
-
-.suggestion-family {
-  font-size: 11px;
-  color: #999;
-}
-
-.plant-info {
-  margin-top: 10px;
-  padding: 10px;
-  background-color: #f8f9fa;
-  border-radius: 4px;
-  font-size: 12px;
-}
-
-.plant-info-item {
-  margin-bottom: 5px;
-}
-
-.plant-info-item:last-child {
-  margin-bottom: 0;
-}
-*/
-

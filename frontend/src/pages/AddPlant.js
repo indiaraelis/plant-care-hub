@@ -1,9 +1,10 @@
 // AddPlantImproved.js
 // Versão melhorada do componente AddPlant com seletor de plantas em português
+// e integração aprimorada com busca Trefle.io via PlantAutocomplete
 
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import API from '../api';
+import API from '../api'; // Seu cliente Axios
 import { toast } from 'react-toastify';
 import PlantAutocomplete from './PlantAutocomplete';
 import PlantSelectSimple from './PlantSelectSimple';
@@ -16,15 +17,46 @@ function AddPlant() {
   const [notes, setNotes] = useState('');
   
   // Estado para o seletor de plantas
-  const [selectedPlantId, setSelectedPlantId] = useState('');
+  const [selectedPlantInfo, setSelectedPlantInfo] = useState({ 
+    id: "", 
+    scientificName: "", 
+    commonNamePt: "", 
+    plant: null 
+  });
   const [useAutocomplete, setUseAutocomplete] = useState(true);
-
-  // Estados para busca na API Trefle (mantido como backup)
-  const [searchQuery, setSearchQuery] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
-  const [showSearchResults, setShowSearchResults] = useState(false);
+  // Novo estado para controlar se a busca externa deve ser usada no PlantAutocomplete
+  const [useExternalSearchInAutocomplete, setUseExternalSearchInAutocomplete] = useState(false);
 
   const navigate = useNavigate();
+
+  // Função para buscar na API Trefle (passada para PlantAutocomplete)
+  const handleTrefleSearchInAutocomplete = async (query) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      toast.error('Você precisa estar logado para buscar plantas.');
+      navigate('/login');
+      throw new Error('Usuário não autenticado'); // Lança erro para interromper a busca
+    }
+
+    if (!query.trim()) {
+      return [];
+    }
+
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      // A rota do seu backend que faz a requisição para a API Trefle
+      const res = await API.get(`/api/trefle/search?query=${encodeURIComponent(query)}`, config);
+      return res.data; // Retorna os dados crus do Trefle
+    } catch (error) {
+      console.error('Erro ao buscar plantas externas (Trefle):', error.response ? error.response.data : error.message);
+      toast.error('Erro ao buscar plantas externas: ' + (error.response ? error.response.data.msg : error.message));
+      return [];
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,6 +68,7 @@ function AddPlant() {
       return;
     }
 
+    // Validações
     if (!name || !wateringFrequencyDays) {
       toast.error('Nome da planta e frequência de rega são obrigatórios!');
       return;
@@ -81,21 +114,36 @@ function AddPlant() {
     }
   };
 
-  // Função para lidar com a seleção de planta do banco de dados local
+  // Função para lidar com a seleção de planta do PlantAutocomplete ou PlantSelectSimple
   const handlePlantSelection = (selection) => {
+    setSelectedPlantInfo(selection);
     if (selection.plant) {
       setName(selection.commonNamePt);
       setSpecies(selection.scientificName);
       
       // Adiciona informações da planta nas notas
-      const plantInfo = `Informações da planta:
-Nome científico: ${selection.plant.scientificName}
-Família: ${selection.plant.family}
-Origem: ${selection.plant.origin}
-Hábito: ${selection.plant.habit}
-${selection.plant.alternativeNamesPt.length > 0 ? 
-  `Outros nomes: ${selection.plant.alternativeNamesPt.join(', ')}` : ''}`;
+      let plantInfo = `Informações da planta:
+Nome científico: ${selection.plant.scientificName || 'N/A'}
+Família: ${selection.plant.family || 'N/A'}
+Origem: ${selection.plant.origin || 'N/A'}
+Hábito: ${selection.plant.habit || 'N/A'}`;
       
+      if (selection.plant.alternativeNamesPt && selection.plant.alternativeNamesPt.length > 0) {
+        plantInfo += `\nOutros nomes: ${selection.plant.alternativeNamesPt.join(', ')}`;
+      }
+
+      // Adiciona informações específicas do Trefle.io se a planta for externa
+      if (selection.plant.isExternal && selection.plant.originalTrefleData) {
+        const trefleData = selection.plant.originalTrefleData;
+        plantInfo += `\n\nDados do Trefle.io:
+Etimologia: ${trefleData.etymology || 'N/A'}
+Duração: ${trefleData.duration || 'N/A'}
+Folhagem persistente: ${trefleData.foliage?.evergreen ? 'Sim' : 'Não'}
+Tolerância à sombra: ${trefleData.growth?.light_tolerated || 'N/A'}
+Link Trefle: ${trefleData.links?.plant || 'N/A'}`;
+        // Você pode adicionar mais campos do Trefle.io conforme necessário
+      }
+
       setNotes(plantInfo);
       toast.success(`Dados de "${selection.commonNamePt}" pré-preenchidos.`);
     } else {
@@ -103,57 +151,8 @@ ${selection.plant.alternativeNamesPt.length > 0 ?
       setName('');
       setSpecies('');
       setNotes('');
+      toast.info('Nenhuma planta selecionada.');
     }
-  };
-
-  // Função para busca na API Trefle (mantida como backup)
-  const handleTrefleSearch = async (e) => {
-    e.preventDefault();
-
-    const token = localStorage.getItem('token');
-    if (!token) {
-      toast.error('Você precisa estar logado para buscar plantas.');
-      navigate('/login');
-      return;
-    }
-
-    if (!searchQuery.trim()) {
-      toast.info('Por favor, digite um termo para buscar.');
-      return;
-    }
-
-    try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      };
-
-      const res = await API.get(`/api/trefle/search?query=${encodeURIComponent(searchQuery)}`, config);
-      setSearchResults(res.data);
-      setShowSearchResults(true);
-      if (res.data.length === 0) {
-        toast.info('Nenhuma planta encontrada com este termo.');
-      } else {
-        toast.success(`${res.data.length} resultados encontrados.`);
-      }
-    } catch (error) {
-      console.error('Erro ao buscar plantas externas:', error.response ? error.response.data : error.message);
-      toast.error('Erro ao buscar plantas externas: ' + (error.response ? error.response.data.msg : error.message));
-    }
-  };
-
-  const selectPlantFromTrefleSearch = (plant) => {
-    setName(plant.common_name || plant.scientific_name || '');
-    setSpecies(plant.scientific_name || plant.common_name || '');
-    setWateringFrequencyDays('');
-    setFertilizingFrequencyDays('');
-    setNotes(`Informações do Trefle.io:
-Família: ${plant.family || 'N/A'}
-URL Imagem: ${plant.image_url || 'N/A'}`);
-    setShowSearchResults(false);
-    setSearchQuery('');
-    toast.info(`Dados de "${plant.common_name || plant.scientific_name}" pré-preenchidos.`);
   };
 
   return (
@@ -171,77 +170,62 @@ URL Imagem: ${plant.image_url || 'N/A'}`);
               type="radio"
               name="selectorType"
               checked={useAutocomplete}
-              onChange={() => setUseAutocomplete(true)}
+              onChange={() => {
+                setUseAutocomplete(true);
+                // Quando muda para autocomplete, define o uso da busca externa baseada na checkbox
+                // Isso evita que a busca externa seja ativada no select simples
+                setUseExternalSearchInAutocomplete(document.getElementById('toggleExternalSearch').checked);
+              }}
             />
-            Busca com autocomplete
+            Busca com autocomplete (Base local &amp; Internacional)
           </label>
           <label>
             <input
               type="radio"
               name="selectorType"
               checked={!useAutocomplete}
-              onChange={() => setUseAutocomplete(false)}
+              onChange={() => {
+                setUseAutocomplete(false);
+                // Desativa a busca externa ao mudar para o select simples
+                setUseExternalSearchInAutocomplete(false);
+              }}
             />
-            Lista simples
+            Lista simples (Base local)
           </label>
         </div>
+
+        {/* Toggle para ativar/desativar busca externa no autocomplete */}
+        {useAutocomplete && (
+          <div className="external-search-toggle">
+            <label>
+              <input
+                type="checkbox"
+                id="toggleExternalSearch"
+                checked={useExternalSearchInAutocomplete}
+                onChange={(e) => setUseExternalSearchInAutocomplete(e.target.checked)}
+              />
+              Incluir busca na base internacional (Trefle.io)
+            </label>
+          </div>
+        )}
 
         {/* Componente de seleção */}
         {useAutocomplete ? (
           <PlantAutocomplete
-            value={selectedPlantId}
+            value={selectedPlantInfo.id}
             onChange={handlePlantSelection}
-            placeholder="Digite o nome da planta em português..."
+            placeholder="Digite o nome da planta em português ou científico..."
             className="plant-selector"
+            onSearchExternal={handleTrefleSearchInAutocomplete} // Passa a função de busca externa
+            useExternalSearch={useExternalSearchInAutocomplete} // Passa o controle do uso da busca externa
           />
         ) : (
           <PlantSelectSimple
-            value={selectedPlantId}
+            value={selectedPlantInfo.id}
             onChange={handlePlantSelection}
             placeholder="Selecione uma planta..."
             className="plant-selector"
           />
-        )}
-      </div>
-
-      <hr style={{ margin: '30px 0' }} />
-
-      {/* Busca na API Trefle (mantida como opção adicional) */}
-      <div className="search-section">
-        <h3>Buscar Outras Plantas</h3>
-        <p style={{ fontSize: '14px', color: '#666', marginBottom: '10px' }}>
-          Caso não encontre a planta desejada na lista acima, você pode buscar na base internacional:
-        </p>
-        <form onSubmit={handleTrefleSearch}>
-          <input
-            type="text"
-            placeholder="Ex: Rose, Orchid, Basil"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          <button type="submit">Buscar</button>
-        </form>
-
-        {showSearchResults && searchResults.length > 0 && (
-          <div className="search-results-list">
-            <h4>Resultados da Busca:</h4>
-            {searchResults.map((plant) => (
-              <div key={plant.id} className="search-result-item" onClick={() => selectPlantFromTrefleSearch(plant)}>
-                <strong>{plant.common_name || plant.scientific_name}</strong>
-                <p>{plant.scientific_name && `(${plant.scientific_name})`}</p>
-                {plant.image_url && (
-                  <img
-                    src={plant.image_url}
-                    alt={plant.common_name}
-                    style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '5px' }}
-                  />
-                )}
-              </div>
-            ))}
-          </div>
-        )}
-        {showSearchResults && searchResults.length === 0 && (
-          <p>Nenhum resultado encontrado para a busca atual.</p>
         )}
       </div>
 
@@ -310,58 +294,3 @@ URL Imagem: ${plant.image_url || 'N/A'}`);
 }
 
 export default AddPlant;
-
-// CSS adicional sugerido
-/*
-.plant-selector-section {
-  background-color: #f8f9fa;
-  padding: 20px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-}
-
-.selector-toggle {
-  display: flex;
-  gap: 20px;
-  margin-bottom: 15px;
-}
-
-.selector-toggle label {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.plant-selector {
-  margin-bottom: 15px;
-}
-
-.search-section {
-  background-color: #fff3cd;
-  padding: 15px;
-  border-radius: 8px;
-  border-left: 4px solid #ffc107;
-}
-
-.search-results-list {
-  margin-top: 15px;
-  max-height: 300px;
-  overflow-y: auto;
-}
-
-.search-result-item {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  margin-bottom: 10px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.search-result-item:hover {
-  background-color: #f8f9fa;
-}
-*/
-

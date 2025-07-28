@@ -70,14 +70,14 @@ const PlantSelectSimple = ({
       </select>
       
       {/* Informações adicionais da planta selecionada */}
-      {value && (
+      {value && !value.startsWith('trefle-') && ( // Não exibe PlantInfo para IDs Trefle aqui
         <PlantInfo plantId={value} />
       )}
     </div>
   );
 };
 
-// Componente para exibir informações da planta selecionada
+// Componente para exibir informações da planta selecionada (apenas para plantas locais)
 const PlantInfo = ({ plantId }) => {
   const plant = getPlantById(plantId);
   
@@ -104,48 +104,3 @@ const PlantInfo = ({ plantId }) => {
 };
 
 export default PlantSelectSimple;
-
-// CSS sugerido (adicionar ao seu arquivo CSS)
-/*
-.plant-select-simple {
-  width: 100%;
-}
-
-.plant-select-dropdown {
-  width: 100%;
-  padding: 8px 12px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 14px;
-  background-color: white;
-  cursor: pointer;
-}
-
-.plant-select-dropdown:focus {
-  outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
-}
-
-.plant-select-dropdown:disabled {
-  background-color: #f5f5f5;
-  cursor: not-allowed;
-}
-
-.plant-info {
-  margin-top: 10px;
-  padding: 10px;
-  background-color: #f8f9fa;
-  border-radius: 4px;
-  font-size: 12px;
-}
-
-.plant-info-item {
-  margin-bottom: 5px;
-}
-
-.plant-info-item:last-child {
-  margin-bottom: 0;
-}
-*/
-

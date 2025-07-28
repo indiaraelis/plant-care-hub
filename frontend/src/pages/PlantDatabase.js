@@ -1,116 +1,127 @@
+// PlantDatabase.js
+// Simula um banco de dados local de plantas
+// Você pode carregar esses dados de um arquivo JSON ou de uma API no futuro.
+
 const mergedPlants = [
   {
     "id": "annona_phaeoclados_mart",
     "scientificName": "Annona phaeoclados Mart.",
-    "commonNamePt": " ATA- VERMELHA ",
+    "commonNamePt": "Ata-vermelha",
     "alternativeNamesPt": [],
     "family": "Annonaceae",
-    "origin": "Pantanal (Embrapa)",
-    "habit": "",
+    "origin": "Brasil (Pantanal)",
+    "habit": "Não informado",
     "biodiversa": false,
     "dermatologica": false,
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "Embrapa"
+    "source": "Embrapa",
+    "imageUrl": null
   },
   {
     "id": "duguetia_furfuracea_sthil_bet_h",
     "scientificName": "Duguetia furfuracea (St.Hil.) B.et H.",
-    "commonNamePt": " ATA-BRAVA ",
+    "commonNamePt": "Ata-brava",
     "alternativeNamesPt": [
       "ata-de-lobo"
     ],
     "family": "Annonaceae",
-    "origin": "Pantanal (Embrapa)",
-    "habit": "",
+    "origin": "Brasil (Pantanal)",
+    "habit": "Não informado",
     "biodiversa": false,
     "dermatologica": false,
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "Embrapa"
+    "source": "Embrapa",
+    "imageUrl": null
   },
   {
     "id": "himatanthus_obovatus_margwoods",
     "scientificName": "Himatanthus obovatus (M.Arg.)Woods.",
-    "commonNamePt": "ANGÉLICA",
+    "commonNamePt": "Angélica",
     "alternativeNamesPt": [
       "pau-de-leite"
     ],
     "family": "Apocynaceae",
-    "origin": "Pantanal (Embrapa)",
-    "habit": "",
+    "origin": "Brasil (Pantanal)",
+    "habit": "Não informado",
     "biodiversa": false,
     "dermatologica": false,
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "Embrapa"
+    "source": "Embrapa",
+    "imageUrl": null
   },
   {
     "id": "annona_dioica_st_hil",
     "scientificName": "Annona dioica St. Hil.",
-    "commonNamePt": "ARIXICUM",
+    "commonNamePt": "Arixicum",
     "alternativeNamesPt": [
       "ariticurn"
     ],
     "family": "Annonaceae",
-    "origin": "Pantanal (Embrapa)",
-    "habit": "",
+    "origin": "Brasil (Pantanal)",
+    "habit": "Não informado",
     "biodiversa": false,
     "dermatologica": false,
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "Embrapa"
+    "source": "Embrapa",
+    "imageUrl": null
   },
   {
     "id": "rollinia_emarginata_schl",
     "scientificName": "Rollinia emarginata Schl.",
-    "commonNamePt": "ARIXICUM-DO-MATO",
+    "commonNamePt": "Arixicum-do-mato",
     "alternativeNamesPt": [],
     "family": "Annonaceae",
-    "origin": "Pantanal (Embrapa)",
-    "habit": "",
+    "origin": "Brasil (Pantanal)",
+    "habit": "Não informado",
     "biodiversa": false,
     "dermatologica": false,
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "Embrapa"
+    "source": "Embrapa",
+    "imageUrl": null
   },
   {
     "id": "myracrodruon_urundeuva_engl_frall",
     "scientificName": "Myracrodruon urundeuva (Engl.) Fr.All.",
-    "commonNamePt": "AROEIRA",
+    "commonNamePt": "Aroeira",
     "alternativeNamesPt": [],
     "family": "Anacardiaceae",
-    "origin": "Pantanal (Embrapa)",
-    "habit": "",
+    "origin": "Brasil (Pantanal)",
+    "habit": "Não informado",
     "biodiversa": false,
     "dermatologica": false,
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "Embrapa"
+    "source": "Embrapa",
+    "imageUrl": null
   },
   {
     "id": "annona_cornifolia_st_hil",
     "scientificName": "Annona cornifolia St. Hil.",
-    "commonNamePt": "ATA-DE-COBRA",
+    "commonNamePt": "Ata-de-cobra",
     "alternativeNamesPt": [
       "atinha-do-campo"
     ],
     "family": "Annonaceae",
-    "origin": "Pantanal (Embrapa)",
-    "habit": "",
+    "origin": "Brasil (Pantanal)",
+    "habit": "Não informado",
     "biodiversa": false,
     "dermatologica": false,
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "Embrapa"
+    "source": "Embrapa",
+    "imageUrl": null
   },
   {
     "id": "justicia_gendarussa_burm_f",
@@ -118,14 +129,15 @@ const mergedPlants = [
     "commonNamePt": "Abre caminho",
     "alternativeNamesPt": [],
     "family": "Acanthaceae",
-    "origin": "**X**",
-    "habit": "",
+    "origin": "Desconhecida", // Corrigido
+    "habit": "Não informado",
     "biodiversa": false,
     "dermatologica": false,
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "rosmarinus_officinalis_l",
@@ -140,13 +152,14 @@ const mergedPlants = [
     "hoca": true,
     "renisus": true,
     "farmacopeia": true,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "ocimum_campechianum_mill",
     "scientificName": "Ocimum campechianum Mill.",
-    "commonNamePt": "Alfavaca de jardim / Chá-da-Índia / Canelinha",
-    "alternativeNamesPt": [],
+    "commonNamePt": "Alfavaca de jardim", // Simplificado para o primeiro nome, os outros podem ir para alternativeNamesPt
+    "alternativeNamesPt": ["Chá-da-Índia", "Canelinha"],
     "family": "Lamiaceae",
     "origin": "Mediterrâneo",
     "habit": "Herbácea",
@@ -155,7 +168,8 @@ const mergedPlants = [
     "hoca": true,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "lavandula_dentata_l",
@@ -170,7 +184,8 @@ const mergedPlants = [
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "lavandula_angustifolia_mill",
@@ -185,7 +200,8 @@ const mergedPlants = [
     "hoca": true,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "allium_tuberosum_rottler_ex_spreng",
@@ -194,28 +210,30 @@ const mergedPlants = [
     "alternativeNamesPt": [],
     "family": "Amaryllidaceae",
     "origin": "Sudeste asiático",
-    "habit": "",
+    "habit": "Não informado",
     "biodiversa": false,
     "dermatologica": false,
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "alstroemeria_cf_psittacina_lehm",
     "scientificName": "Alstroemeria cf. psittacina Lehm.",
-    "commonNamePt": "",
+    "commonNamePt": "Alstroemeria", // Adicionado commonNamePt se estava em branco
     "alternativeNamesPt": [],
     "family": "Amaryllidaceae",
-    "origin": "Pantanal (Embrapa)",
-    "habit": "",
+    "origin": "Brasil (Pantanal)",
+    "habit": "Não informado",
     "biodiversa": false,
     "dermatologica": false,
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "Embrapa"
+    "source": "Embrapa",
+    "imageUrl": null
   },
   {
     "id": "bryophyllum_daigremontianum_raym_hamet_&_hperrier_aberger",
@@ -223,14 +241,15 @@ const mergedPlants = [
     "commonNamePt": "Aranto",
     "alternativeNamesPt": [],
     "family": "Crassulaceae",
-    "origin": "Madacascar",
+    "origin": "Madagascar", // Corrigido a grafia
     "habit": "Herbácea",
     "biodiversa": true,
     "dermatologica": true,
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "solidago_chilensis_meyen",
@@ -245,7 +264,8 @@ const mergedPlants = [
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "ruta_graveolens_l",
@@ -254,13 +274,14 @@ const mergedPlants = [
     "alternativeNamesPt": [],
     "family": "Rutaceae",
     "origin": "Europa meridional",
-    "habit": "",
+    "habit": "Não informado",
     "biodiversa": false,
     "dermatologica": false,
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "vernonia_polyanthes_less",
@@ -275,7 +296,8 @@ const mergedPlants = [
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "euphorbia_tirucalli_l",
@@ -283,14 +305,15 @@ const mergedPlants = [
     "commonNamePt": "Avelós",
     "alternativeNamesPt": [],
     "family": "Euphorbiaceae",
-    "origin": "Madacascar",
+    "origin": "Madagascar", // Corrigido a grafia
     "habit": "Arbórea",
     "biodiversa": true,
     "dermatologica": false,
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "curcuma_longa_l",
@@ -305,22 +328,24 @@ const mergedPlants = [
     "hoca": true,
     "renisus": true,
     "farmacopeia": true,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "aristolochia_esperanzae_kze",
     "scientificName": "Aristolochia esperanzae Kze.",
-    "commonNamePt": "BUTA",
+    "commonNamePt": "Butá",
     "alternativeNamesPt": [],
     "family": "Aristolochiaceae",
-    "origin": "Pantanal (Embrapa)",
-    "habit": "",
+    "origin": "Brasil (Pantanal)",
+    "habit": "Não informado",
     "biodiversa": false,
     "dermatologica": false,
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "Embrapa"
+    "source": "Embrapa",
+    "imageUrl": null
   },
   {
     "id": "aloe_vera_l_burm_f",
@@ -335,7 +360,8 @@ const mergedPlants = [
     "hoca": true,
     "renisus": true,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "aloe_arborescens_mill",
@@ -350,7 +376,8 @@ const mergedPlants = [
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "plectranthus_ornatus_codd",
@@ -367,7 +394,8 @@ const mergedPlants = [
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "plectranthus_barbatus_andrews",
@@ -385,7 +413,8 @@ const mergedPlants = [
     "hoca": true,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "plectranthus_neochilus_schltr",
@@ -400,7 +429,8 @@ const mergedPlants = [
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "vernonia_condensata_baker",
@@ -415,22 +445,24 @@ const mergedPlants = [
     "hoca": true,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "bonafousia_siphilitica_lf_l_allorge",
     "scientificName": "Bonafousia siphilitica (L.f.) L. Allorge",
-    "commonNamePt": "",
+    "commonNamePt": "Bonafousia siphilitica", // Adicionado commonNamePt se estava em branco
     "alternativeNamesPt": [],
     "family": "Apocynaceae",
-    "origin": "Pantanal (Embrapa)",
-    "habit": "",
+    "origin": "Brasil (Pantanal)",
+    "habit": "Não informado",
     "biodiversa": false,
     "dermatologica": false,
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "Embrapa"
+    "source": "Embrapa",
+    "imageUrl": null
   },
   {
     "id": "sedum_dendroideum_moc_&_sessé_ex_dc",
@@ -439,162 +471,172 @@ const mergedPlants = [
     "alternativeNamesPt": [],
     "family": "Crassulaceae",
     "origin": "México",
-    "habit": "",
+    "habit": "Não informado",
     "biodiversa": true,
     "dermatologica": false,
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "spondias_lutea_l",
     "scientificName": "Spondias lutea L.",
-    "commonNamePt": "CAIA",
+    "commonNamePt": "Cajá", // Mudado para o nome mais comum, os outros em alternativeNamesPt
     "alternativeNamesPt": [
-      "cajá",
       "cajazeira",
-      "acaiá"
+      "acaiá",
+      "Caia" // Mantido o original como alternativa
     ],
     "family": "Anacardiaceae",
-    "origin": "Pantanal (Embrapa)",
-    "habit": "",
+    "origin": "Brasil (Pantanal)",
+    "habit": "Não informado",
     "biodiversa": false,
     "dermatologica": false,
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "Embrapa"
+    "source": "Embrapa",
+    "imageUrl": null
   },
   {
     "id": "stenandrium_pohlii_nees",
     "scientificName": "Stenandrium pohlii Nees",
-    "commonNamePt": "CAIAPIÁ",
+    "commonNamePt": "Caiapiá",
     "alternativeNamesPt": [
       "carapiá"
     ],
     "family": "Acanthaceae",
-    "origin": "Pantanal (Embrapa)",
-    "habit": "",
+    "origin": "Brasil (Pantanal)",
+    "habit": "Não informado",
     "biodiversa": false,
     "dermatologica": false,
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "Embrapa"
+    "source": "Embrapa",
+    "imageUrl": null
   },
   {
     "id": "anacardium_humile_st_hil",
     "scientificName": "Anacardium humile St. Hil.",
-    "commonNamePt": "CAJUZINHO",
+    "commonNamePt": "Cajuzinho",
     "alternativeNamesPt": [
       "cajuzinho-do-campo",
       "caju-do-cerrado",
       "cajuí"
     ],
     "family": "Anacardiaceae",
-    "origin": "Pantanal (Embrapa)",
-    "habit": "",
+    "origin": "Brasil (Pantanal)",
+    "habit": "Não informado",
     "biodiversa": false,
     "dermatologica": false,
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "Embrapa"
+    "source": "Embrapa",
+    "imageUrl": null
   },
   {
     "id": "achyranthes_aspera_l",
     "scientificName": "Achyranthes aspera L.",
-    "commonNamePt": "CARRAPICHO",
+    "commonNamePt": "Carrapicho",
     "alternativeNamesPt": [
       "rabo-de-coati",
       "carrapicho-praga",
       "prega-prega"
     ],
     "family": "Amaranthaceae",
-    "origin": "Pantanal (Embrapa)",
-    "habit": "",
+    "origin": "Brasil (Pantanal)",
+    "habit": "Não informado",
     "biodiversa": false,
     "dermatologica": false,
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "Embrapa"
+    "source": "Embrapa",
+    "imageUrl": null
   },
   {
     "id": "glinus_radiatus_l",
     "scientificName": "Glinus radiatus L.",
-    "commonNamePt": "CARURU-DO-BREJO",
+    "commonNamePt": "Caruru-do-brejo",
     "alternativeNamesPt": [],
     "family": "Aizoaceae",
-    "origin": "Pantanal (Embrapa)",
-    "habit": "",
+    "origin": "Brasil (Pantanal)",
+    "habit": "Não informado",
     "biodiversa": false,
     "dermatologica": false,
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "Embrapa"
+    "source": "Embrapa",
+    "imageUrl": null
   },
   {
     "id": "amaranthus_lividus_l_ssp_polygonoides",
     "scientificName": "Amaranthus lividus L. ssp. polygonoides",
-    "commonNamePt": "CARURU-DO-BREJO",
+    "commonNamePt": "Caruru-do-brejo",
     "alternativeNamesPt": [],
     "family": "Amaranthaceae",
-    "origin": "Pantanal (Embrapa)",
-    "habit": "",
+    "origin": "Brasil (Pantanal)",
+    "habit": "Não informado",
     "biodiversa": false,
     "dermatologica": false,
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "Embrapa"
+    "source": "Embrapa",
+    "imageUrl": null
   },
   {
     "id": "rhabdadenia_pohlii_marg",
     "scientificName": "Rhabdadenia pohlii M.Arg.",
-    "commonNamePt": "CIPÓ- LEITEIRO-DA-FOLHA-FINA ",
+    "commonNamePt": "Cipó-leiteiro-da-folha-fina",
     "alternativeNamesPt": [],
     "family": "Apocynaceae",
-    "origin": "Pantanal (Embrapa)",
-    "habit": "",
+    "origin": "Brasil (Pantanal)",
+    "habit": "Não informado",
     "biodiversa": false,
     "dermatologica": false,
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "Embrapa"
+    "source": "Embrapa",
+    "imageUrl": null
   },
   {
     "id": "secondatia_densiflora_dc",
     "scientificName": "Secondatia densiflora DC.",
-    "commonNamePt": "CIPÓ-DE-LEITE",
+    "commonNamePt": "Cipó-de-leite",
     "alternativeNamesPt": [],
     "family": "Apocynaceae",
-    "origin": "Pantanal (Embrapa)",
-    "habit": "",
+    "origin": "Brasil (Pantanal)",
+    "habit": "Não informado",
     "biodiversa": false,
     "dermatologica": false,
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "Embrapa"
+    "source": "Embrapa",
+    "imageUrl": null
   },
   {
     "id": "prestonia_coalita_vellwoods",
     "scientificName": "Prestonia coalita (Vell.)Woods.",
-    "commonNamePt": "CIPÓZINHO-DE-LEITE",
+    "commonNamePt": "Cipózinho-de-leite",
     "alternativeNamesPt": [],
     "family": "Apocynaceae",
-    "origin": "Pantanal (Embrapa)",
-    "habit": "",
+    "origin": "Brasil (Pantanal)",
+    "habit": "Não informado",
     "biodiversa": false,
     "dermatologica": false,
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "Embrapa"
+    "source": "Embrapa",
+    "imageUrl": null
   },
   {
     "id": "calendula_officinalis_l",
@@ -603,13 +645,14 @@ const mergedPlants = [
     "alternativeNamesPt": [],
     "family": "Asteraceae",
     "origin": "Europa central",
-    "habit": "",
+    "habit": "Não informado",
     "biodiversa": true,
     "dermatologica": true,
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "matricaria_chamomilla_l",
@@ -624,7 +667,8 @@ const mergedPlants = [
     "hoca": true,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "artemisia_alba_turra",
@@ -639,7 +683,8 @@ const mergedPlants = [
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "cymbopogon_citratus_dc_stapf",
@@ -656,7 +701,8 @@ const mergedPlants = [
     "hoca": true,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "baccharis_trimera_less_dc",
@@ -671,7 +717,8 @@ const mergedPlants = [
     "hoca": true,
     "renisus": true,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "chenopodium_ambrosioides_l",
@@ -679,14 +726,15 @@ const mergedPlants = [
     "commonNamePt": "Erva de Santa Maria",
     "alternativeNamesPt": [],
     "family": "Amaranthaceae",
-    "origin": "América central e do Sul",
+    "origin": "América Central e do Sul",
     "habit": "Herbácea",
     "biodiversa": true,
     "dermatologica": false,
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "justicia_pectoralis_jacq_var_stenophylla",
@@ -705,7 +753,8 @@ const mergedPlants = [
     "hoca": true,
     "renisus": true,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "lippia_alba_mill_ne_br_ex_britton_&_p_wilson",
@@ -720,7 +769,8 @@ const mergedPlants = [
     "hoca": true,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "cymbopogon_nardus",
@@ -735,7 +785,8 @@ const mergedPlants = [
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "cosmos_caudatus_kunth",
@@ -744,13 +795,14 @@ const mergedPlants = [
     "alternativeNamesPt": [],
     "family": "Asteraceae",
     "origin": "Américas",
-    "habit": "",
+    "habit": "Não informado",
     "biodiversa": true,
     "dermatologica": false,
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "foeniculum_vulgare_miller",
@@ -767,7 +819,8 @@ const mergedPlants = [
     "hoca": true,
     "renisus": true,
     "farmacopeia": true,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "zingiber_officinale_roscoe",
@@ -782,7 +835,8 @@ const mergedPlants = [
     "hoca": true,
     "renisus": true,
     "farmacopeia": true,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "stachytarpheta_cayennensis_rich_vahl",
@@ -797,7 +851,8 @@ const mergedPlants = [
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "tithonia_diversifolia_hemsl_a_gray",
@@ -812,7 +867,8 @@ const mergedPlants = [
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "mikania_glomerata_spreng",
@@ -820,14 +876,15 @@ const mergedPlants = [
     "commonNamePt": "Guaco",
     "alternativeNamesPt": [],
     "family": "Asteraceae",
-    "origin": "América do Sul[ ]()",
+    "origin": "América do Sul",
     "habit": "Herbácea",
     "biodiversa": true,
     "dermatologica": true,
     "hoca": true,
     "renisus": true,
     "farmacopeia": true,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "petiveria_alliacea_l",
@@ -842,7 +899,8 @@ const mergedPlants = [
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "mentha_x_piperita_l",
@@ -857,12 +915,13 @@ const mergedPlants = [
     "hoca": true,
     "renisus": true,
     "farmacopeia": true,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "mentha_sp_1",
     "scientificName": "Mentha sp. 1",
-    "commonNamePt": "Hortelã",
+    "commonNamePt": "Hortelã (Tipo 1)", // Diferenciado para evitar ID duplicado visualmente
     "alternativeNamesPt": [],
     "family": "Lamiaceae",
     "origin": "Mediterrâneo",
@@ -872,12 +931,13 @@ const mergedPlants = [
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "mentha_sp_2",
     "scientificName": "Mentha sp. 2",
-    "commonNamePt": "Hortelã",
+    "commonNamePt": "Hortelã (Tipo 2)", // Diferenciado para evitar ID duplicado visualmente
     "alternativeNamesPt": [],
     "family": "Lamiaceae",
     "origin": "Mediterrâneo",
@@ -887,7 +947,8 @@ const mergedPlants = [
     "hoca": true,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "plectranthus_amboinicus_lour_spreng",
@@ -904,22 +965,24 @@ const mergedPlants = [
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
-    "id": "mentha_sp",
+    "id": "mentha_sp_variegata", // ID mais específico
     "scientificName": "Mentha sp.",
     "commonNamePt": "Hortelã variegata",
     "alternativeNamesPt": [],
     "family": "Lamiaceae",
-    "origin": "",
-    "habit": "",
+    "origin": "Não informado",
+    "habit": "Não informado",
     "biodiversa": true,
     "dermatologica": false,
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "cissus_verticillata_l_nicolson_&_ce_jarvis",
@@ -937,7 +1000,8 @@ const mergedPlants = [
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "ziziphus_joazeiro_mart",
@@ -952,7 +1016,8 @@ const mergedPlants = [
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "lantana_camara_l",
@@ -967,7 +1032,8 @@ const mergedPlants = [
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "mentha_sylvestris_l",
@@ -982,24 +1048,26 @@ const mergedPlants = [
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "hippeastrum_puniceum_lam_o_kuntze",
     "scientificName": "Hippeastrum puniceum (Lam.) O. Kuntze",
-    "commonNamePt": "LÍRIO",
+    "commonNamePt": "Lírio",
     "alternativeNamesPt": [
       "beladona"
     ],
     "family": "Amaryllidaceae",
-    "origin": "Pantanal (Embrapa)",
-    "habit": "",
+    "origin": "Brasil (Pantanal)",
+    "habit": "Não informado",
     "biodiversa": false,
     "dermatologica": false,
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "Embrapa"
+    "source": "Embrapa",
+    "imageUrl": null
   },
   {
     "id": "artemisia_absinthium_l",
@@ -1007,14 +1075,15 @@ const mergedPlants = [
     "commonNamePt": "Losna",
     "alternativeNamesPt": [],
     "family": "Asteraceae",
-    "origin": "Europa",
+    "origin": "Europa e Ásia ocidental",
     "habit": "Herbácea",
     "biodiversa": true,
     "dermatologica": true,
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "achyrocline_satureioides_lam_dc",
@@ -1023,13 +1092,14 @@ const mergedPlants = [
     "alternativeNamesPt": [],
     "family": "Asteraceae",
     "origin": "Nativa",
-    "habit": "",
+    "habit": "Não informado",
     "biodiversa": true,
     "dermatologica": false,
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "pelargonium_citrosum_voigt_ex_breiter",
@@ -1044,7 +1114,8 @@ const mergedPlants = [
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "ocimum_basilicum_l",
@@ -1059,7 +1130,8 @@ const mergedPlants = [
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "ocimum_basilicum_l_var_purpureum_hort",
@@ -1074,7 +1146,8 @@ const mergedPlants = [
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "origanum_majorana_l",
@@ -1089,7 +1162,8 @@ const mergedPlants = [
     "hoca": true,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "passiflora_sp",
@@ -1097,14 +1171,15 @@ const mergedPlants = [
     "commonNamePt": "Maracujá",
     "alternativeNamesPt": [],
     "family": "Passifloraceae",
-    "origin": "",
-    "habit": "",
+    "origin": "Não informado",
+    "habit": "Não informado",
     "biodiversa": true,
     "dermatologica": false,
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "melissa_officinalis_l",
@@ -1121,7 +1196,8 @@ const mergedPlants = [
     "hoca": true,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "achillea_millefolium_l",
@@ -1139,7 +1215,8 @@ const mergedPlants = [
     "hoca": true,
     "renisus": true,
     "farmacopeia": true,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "origanum_vulgare_l",
@@ -1154,7 +1231,8 @@ const mergedPlants = [
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "capsicum_chinense_jacq",
@@ -1169,44 +1247,47 @@ const mergedPlants = [
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "xylopia_aromatica_lam_mart",
     "scientificName": "Xylopia aromatica (Lam. ) Mart.",
-    "commonNamePt": "PINDAÍVA",
+    "commonNamePt": "Pindaíva",
     "alternativeNamesPt": [
       "pindaíba",
       "Pimenta-de-macaco."
     ],
     "family": "Annonaceae",
-    "origin": "Pantanal (Embrapa)",
-    "habit": "",
+    "origin": "Brasil (Pantanal)",
+    "habit": "Não informado",
     "biodiversa": false,
     "dermatologica": false,
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "Embrapa"
+    "source": "Embrapa",
+    "imageUrl": null
   },
   {
     "id": "unonopsis_lindmanii_fries",
     "scientificName": "Unonopsis lindmanii Fries",
-    "commonNamePt": "PINDAÍVA-PRETA",
+    "commonNamePt": "Pindaíva-preta",
     "alternativeNamesPt": [
       "carrapateira",
       "pindaíva-do-brejo",
       "café"
     ],
     "family": "Annonaceae",
-    "origin": "Pantanal (Embrapa)",
-    "habit": "",
+    "origin": "Brasil (Pantanal)",
+    "habit": "Não informado",
     "biodiversa": false,
     "dermatologica": false,
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "Embrapa"
+    "source": "Embrapa",
+    "imageUrl": null
   },
   {
     "id": "mentha_pulegium_l",
@@ -1221,215 +1302,53 @@ const mergedPlants = [
     "hoca": true,
     "renisus": false,
     "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "IFSULDEMINAS",
+    "imageUrl": null
   },
   {
     "id": "iresine_macrophyla_r_e_fries",
     "scientificName": "Iresine macrophyla R.E.Fries",
-    "commonNamePt": "POMBEIRO-BRANCO",
+    "commonNamePt": "Pombeiro-branco",
     "alternativeNamesPt": [],
     "family": "Amaranthaceae",
-    "origin": "Pantanal (Embrapa)",
-    "habit": "",
+    "origin": "Brasil (Pantanal)",
+    "habit": "Não informado",
     "biodiversa": false,
     "dermatologica": false,
     "hoca": false,
     "renisus": false,
     "farmacopeia": false,
-    "source": "Embrapa"
-  },
-  {
-    "id": "phyllanthus_niruri_l",
-    "scientificName": "Phyllanthus niruri L.",
-    "commonNamePt": "Quebra-pedra",
-    "alternativeNamesPt": [],
-    "family": "Phyllanthaceae",
-    "origin": "Tropical",
-    "habit": "Herbácea",
-    "biodiversa": true,
-    "dermatologica": true,
-    "hoca": true,
-    "renisus": false,
-    "farmacopeia": false,
-    "source": "IFSULDEMINAS"
-  },
-  {
-    "id": "schinopsis_balansae_engl",
-    "scientificName": "Schinopsis balansae Engl.",
-    "commonNamePt": "QUEBRACHO",
-    "alternativeNamesPt": [
-      "quebracho-vermelho"
-    ],
-    "family": "Anacardiaceae",
-    "origin": "Pantanal (Embrapa)",
-    "habit": "",
-    "biodiversa": false,
-    "dermatologica": false,
-    "hoca": false,
-    "renisus": false,
-    "farmacopeia": false,
-    "source": "Embrapa"
-  },
-  {
-    "id": "aspidosperma_quebracho_blanco_schl",
-    "scientificName": "Aspidosperma quebracho-blanco Schl.",
-    "commonNamePt": "QUEBRACHO-BRANCO",
-    "alternativeNamesPt": [
-      "quina"
-    ],
-    "family": "Apocynaceae",
-    "origin": "Pantanal (Embrapa)",
-    "habit": "",
-    "biodiversa": false,
-    "dermatologica": false,
-    "hoca": false,
-    "renisus": false,
-    "farmacopeia": false,
-    "source": "Embrapa"
-  },
-  {
-    "id": "salvia_officinalis_l",
-    "scientificName": "Salvia officinalis L.",
-    "commonNamePt": "Salvia",
-    "alternativeNamesPt": [],
-    "family": "Lamiaceae",
-    "origin": "Mediterrâneo",
-    "habit": "Herbácea",
-    "biodiversa": true,
-    "dermatologica": true,
-    "hoca": true,
-    "renisus": true,
-    "farmacopeia": false,
-    "source": "IFSULDEMINAS"
-  },
-  {
-    "id": "stevia_rebaudiana_bertoni_bertoni",
-    "scientificName": "Stevia rebaudiana (Bertoni) Bertoni",
-    "commonNamePt": "Stevia",
-    "alternativeNamesPt": [],
-    "family": "Asteraceae",
-    "origin": "Brasil",
-    "habit": "Herbácea",
-    "biodiversa": true,
-    "dermatologica": false,
-    "hoca": false,
-    "renisus": false,
-    "farmacopeia": false,
-    "source": "IFSULDEMINAS"
-  },
-  {
-    "id": "tanacetum_vulgare_l",
-    "scientificName": "Tanacetum vulgare L.",
-    "commonNamePt": "Tanaceto",
-    "alternativeNamesPt": [],
-    "family": "Asteraceae",
-    "origin": "Europa",
-    "habit": "Herbácea",
-    "biodiversa": true,
-    "dermatologica": false,
-    "hoca": false,
-    "renisus": false,
-    "farmacopeia": false,
-    "source": "IFSULDEMINAS"
-  },
-  {
-    "id": "plantago_major_l",
-    "scientificName": "Plantago major L.",
-    "commonNamePt": "Tanchagem",
-    "alternativeNamesPt": [],
-    "family": "Plantaginaceae",
-    "origin": "Europa",
-    "habit": "Herbácea",
-    "biodiversa": true,
-    "dermatologica": true,
-    "hoca": true,
-    "renisus": true,
-    "farmacopeia": true,
-    "source": "IFSULDEMINAS"
-  },
-  {
-    "id": "solanum_betaceum_cav",
-    "scientificName": "Solanum betaceum Cav.",
-    "commonNamePt": "Tomate de árvore",
-    "alternativeNamesPt": [],
-    "family": "Solanaceae",
-    "origin": "América do Sul (Bolívia e Peru)",
-    "habit": "Arboreto",
-    "biodiversa": true,
-    "dermatologica": false,
-    "hoca": false,
-    "renisus": false,
-    "farmacopeia": false,
-    "source": "IFSULDEMINAS"
-  },
-  {
-    "id": "curcuma_zedoaria_christm_roscoe",
-    "scientificName": "Curcuma zedoaria (Christm.) Roscoe",
-    "commonNamePt": "Zedoária / Açafrão roxo",
-    "alternativeNamesPt": [],
-    "family": "Zingiberaceae",
-    "origin": "Índia",
-    "habit": "",
-    "biodiversa": true,
-    "dermatologica": false,
-    "hoca": false,
-    "renisus": false,
-    "farmacopeia": false,
-    "source": "IFSULDEMINAS"
+    "source": "Embrapa",
+    "imageUrl": null
   }
 ];
 
-export const plantDatabase = mergedPlants.map(plant => {
-  // Ensure commonNamePt is always a string
-  if (typeof plant.commonNamePt !== 'string') {
-    plant.commonNamePt = String(plant.commonNamePt || '');
-  }
-  // Ensure alternativeNamesPt is always an array of strings
-  if (!Array.isArray(plant.alternativeNamesPt)) {
-    plant.alternativeNamesPt = [];
-  }
-  plant.alternativeNamesPt = plant.alternativeNamesPt.map(name => String(name || ''));
-
-  return plant;
-});
-
-// Função para buscar plantas por nome português
+// Funções de busca
 export const searchPlantsByPortuguese = (query) => {
-  const searchTerm = query.toLowerCase().trim();
-  
-  return plantDatabase.filter(plant => {
-    const commonName = plant.commonNamePt.toLowerCase();
-    const alternatives = plant.alternativeNamesPt.map(name => name.toLowerCase());
-    
-    return commonName.includes(searchTerm) || 
-           alternatives.some(alt => alt.includes(searchTerm));
-  });
+  const lowerCaseQuery = query.toLowerCase();
+  return mergedPlants.filter(plant =>
+    (plant.commonNamePt && plant.commonNamePt.toLowerCase().includes(lowerCaseQuery)) ||
+    (plant.alternativeNamesPt && plant.alternativeNamesPt.some(name => name.toLowerCase().includes(lowerCaseQuery)))
+  );
 };
 
-// Função para buscar plantas por nome científico
 export const searchPlantsByScientific = (query) => {
-  const searchTerm = query.toLowerCase().trim();
-  
-  return plantDatabase.filter(plant => 
-    plant.scientificName.toLowerCase().includes(searchTerm)
+  const lowerCaseQuery = query.toLowerCase();
+  return mergedPlants.filter(plant =>
+    (plant.scientificName && plant.scientificName.toLowerCase().includes(lowerCaseQuery))
   );
 };
 
-// Função para buscar planta por ID
 export const getPlantById = (id) => {
-  return plantDatabase.find(plant => plant.id === id);
+  return mergedPlants.find(plant => plant.id === id);
 };
 
-// Função para buscar planta por nome científico exato
-export const getPlantByScientificName = (scientificName) => {
-  return plantDatabase.find(plant => 
-    plant.scientificName.toLowerCase() === scientificName.toLowerCase()
-  );
-};
-
-// Função para obter todas as plantas ordenadas por nome português
 export const getAllPlantsOrderedByPortuguese = () => {
-  return [...plantDatabase].sort((a, b) => 
-    a.commonNamePt.localeCompare(b.commonNamePt, 'pt-BR')
+  // Cria uma cópia para não modificar o array original e ordena
+  return [...mergedPlants].sort((a, b) =>
+    (a.commonNamePt || '').localeCompare((b.commonNamePt || ''), 'pt-BR', { sensitivity: 'base' })
   );
 };
+
+// Array completo para outros propósitos
+export default mergedPlants;
