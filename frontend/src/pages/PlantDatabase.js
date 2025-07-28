@@ -1,5 +1,3 @@
-import { getPlantById } from "./PlantDatabase";
-
 const mergedPlants = [
   {
     "id": "annona_phaeoclados_mart",
@@ -651,7 +649,7 @@ const mergedPlants = [
       "capim limão"
     ],
     "family": "Poaceae",
-    "origin": "Sudoeste Asiático",
+    "origin": "Sudoeste asiático",
     "habit": "Herbácea",
     "biodiversa": true,
     "dermatologica": true,
@@ -1435,4 +1433,3 @@ export const getAllPlantsOrderedByPortuguese = () => {
     a.commonNamePt.localeCompare(b.commonNamePt, 'pt-BR')
   );
 };
-
