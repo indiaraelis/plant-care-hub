@@ -323,20 +323,6 @@ p a:hover {
   animation: fadeIn 0.6s ease-out; /* Animation for individual items */
 }
 
-/* Ícones botânicos realistas para os itens da lista */
-.plant-item::before {
-  content: '';
-  position: absolute;
-  top: 05px;
-  right: 40px;
-  width: 30px;
-  height: 30px;
-  background-image: url('../public/ícone de planta em p.png'); /* Caminho ajustado */
-  background-repeat: no-repeat;
-  background-size: contain;
-  z-index: -1;
-}
-
 .plant-item:hover {
   transform: translateY(-4px);
   box-shadow: 0 12px 35px rgba(26, 59, 26, 0.18);
