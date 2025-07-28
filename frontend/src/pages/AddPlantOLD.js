@@ -1,12 +1,9 @@
-// AddPlantImproved.js
-// Versão melhorada do componente AddPlant com seletor de plantas em português
+// frontend/src/pages/AddPlant.js
 
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import API from '../api';
+import API from '../api';  // Importa axios configurado
 import { toast } from 'react-toastify';
-import PlantAutocomplete from './PlantAutocomplete';
-import PlantSelectSimple from './PlantSelectSimple';
 
 function AddPlant() {
   const [name, setName] = useState('');
@@ -14,12 +11,7 @@ function AddPlant() {
   const [wateringFrequencyDays, setWateringFrequencyDays] = useState('');
   const [fertilizingFrequencyDays, setFertilizingFrequencyDays] = useState('');
   const [notes, setNotes] = useState('');
-  
-  // Estado para o seletor de plantas
-  const [selectedPlantId, setSelectedPlantId] = useState('');
-  const [useAutocomplete, setUseAutocomplete] = useState(true);
 
-  // Estados para busca na API Trefle (mantido como backup)
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [showSearchResults, setShowSearchResults] = useState(false);
@@ -81,32 +73,6 @@ function AddPlant() {
     }
   };
 
-  // Função para lidar com a seleção de planta do banco de dados local
-  const handlePlantSelection = (selection) => {
-    if (selection.plant) {
-      setName(selection.commonNamePt);
-      setSpecies(selection.scientificName);
-      
-      // Adiciona informações da planta nas notas
-      const plantInfo = `Informações da planta:
-Nome científico: ${selection.plant.scientificName}
-Família: ${selection.plant.family}
-Origem: ${selection.plant.origin}
-Hábito: ${selection.plant.habit}
-${selection.plant.alternativeNamesPt.length > 0 ? 
-  `Outros nomes: ${selection.plant.alternativeNamesPt.join(', ')}` : ''}`;
-      
-      setNotes(plantInfo);
-      toast.success(`Dados de "${selection.commonNamePt}" pré-preenchidos.`);
-    } else {
-      // Limpa os campos se nenhuma planta foi selecionada
-      setName('');
-      setSpecies('');
-      setNotes('');
-    }
-  };
-
-  // Função para busca na API Trefle (mantida como backup)
   const handleTrefleSearch = async (e) => {
     e.preventDefault();
 
@@ -143,14 +109,12 @@ ${selection.plant.alternativeNamesPt.length > 0 ?
     }
   };
 
-  const selectPlantFromTrefleSearch = (plant) => {
+  const selectPlantFromSearch = (plant) => {
     setName(plant.common_name || plant.scientific_name || '');
     setSpecies(plant.scientific_name || plant.common_name || '');
     setWateringFrequencyDays('');
     setFertilizingFrequencyDays('');
-    setNotes(`Informações do Trefle.io:
-Família: ${plant.family || 'N/A'}
-URL Imagem: ${plant.image_url || 'N/A'}`);
+    setNotes(`Informações do Trefle.io:\nFamília: ${plant.family || 'N/A'}\nURL Imagem: ${plant.image_url || 'N/A'}`);
     setShowSearchResults(false);
     setSearchQuery('');
     toast.info(`Dados de "${plant.common_name || plant.scientific_name}" pré-preenchidos.`);
@@ -160,62 +124,12 @@ URL Imagem: ${plant.image_url || 'N/A'}`);
     <div className="container">
       <h2>Adicionar Nova Planta</h2>
 
-      {/* Seletor de plantas em português */}
-      <div className="plant-selector-section">
-        <h3>Selecionar Planta</h3>
-        
-        {/* Toggle entre autocomplete e select simples */}
-        <div className="selector-toggle">
-          <label>
-            <input
-              type="radio"
-              name="selectorType"
-              checked={useAutocomplete}
-              onChange={() => setUseAutocomplete(true)}
-            />
-            Busca com autocomplete
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="selectorType"
-              checked={!useAutocomplete}
-              onChange={() => setUseAutocomplete(false)}
-            />
-            Lista simples
-          </label>
-        </div>
-
-        {/* Componente de seleção */}
-        {useAutocomplete ? (
-          <PlantAutocomplete
-            value={selectedPlantId}
-            onChange={handlePlantSelection}
-            placeholder="Digite o nome da planta em português..."
-            className="plant-selector"
-          />
-        ) : (
-          <PlantSelectSimple
-            value={selectedPlantId}
-            onChange={handlePlantSelection}
-            placeholder="Selecione uma planta..."
-            className="plant-selector"
-          />
-        )}
-      </div>
-
-      <hr style={{ margin: '30px 0' }} />
-
-      {/* Busca na API Trefle (mantida como opção adicional) */}
       <div className="search-section">
-        <h3>Buscar Outras Plantas</h3>
-        <p style={{ fontSize: '14px', color: '#666', marginBottom: '10px' }}>
-          Caso não encontre a planta desejada na lista acima, você pode buscar na base internacional:
-        </p>
+        <h2>Buscar Plantas (Trefle.io)</h2>
         <form onSubmit={handleTrefleSearch}>
           <input
             type="text"
-            placeholder="Ex: Rose, Orchid, Basil"
+            placeholder="Ex: Rose, Orquídea, Basílio"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -226,7 +140,7 @@ URL Imagem: ${plant.image_url || 'N/A'}`);
           <div className="search-results-list">
             <h4>Resultados da Busca:</h4>
             {searchResults.map((plant) => (
-              <div key={plant.id} className="search-result-item" onClick={() => selectPlantFromTrefleSearch(plant)}>
+              <div key={plant.id} className="search-result-item" onClick={() => selectPlantFromSearch(plant)}>
                 <strong>{plant.common_name || plant.scientific_name}</strong>
                 <p>{plant.scientific_name && `(${plant.scientific_name})`}</p>
                 {plant.image_url && (
@@ -247,27 +161,15 @@ URL Imagem: ${plant.image_url || 'N/A'}`);
 
       <hr style={{ margin: '30px 0' }} />
 
-      {/* Formulário de detalhes da planta */}
       <h3>Detalhes da Sua Planta</h3>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Nome da Planta (Ex: Costela de Adão):</label>
-          <input 
-            type="text" 
-            value={name} 
-            onChange={(e) => setName(e.target.value)} 
-            required 
-            placeholder="Nome que você dará para sua planta"
-          />
+          <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
         </div>
         <div>
           <label>Espécie (Ex: Monstera deliciosa):</label>
-          <input 
-            type="text" 
-            value={species} 
-            onChange={(e) => setSpecies(e.target.value)} 
-            placeholder="Nome científico da espécie"
-          />
+          <input type="text" value={species} onChange={(e) => setSpecies(e.target.value)} />
         </div>
         <div>
           <label>Frequência de Rega (dias):</label>
@@ -277,27 +179,15 @@ URL Imagem: ${plant.image_url || 'N/A'}`);
             onChange={(e) => setWateringFrequencyDays(e.target.value)}
             required
             min="1"
-            placeholder="Quantos dias entre cada rega"
           />
         </div>
         <div>
           <label>Frequência de Adubação (dias - 0 para não adubar):</label>
-          <input 
-            type="number" 
-            value={fertilizingFrequencyDays} 
-            onChange={(e) => setFertilizingFrequencyDays(e.target.value)} 
-            min="0" 
-            placeholder="Quantos dias entre cada adubação"
-          />
+          <input type="number" value={fertilizingFrequencyDays} onChange={(e) => setFertilizingFrequencyDays(e.target.value)} min="0" />
         </div>
         <div>
           <label>Notas (opcional):</label>
-          <textarea 
-            value={notes} 
-            onChange={(e) => setNotes(e.target.value)} 
-            rows="6"
-            placeholder="Informações adicionais sobre sua planta"
-          ></textarea>
+          <textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows="4"></textarea>
         </div>
         <button type="submit">Adicionar Planta</button>
       </form>
@@ -310,58 +200,3 @@ URL Imagem: ${plant.image_url || 'N/A'}`);
 }
 
 export default AddPlant;
-
-// CSS adicional sugerido
-/*
-.plant-selector-section {
-  background-color: #f8f9fa;
-  padding: 20px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-}
-
-.selector-toggle {
-  display: flex;
-  gap: 20px;
-  margin-bottom: 15px;
-}
-
-.selector-toggle label {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.plant-selector {
-  margin-bottom: 15px;
-}
-
-.search-section {
-  background-color: #fff3cd;
-  padding: 15px;
-  border-radius: 8px;
-  border-left: 4px solid #ffc107;
-}
-
-.search-results-list {
-  margin-top: 15px;
-  max-height: 300px;
-  overflow-y: auto;
-}
-
-.search-result-item {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  margin-bottom: 10px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.search-result-item:hover {
-  background-color: #f8f9fa;
-}
-*/
-
