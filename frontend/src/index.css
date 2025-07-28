@@ -20,6 +20,11 @@
 }
 
 /* Base global styles for a clean slate and botanical theme */
+/* NOVO: Aplicar box-sizing globalmente para facilitar o layout */
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -48,7 +53,6 @@ body {
   background-color: transparent; /* Garante que não tenha um fundo opaco que cubra o body */
   position: relative; /* Para que seus filhos possam se posicionar em relação a ele */
   z-index: 1; /* Altere para 1 ou superior para garantir que o conteúdo fique acima do fundo */
-  box-sizing: border-box; /* Para padding/border contarem na largura/altura */
   width: 100%; /* Garante que ele ocupe a largura total */
 }
 
@@ -128,7 +132,7 @@ h2 {
 /* Decoração sofisticada para títulos */
 h1::after {
   content: '🌿 Plant Care Hub 🌿'; /* Custom text below main heading */
-  display: auto;
+  display: block; /* MUDANÇA: de 'auto' para 'block' */
   font-size: 0.32em;
   margin-top: 16px;
   opacity: 0.7;
@@ -176,7 +180,7 @@ select { /* NOVO: Adicionado suporte para select */
   background-color: rgba(250, 248, 243, 0.9); /* Subtle background for inputs */
   color: var(--text-primary);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-sizing: border-box; /* Include padding/border in element's total width/height */
+  /* Removido box-sizing: border-box; aqui, pois já está no seletor universal */
   /* NOVO: Altura mínima para garantir que o texto caiba */
   min-height: 56px;
 }
@@ -221,7 +225,7 @@ button,
   font-weight: 500;
   width: 100%; /* Full width for main buttons */
   min-height: 56px; /* Consistent height */
-  box-sizing: border-box;
+  /* Removido box-sizing: border-box; aqui, pois já está no seletor universal */
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   letter-spacing: 0.02em;
   position: relative;
@@ -337,7 +341,7 @@ p a:hover {
   font-size: 1.5em;
   font-weight: 600;
   position: relative;
-  z-index: -1;
+  /* Removido z-index: -1; */
 }
 
 .plant-item p {
@@ -347,7 +351,7 @@ p a:hover {
   text-align: left;
   line-height: 1.6;
   position: relative;
-  z-index: -1;
+  /* Removido z-index: -1; */
   /* NOVO: Garantir que o texto não seja cortado */
   word-wrap: break-word;
   overflow-wrap: break-word;
@@ -359,7 +363,7 @@ p a:hover {
   gap: 16px;
   justify-content: flex-end;
   position: relative;
-  z-index: -1;
+  /* Removido z-index: -1; */
 }
 
 /* Botões pequenos padronizados para ações como Edit/Delete */
@@ -374,7 +378,7 @@ p a:hover {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: none;
   cursor: pointer;
-  box-sizing: border-box;
+  /* Removido box-sizing: border-box; aqui, pois já está no seletor universal */
   display: flex; /* Ensure centering for text/icons */
   align-items: center;
   justify-content: center;
@@ -424,8 +428,10 @@ p a:hover {
 }
 
 /* --- Base para Seções de Formulário (Adicionar e Buscar) --- */
-/* Estas propriedades serão copiadas para .add-plant-section e .search-section */
-.form-section-base-styles {
+/* Agrupando estilos comuns para .add-plant-section e .search-section */
+.add-plant-section,
+.search-section,
+.intro-section { /* NOVO: Adicionado .intro-section aqui também */
   background: linear-gradient(135deg,
     rgba(184, 212, 184, 0.25) 0%,
     rgba(255, 255, 255, 0.9) 25%,
@@ -443,69 +449,35 @@ p a:hover {
 }
 
 /* --- Seção de Adicionar Nova Planta --- */
-.add-plant-section {
-    /* Copiando os estilos base manualmente, já que 'composes' não é usado */
-    background: linear-gradient(135deg,
-      rgba(184, 212, 184, 0.25) 0%,
-      rgba(255, 255, 255, 0.9) 25%,
-      rgba(184, 212, 184, 0.1) 100%);
-    border: 2px solid var(--mint-light);
-    border-radius: 24px;
-    padding: 32px;
-    margin-bottom: 40px;
-    box-shadow:
-      0 6px 20px var(--soft-shadow),
-      inset 0 1px 0 rgba(255, 255, 255, 0.7);
-    position: relative;
-    overflow: hidden;
-    animation: fadeIn 0.7s ease-out;
-}
-
+/* Mantido específico para o ::before e h2, removendo duplicações de background/border/shadow etc. */
 .add-plant-section::before {
-    /* Ícone de folha para 'Adicionar Nova Planta' */
-    content: ''; /* Usaremos background-image para o ícone */
-    position: absolute;
-    top: -20px; /* Ajuste a posição vertical */
-    left: 24px;
-    width: 60px; /* Tamanho do ícone */
-    height: 60px; /* Tamanho do ícone */
-    /* Ícone de folha (SVG otimizado, exemplo de um ícone de "adicionar" ou "folha com sinal de mais") */
-    background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23228b22"%3E%3Cpath d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/%3E%3C/svg%3E'); /* Ícone de folha com sinal de mais */
-    background-size: 70%; /* Ajuste o tamanho do ícone dentro do espaço */
-    background-position: center; /* Centraliza o ícone */
-    background-repeat: no-repeat;
-    background-color: var(--cream-white); /* Cor de fundo para "recortar" o ícone */
-    border-radius: 50%; /* Faz a base parecer um círculo */
-    padding: 8px; /* Espaçamento interno para o ícone dentro do círculo */
-    box-shadow: 0 4px 12px rgba(34, 139, 34, 0.15); /* Sombra sutil */
-    z-index: 2; /* Garante que o ícone esteja acima da borda da seção */
+  /* Ícone de folha para 'Adicionar Nova Planta' */
+  content: ''; /* Usaremos background-image para o ícone */
+  position: absolute;
+  top: -20px; /* Ajuste a posição vertical */
+  left: 24px;
+  width: 60px; /* Tamanho do ícone */
+  height: 60px; /* Tamanho do ícone */
+  /* Ícone de folha (SVG otimizado, exemplo de um ícone de "adicionar" ou "folha com sinal de mais") */
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23228b22"%3E%3Cpath d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/%3E%3C/svg%3E'); /* Ícone de folha com sinal de mais */
+  background-size: 70%; /* Ajuste o tamanho do ícone dentro do espaço */
+  background-position: center; /* Centraliza o ícone */
+  background-repeat: no-repeat;
+  background-color: var(--cream-white); /* Cor de fundo para "recortar" o ícone */
+  border-radius: 50%; /* Faz a base parecer um círculo */
+  padding: 8px; /* Espaçamento interno para o ícone dentro do círculo */
+  box-shadow: 0 4px 12px rgba(34, 139, 34, 0.15); /* Sombra sutil */
+  z-index: 2; /* Garante que o ícone esteja acima da borda da seção */
 }
 
 .add-plant-section h2 {
-    /* Ajuste para o h2 da seção de adicionar */
-    margin-top: 40px; /* Afasta o título do ícone */
-    margin-bottom: 24px; /* Espaço para o formulário */
+  /* Ajuste para o h2 da seção de adicionar */
+  margin-top: 40px; /* Afasta o título do ícone */
+  margin-bottom: 24px; /* Espaço para o formulário */
 }
 
 /* --- Seção de Buscar Plantas (Ajustada) --- */
-.search-section {
-  /* Copiando os estilos base manualmente, já que 'composes' não é usado */
-  background: linear-gradient(135deg,
-    rgba(184, 212, 184, 0.25) 0%,
-    rgba(255, 255, 255, 0.9) 25%,
-    rgba(184, 212, 184, 0.1) 100%);
-  border: 2px solid var(--mint-light);
-  border-radius: 24px;
-  padding: 32px;
-  margin-bottom: 40px;
-  box-shadow:
-    0 6px 20px var(--soft-shadow),
-    inset 0 1px 0 rgba(255, 255, 255, 0.7);
-  position: relative;
-  overflow: hidden;
-  animation: fadeIn 0.7s ease-out;
-}
-
+/* Mantido específico para o h2 e o formulário de busca, removendo duplicações */
 .search-section h2 {
   font-family: 'Playfair Display', serif;
   color: var(--deep-forest);
@@ -538,9 +510,6 @@ p a:hover {
   background-position: center;
   background-repeat: no-repeat;
   flex-shrink: 0;
-
-  /* Adicionar uma borda temporária para debug visual */
-  /* border: 1px solid red; */ /* Descomente esta linha para ver onde o elemento ::before está */
 }
 
 .search-section form {
@@ -559,7 +528,7 @@ p a:hover {
   background-color: rgba(250, 248, 243, 0.9);
   color: var(--text-primary);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-sizing: border-box;
+  /* Removido box-sizing: border-box; aqui, pois já está no seletor universal */
 }
 
 .search-section input[type="text"]:focus {
@@ -578,22 +547,7 @@ p a:hover {
 }
 
 /* NOVO: Estilos para seção de introdução da página de login */
-.intro-section {
-  background: linear-gradient(135deg,
-    rgba(184, 212, 184, 0.15) 0%,
-    rgba(255, 255, 255, 0.95) 25%,
-    rgba(184, 212, 184, 0.05) 100%);
-  border: 2px solid var(--mint-light);
-  border-radius: 24px;
-  padding: 32px;
-  margin-bottom: 40px;
-  box-shadow:
-    0 6px 20px var(--soft-shadow),
-    inset 0 1px 0 rgba(255, 255, 255, 0.7);
-  position: relative;
-  overflow: hidden;
-  animation: fadeIn 0.7s ease-out;
-}
+/* Removido o bloco completo, pois agora herda de .add-plant-section, .search-section, .intro-section */
 
 .intro-section h2 {
   color: var(--deep-forest);
@@ -660,7 +614,7 @@ p a:hover {
   background-color: rgba(250, 248, 243, 0.9);
   color: var(--text-primary);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-sizing: border-box;
+  /* Removido box-sizing: border-box; aqui, pois já está no seletor universal */
   min-height: 56px;
 }
 
@@ -725,12 +679,7 @@ p a:hover {
   color: var(--text-primary);
   font-size: 0.96em;
   letter-spacing: 0.01em;
-  /* Garantir que labels longas sejam exibidas corretamente */
-  min-height: auto;
-  line-height: 1.4;
-  word-wrap: break-word;
-  white-space: normal;
-  overflow: visible;
+  /* Removido min-height, line-height, word-wrap, white-space, overflow pois já estão em form label */
 }
 
 .form-row {
@@ -756,7 +705,7 @@ p a:hover {
   background-color: rgba(250, 248, 243, 0.9);
   color: var(--text-primary);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-sizing: border-box;
+  /* Removido box-sizing: border-box; aqui, pois já está no seletor universal */
   min-height: 56px;
 }
 
@@ -828,29 +777,29 @@ p a:hover {
     margin: 20px;
     padding: 24px;
   }
-  
+
   .form-row {
     flex-direction: column;
     gap: 0;
   }
-  
+
   .form-row .form-group {
     margin-bottom: 24px;
   }
-  
+
   .plant-actions {
     flex-direction: column;
     gap: 12px;
   }
-  
+
   .small-button {
     width: 100%;
   }
-  
+
   h1 {
     font-size: 2em;
   }
-  
+
   h2 {
     font-size: 1.6em;
   }
@@ -861,20 +810,20 @@ p a:hover {
     margin: 10px;
     padding: 20px;
   }
-  
+
   h1 {
     font-size: 1.8em;
   }
-  
+
   h2 {
     font-size: 1.4em;
   }
-  
+
   .search-section form {
     flex-direction: column;
     gap: 12px;
   }
-  
+
   .search-section button {
     width: 100%;
   }
