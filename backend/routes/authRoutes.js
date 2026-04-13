@@ -6,6 +6,7 @@ const authController = require('../controllers/authController'); // Importa o co
 
 // Rotas de autenticação
 router.post('/register', authController.registerUser); // POST /api/auth/register
-router.post('/login', authController.loginUser);     // POST /api/auth/login
+router.post('/login', authController.loginUser);       // POST /api/auth/login
+router.post('/logout', authController.logoutUser);     // POST /api/auth/logout
 
 module.exports = router;

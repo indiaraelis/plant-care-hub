@@ -20,8 +20,6 @@ router.get('/search', protect, async (req, res) => {
     // Mas vamos focar em fazer uma funcionar primeiro.
     // Outra abordagem seria fazer duas requisições e combinar os resultados.
 
-    console.log('URL da Trefle.io (usando filter):', trefleUrl);
-
     const response = await axios.get(trefleUrl);
 
     const plantsData = response.data.data.map(plant => ({

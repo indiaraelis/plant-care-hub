@@ -31,42 +31,27 @@ function AddPlant() {
 
   // Função para buscar na API Trefle (passada para PlantAutocomplete)
   const handleTrefleSearchInAutocomplete = async (query) => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      toast.error('Você precisa estar logado para buscar plantas.');
-      navigate('/login');
-      throw new Error('Usuário não autenticado'); // Lança erro para interromper a busca
-    }
-
     if (!query.trim()) {
       return [];
     }
 
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      };
-      // A rota do seu backend que faz a requisição para a API Trefle
-      const res = await API.get(`/api/trefle/search?query=${encodeURIComponent(query)}`, config);
-      return res.data; // Retorna os dados crus do Trefle
+      const res = await API.get(`/api/trefle/search?query=${encodeURIComponent(query)}`);
+      return res.data;
     } catch (error) {
       console.error('Erro ao buscar plantas externas (Trefle):', error.response ? error.response.data : error.message);
-      toast.error('Erro ao buscar plantas externas: ' + (error.response ? error.response.data.msg : error.message));
+      if (error.response && error.response.status === 401) {
+        toast.error('Sessão expirada. Faça login novamente.');
+        navigate('/login');
+      } else {
+        toast.error('Erro ao buscar plantas externas: ' + (error.response ? error.response.data.msg : error.message));
+      }
       return [];
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const token = localStorage.getItem('token');
-    if (!token) {
-      toast.error('Você precisa estar logado para adicionar plantas.');
-      navigate('/login');
-      return;
-    }
 
     // Validações
     if (!name || !wateringFrequencyDays) {
@@ -83,13 +68,6 @@ function AddPlant() {
     }
 
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      };
-
       const plantData = {
         name,
         species,
@@ -98,14 +76,13 @@ function AddPlant() {
         notes,
       };
 
-      const res = await API.post('/api/plants', plantData, config);
+      const res = await API.post('/api/plants', plantData);
       console.log('Planta adicionada com sucesso:', res.data);
       toast.success('Planta adicionada com sucesso!');
       navigate('/dashboard');
     } catch (error) {
       console.error('Erro ao adicionar planta:', error.response ? error.response.data : error.message);
       if (error.response && error.response.status === 401) {
-        localStorage.removeItem('token');
         toast.error('Sessão expirada. Faça login novamente.');
         navigate('/login');
       } else {

@@ -18,18 +18,8 @@ function EditPlant() {
 
   useEffect(() => {
     const fetchPlant = async () => {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        toast.error('Você precisa estar logado para editar plantas.');
-        navigate('/login');
-        return;
-      }
-
       try {
-        const config = {
-          headers: { Authorization: `Bearer ${token}` },
-        };
-        const res = await API.get(`/api/plants/${id}`, config);
+        const res = await API.get(`/api/plants/${id}`);
         const plantData = res.data;
 
         setName(plantData.name);
@@ -42,7 +32,6 @@ function EditPlant() {
       } catch (error) {
         console.error('Erro ao buscar dados da planta:', error.response ? error.response.data : error.message);
         if (error.response && error.response.status === 401) {
-          localStorage.removeItem('token');
           toast.error('Sessão expirada. Faça login novamente.');
           navigate('/login');
         } else {
@@ -58,13 +47,6 @@ function EditPlant() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const token = localStorage.getItem('token');
-    if (!token) {
-      toast.error('Você precisa estar logado para editar plantas.');
-      navigate('/login');
-      return;
-    }
-
     if (!name || !wateringFrequencyDays) {
       toast.error('Nome da planta e frequência de rega são obrigatórios!');
       return;
@@ -79,13 +61,6 @@ function EditPlant() {
     }
 
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      };
-
       const plantData = {
         name,
         species,
@@ -96,14 +71,13 @@ function EditPlant() {
         notes,
       };
 
-      const res = await API.put(`/api/plants/${id}`, plantData, config);
+      const res = await API.put(`/api/plants/${id}`, plantData);
       console.log('Planta atualizada com sucesso:', res.data);
       toast.success('Planta atualizada com sucesso!');
       navigate('/dashboard');
     } catch (error) {
       console.error('Erro ao atualizar planta:', error.response ? error.response.data : error.message);
       if (error.response && error.response.status === 401) {
-        localStorage.removeItem('token');
         toast.error('Sessão expirada. Faça login novamente.');
         navigate('/login');
       } else {

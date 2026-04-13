@@ -10,24 +10,12 @@ function Dashboard() {
   const navigate = useNavigate();
 
   const fetchPlants = useCallback(async () => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      navigate('/login');
-      return;
-    }
-
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      };
-      const res = await API.get('/api/plants', config);
+      const res = await API.get('/api/plants');
       setPlants(res.data);
     } catch (error) {
       console.error('Erro ao buscar plantas:', error.response ? error.response.data : error.message);
       if (error.response && error.response.status === 401) {
-        localStorage.removeItem('token');
         toast.error('Sessão expirada ou inválida. Faça login novamente.');
         navigate('/login');
       } else {
@@ -40,8 +28,12 @@ function Dashboard() {
     fetchPlants();
   }, [fetchPlants]);
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
+  const handleLogout = async () => {
+    try {
+      await API.post('/api/auth/logout');
+    } catch (_) {
+      // ignora erro de rede no logout
+    }
     navigate('/login');
   };
 
@@ -50,26 +42,13 @@ function Dashboard() {
       return;
     }
 
-    const token = localStorage.getItem('token');
-    if (!token) {
-      toast.error('Você precisa estar logado para deletar plantas.');
-      navigate('/login');
-      return;
-    }
-
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      };
-      await API.delete(`/api/plants/${plantId}`, config);
+      await API.delete(`/api/plants/${plantId}`);
       toast.success('Planta excluída com sucesso!');
       fetchPlants();
     } catch (error) {
       console.error('Erro ao excluir planta:', error.response ? error.response.data : error.message);
       if (error.response && error.response.status === 401) {
-        localStorage.removeItem('token');
         toast.error('Sessão expirada. Faça login novamente.');
         navigate('/login');
       } else {

@@ -15,7 +15,6 @@ function Login() {
     try {
       const res = await API.post('/api/auth/login', { email, password });
       console.log('Login bem-sucedido:', res.data);
-      localStorage.setItem('token', res.data.token);
       toast.success('Login realizado com sucesso!');
       navigate('/dashboard');
     } catch (error) {

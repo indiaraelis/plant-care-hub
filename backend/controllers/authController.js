@@ -40,11 +40,17 @@ exports.registerUser = async (req, res) => {
         // Gerar token
         const token = generateToken(user._id);
 
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict',
+            maxAge: 60 * 60 * 1000,
+        });
+
         res.status(201).json({
             _id: user._id,
             username: user.username,
             email: user.email,
-            token: token,
         });
 
     } catch (error) {
@@ -77,15 +83,33 @@ exports.loginUser = async (req, res) => {
         // Gerar token
         const token = generateToken(user._id);
 
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict',
+            maxAge: 60 * 60 * 1000,
+        });
+
         res.json({
             _id: user._id,
             username: user.username,
             email: user.email,
-            token: token,
         });
 
     } catch (error) {
         console.error(error.message);
         res.status(500).send('Erro no Servidor');
     }
+};
+
+// @desc    Logout — limpa o cookie de autenticação
+// @route   POST /api/auth/logout
+// @access  Private
+exports.logoutUser = (req, res) => {
+    res.clearCookie('token', {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+    });
+    res.json({ msg: 'Logout realizado com sucesso' });
 };
