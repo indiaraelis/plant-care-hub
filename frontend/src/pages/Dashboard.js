@@ -2,12 +2,14 @@
 
 import React, { useEffect, useState, useCallback } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import API from '../api';  // importando a instância axios configurada
+import API from '../api';
 import { toast } from 'react-toastify';
+import { useAuth } from '../context/AuthContext';
 
 function Dashboard() {
   const [plants, setPlants] = useState([]);
   const navigate = useNavigate();
+  const { user, logout } = useAuth();
 
   const fetchPlants = useCallback(async () => {
     try {
@@ -29,11 +31,7 @@ function Dashboard() {
   }, [fetchPlants]);
 
   const handleLogout = async () => {
-    try {
-      await API.post('/api/auth/logout');
-    } catch (_) {
-      // ignora erro de rede no logout
-    }
+    await logout();
     navigate('/login');
   };
 
@@ -59,7 +57,7 @@ function Dashboard() {
 
   return (
     <div className="container">
-      <h2>Suas Plantas</h2>
+      <h2>Suas Plantas{user ? `, ${user.username}` : ''}</h2>
       <button onClick={handleLogout} style={{ float: 'right', marginBottom: '20px' }}>Sair</button>
       <div style={{ clear: 'both' }}></div>
 

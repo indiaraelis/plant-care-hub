@@ -2,18 +2,21 @@
 
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import API from '../api'; // import axios configurado
+import API from '../api';
 import { toast } from 'react-toastify';
+import { useAuth } from '../context/AuthContext';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const res = await API.post('/api/auth/login', { email, password });
+      login(res.data);
       toast.success('Login realizado com sucesso!');
       navigate('/dashboard');
     } catch (error) {
