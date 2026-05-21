@@ -6,8 +6,8 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import API from '../api'; // Seu cliente Axios
 import { toast } from 'react-toastify';
-import PlantAutocomplete from './PlantAutocomplete';
-import PlantSelectSimple from './PlantSelectSimple';
+import PlantAutocomplete from '../components/PlantAutocomplete';
+import PlantSelectSimple from '../components/PlantSelectSimple';
 
 function AddPlant() {
   const [name, setName] = useState('');
@@ -77,7 +77,6 @@ function AddPlant() {
       };
 
       const res = await API.post('/api/plants', plantData);
-      console.log('Planta adicionada com sucesso:', res.data);
       toast.success('Planta adicionada com sucesso!');
       navigate('/dashboard');
     } catch (error) {

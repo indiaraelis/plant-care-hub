@@ -72,7 +72,6 @@ function EditPlant() {
       };
 
       const res = await API.put(`/api/plants/${id}`, plantData);
-      console.log('Planta atualizada com sucesso:', res.data);
       toast.success('Planta atualizada com sucesso!');
       navigate('/dashboard');
     } catch (error) {

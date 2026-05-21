@@ -7,7 +7,7 @@ import {
   searchPlantsByPortuguese, 
   searchPlantsByScientific, 
   getPlantById 
-} from './PlantDatabase'; // Assumindo que PlantDatabase.js existe
+} from '../data/PlantDatabase';
 
 const PlantAutocomplete = ({ 
   value, 

@@ -3,7 +3,7 @@
 // Exibe nomes em português, mas usa nome científico como valor
 
 import React, { useState, useEffect } from 'react';
-import { getAllPlantsOrderedByPortuguese, getPlantById } from './PlantDatabase';
+import { getAllPlantsOrderedByPortuguese, getPlantById } from '../data/PlantDatabase';
 
 const PlantSelectSimple = ({ 
   value, 

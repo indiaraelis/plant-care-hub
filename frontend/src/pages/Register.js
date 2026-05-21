@@ -15,7 +15,6 @@ function Register() {
     e.preventDefault();
     try {
       const res = await API.post('/api/auth/register', { username, email, password });
-      console.log('Registro bem-sucedido:', res.data);
       toast.success('Registro realizado com sucesso! Faça login agora.');
       navigate('/login');
     } catch (error) {
