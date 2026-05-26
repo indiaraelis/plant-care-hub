@@ -2,10 +2,9 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import 'react-toastify/dist/ReactToastify.css'; // Carrega o CSS da biblioteca React-Toastify primeiro
-import './index.css'; // Carrega o CSS personalizado DEPOIS, para ter prioridade
+import 'react-toastify/dist/ReactToastify.css';
+import './index.css';
 import App from './App';
-// import reportWebVitals from './reportWebVitals'; // Manter comentado ou remover se não estiver usando
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -13,3 +12,12 @@ root.render(
     <App />
   </React.StrictMode>
 );
+
+// Register service worker for PWA / offline support
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker
+      .register('/service-worker.js')
+      .catch((err) => console.warn('SW registration failed:', err));
+  });
+}

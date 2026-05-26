@@ -5,8 +5,9 @@ import { useNavigate, Link } from 'react-router-dom';
 import API from '../api';
 import { toast } from 'react-toastify';
 import { useAuth } from '../context/AuthContext';
-import { AlertCircle, CheckCircle, Clock, Droplets, Leaf, MapPin, Pencil, Search, Settings, Trash2, X } from 'lucide-react';
+import { AlertCircle, Bell, BellOff, CheckCircle, Clock, Droplets, Leaf, MapPin, Pencil, Search, Settings, Trash2, X } from 'lucide-react';
 import { getCareStatus, statusLabel, statusBadgeClass, statusIconProps } from '../utils/careStatus';
+import { useNotifications } from '../hooks/useNotifications';
 
 const LUCIDE_ICONS = { AlertCircle, CheckCircle, Clock, Droplets, Leaf };
 
@@ -139,6 +140,17 @@ function Dashboard() {
   const [filter, setFilter] = useState('all');
   const navigate = useNavigate();
   const { user, logout } = useAuth();
+  const { permission, enabled, requestPermission, disableNotifications } = useNotifications(plants);
+
+  const handleNotificationToggle = async () => {
+    if (enabled) {
+      disableNotifications();
+    } else if (permission === 'denied') {
+      toast.warn('Notificações bloqueadas. Habilite nas configurações do navegador.');
+    } else {
+      await requestPermission();
+    }
+  };
 
   const fetchPlants = useCallback(async () => {
     try {
@@ -209,6 +221,19 @@ function Dashboard() {
           {user ? `Jardim de ${user.username}` : 'Meu Jardim'}
         </h2>
         <div className="flex items-center gap-2 shrink-0">
+          {'Notification' in window && (
+            <button
+              onClick={handleNotificationToggle}
+              title={enabled ? 'Desativar notificações' : 'Ativar notificações'}
+              className={`flex items-center justify-center w-9 h-9 rounded-xl border transition-colors ${
+                enabled
+                  ? 'bg-emerald-leaf/10 border-emerald-leaf text-emerald-leaf'
+                  : 'bg-white border-mint-light text-text-muted hover:border-sage-green'
+              }`}
+            >
+              {enabled ? <Bell size={16} /> : <BellOff size={16} />}
+            </button>
+          )}
           <Link to="/account" className="flex items-center justify-center w-9 h-9 rounded-xl border border-mint-light bg-white hover:border-sage-green text-text-muted hover:text-deep-forest transition-colors" title="Minha conta">
             <Settings size={16} />
           </Link>
