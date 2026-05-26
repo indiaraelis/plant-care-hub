@@ -1,9 +1,10 @@
 // frontend/src/pages/AddPlant.js
 
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import API from '../api';
 import { toast } from 'react-toastify';
+import { Camera, Loader } from 'lucide-react';
 import PlantAutocomplete from '../components/PlantAutocomplete';
 import { suggestCareFromHabit } from '../utils/careDefaults';
 
@@ -29,6 +30,8 @@ function AddPlant() {
   const [name, setName] = useState('');
   const [species, setSpecies] = useState('');
   const [speciesFromAutocomplete, setSpeciesFromAutocomplete] = useState(false);
+  const [identifying, setIdentifying] = useState(false);
+  const photoInputRef = useRef(null);
 
   // Step 2 — care details
   const [careSuggestion, setCareSuggestion] = useState(null); // { wateringDays, fertilizingDays, hint }
@@ -104,6 +107,77 @@ function AddPlant() {
     setStep(2);
   };
 
+  const handlePhotoChange = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const ALLOWED = ['image/jpeg', 'image/png', 'image/webp'];
+    if (!ALLOWED.includes(file.type)) {
+      toast.error('Use uma imagem JPEG, PNG ou WebP.');
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error('Imagem muito grande. Máximo 5 MB.');
+      return;
+    }
+
+    setIdentifying(true);
+    try {
+      const base64 = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result.split(',')[1]);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+
+      const res = await API.post('/api/identify', { imageBase64: base64, mimeType: file.type });
+      const data = res.data;
+
+      if (!data.confident || !data.commonName) {
+        toast.warn(data.careHint || 'Não foi possível identificar a planta. Tente outra foto ou preencha manualmente.');
+        return;
+      }
+
+      // Pre-fill form from Gemini response
+      setName(data.commonName);
+      setSpecies(data.scientificName || '');
+      setSpeciesFromAutocomplete(!!data.scientificName);
+
+      const suggestion = {
+        wateringDays: data.suggestedWateringDays || 7,
+        fertilizingDays: data.suggestedFertilizingDays || 30,
+        hint: data.careHint || '',
+        presetMatches: [2, 7, 15, 30].includes(data.suggestedWateringDays),
+      };
+      setCareSuggestion(suggestion);
+      if (suggestion.presetMatches) {
+        setWateringPreset(suggestion.wateringDays);
+        setWateringCustom('');
+      } else if (data.suggestedWateringDays) {
+        setWateringPreset(null);
+        setWateringCustom(String(data.suggestedWateringDays));
+      }
+      if (data.suggestedFertilizingDays === 0) {
+        setNoFertilizing(true);
+      } else if (data.suggestedFertilizingDays) {
+        setNoFertilizing(false);
+        if ([2, 7, 15, 30].includes(data.suggestedFertilizingDays)) {
+          setFertilizingPreset(data.suggestedFertilizingDays);
+        } else {
+          setFertilizingCustom(String(data.suggestedFertilizingDays));
+        }
+      }
+
+      toast.success(`Planta identificada: ${data.commonName}!`);
+    } catch (error) {
+      toast.error(error.response?.data?.msg ?? 'Erro ao identificar a planta.');
+    } finally {
+      setIdentifying(false);
+      // Reset input so the same file can be re-selected if needed
+      if (photoInputRef.current) photoInputRef.current.value = '';
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const wateringDays = getWateringDays();
@@ -146,8 +220,38 @@ function AddPlant() {
           <div className="add-plant-section">
             <h2>Qual é a planta?</h2>
             <p className="text-left mt-0 mb-4 text-text-muted text-sm">
-              Busque pelo nome em português ou científico — preenchemos os dados automaticamente.
+              Busque pelo nome em português ou científico — ou tire uma foto.
             </p>
+
+            {/* Photo identify button */}
+            <div className="mb-4">
+              <input
+                ref={photoInputRef}
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                capture="environment"
+                className="hidden"
+                onChange={handlePhotoChange}
+                id="photo-input"
+              />
+              <label
+                htmlFor="photo-input"
+                className={`flex items-center justify-center gap-2 w-full rounded-2xl border-2 border-dashed py-4 cursor-pointer transition-colors text-sm font-medium ${
+                  identifying
+                    ? 'border-mint-light text-text-muted cursor-wait'
+                    : 'border-sage-green text-emerald-leaf hover:bg-sage-green/10'
+                }`}
+              >
+                {identifying
+                  ? <><Loader size={16} className="animate-spin" /> Identificando...</>
+                  : <><Camera size={16} /> Identificar por foto</>
+                }
+              </label>
+              <p className="text-xs text-text-muted text-center mt-1 mb-0">
+                Sugestão por IA — confirme e ajuste abaixo
+              </p>
+            </div>
+
             <PlantAutocomplete
               value={selectedPlantInfo.id}
               onChange={handlePlantSelection}

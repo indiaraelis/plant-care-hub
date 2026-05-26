@@ -43,12 +43,9 @@ app.get('/', (req, res) => {
 
 // Usar as rotas de autenticação
 app.use('/api/auth', authRoutes);
-
-// Proteger as rotas de plantas
-// Todas as rotas definidas em plantRoutes serão agora protegidas pelo middleware 'protect'
-// Ou seja, precisarão de um JWT válido no cabeçalho 'Authorization'
 app.use('/api/plants', protect, plantRoutes);
 app.use('/api/trefle', require('./routes/trefleRoutes'));
+app.use('/api/identify', require('./routes/identifyRoutes'));
 
 // Middleware global de erros — deve ficar após todas as rotas
 app.use(errorHandler);

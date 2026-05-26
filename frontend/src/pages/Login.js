@@ -41,8 +41,18 @@ function Login() {
           <label>Senha:</label>
           <input type="password" value={password} onChange={e => setPassword(e.target.value)} required />
         </div>
-        <button type="submit">Login</button>
+        <button type="submit">Entrar</button>
       </form>
+      <p className="text-sm text-text-muted mt-3 mb-1">
+        <button
+          type="button"
+          onClick={() => toast.info('Recuperação de senha por e-mail ainda não está disponível. Entre em contato ou crie uma nova conta.')}
+          className="w-auto p-0 bg-transparent border-none shadow-none text-text-muted hover:text-text-primary underline text-sm"
+          style={{ minHeight: 'auto' }}
+        >
+          Esqueci minha senha
+        </button>
+      </p>
       <p>
         Não tem uma conta? <Link to="/register">Crie uma aqui</Link>
       </p>
