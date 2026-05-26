@@ -70,39 +70,86 @@ Emojis são inadequados em títulos e botões: perdem nitidez em telas Retina e 
 - [ ] Botão "Reguei" diretamente no card (sem abrir edição), com feedback toast
 - [ ] Botão "Adubei" com a mesma lógica
 
-## Fase 11 — Dashboard em grid + filtros
+## Fase 11 — Dashboard em grid + filtros ✅
 > UX que escala com muitas plantas. Depende dos badges da Fase 8.
 
-- [ ] Refatorar layout do dashboard: lista → grid de cards (2 colunas mobile, 3 desktop)
-- [ ] Campo `location` no model (sala, varanda, quarto, escritório) — opcional
-- [ ] Barra de busca por nome no dashboard
-- [ ] Filtros rápidos: "Todas" / "Atrasadas" / "Hoje" / por cômodo
-- [ ] Mensagem com personalidade no dashboard vazio
+- [x] Refatorar layout do dashboard: lista → grid de cards (2 colunas mobile, 3 desktop)
+- [x] Campo `location` no model (sala, varanda, quarto, escritório) — opcional
+- [x] Barra de busca por nome no dashboard
+- [x] Filtros rápidos: "Todas" / "Atrasadas" / "Hoje" / por cômodo
+- [x] Mensagem com personalidade no dashboard vazio
 
-## Fase 12 — Autenticação robusta + conta
-> Features de confiança. Requer Nodemailer.
+## Fase 11.5 — Sugestões de cuidado a partir dos dados botânicos
+> Gap: o app ignora os dados que já tem. Quando o usuário seleciona "Ata-de-cobra" da base local — que já tem `origem`, `habito`, `familia` — o formulário abre em branco. A planta já sabe como quer ser cuidada.
 
-- [ ] Aumentar JWT para 7 dias (ou implementar refresh token)
-- [ ] `PATCH /api/auth/password` — alterar senha (verifica senha atual)
-- [ ] `DELETE /api/auth/account` — deletar conta + todas as plantas
-- [ ] Recuperação de senha via email (Nodemailer + token temporário com expiração)
-- [ ] Corrigir `Register.js`: chamar `login()` direto após registro (sem redirecionar para `/login`)
+**O que deveria acontecer**
 
-## Fase 13 — Identificação por imagem (Gemini)
+Ao selecionar uma planta da base local, o formulário deveria:
+1. Exibir uma descrição curta acima dos campos — origem, curiosidade — pra dar contexto afetivo
+2. Pré-sugerir a frequência de rega baseada no hábito da planta, deixando o usuário confirmar ou ajustar
+3. Pré-marcar adubação com base no que se sabe da espécie
+
+Exemplo de fluxo ideal:
+> *"Ata-de-cobra — frutífera nativa do Cerrado"*
+> *"Plantas como essa geralmente preferem rega quinzenal. Você pode ajustar abaixo."*
+> [Quinzenal já selecionado, usuário pode trocar]
+
+**Implementação — sem mexer no banco**
+
+A `PlantDatabase.js` tem `origem`, `habito`, `familia` mas não tem `regas_sugeridas`. Dá pra derivar pelo hábito com uma função simples no frontend:
+
+| Hábito | Sugestão de rega |
+|---|---|
+| Árvore nativa Cerrado/Caatinga | Quinzenal (14 dias) |
+| Suculenta / cacto | Mensal (30 dias) |
+| Tropical úmida | Semanal (7 dias) |
+| Herbácea / tempero | A cada 2 dias |
+| Padrão (desconhecido) | Semanal (7 dias) |
+
+- [ ] Criar função `suggestCareFromHabit(habito, origem)` em `utils/careDefaults.js`
+- [ ] No `AddPlant.js`, quando uma planta é selecionada via autocomplete, chamar a função e pré-preencher os campos de frequência
+- [ ] Exibir card informativo acima do form com `origem` + `habito` da planta selecionada
+- [ ] Deixar claro que é sugestão — texto abaixo do campo: *"Sugestão baseada no hábito da espécie. Ajuste conforme seu ambiente."*
+
+**Fase futura — fontes externas de cuidado**
+
+Duas opções com trade-offs honestos:
+
+| Fonte | O que oferece | Confiável? |
+|---|---|---|
+| **Perenual API** | `watering_general_benchmark` em dias, nível de luz, toxicidade | Média — empresa privada, sem metodologia publicada |
+| **Gemini** | Síntese de múltiplas fontes (RHS, Missouri Botanical Garden), em português, contextualizado pro Brasil | Alta quando bem promtado — citar fontes no prompt |
+
+Recomendação: Perenual pra dados estruturados + Gemini pra parágrafo explicativo. Sempre exibir como **sugestão**, não prescrição — com campo editável e frase: *"Ajuste conforme seu ambiente, vaso e estação."* Isso é mais verdadeiro botanicamente do que qualquer dado fixo.
+
+## Fase 12 — Autenticação robusta + conta ✅
+> Features de confiança.
+
+- [x] Aumentar JWT para 7 dias
+- [x] `PATCH /api/auth/password` — alterar senha (verifica senha atual)
+- [x] `DELETE /api/auth/account` — deleta conta + todas as plantas
+- [x] Página `/account` com formulário de troca de senha e zona de exclusão
+- [x] Ícone de engrenagem no dashboard ligando para `/account`
+- [x] Corrigir `Register.js`: chamar `login()` direto após registro
+- [x] Recuperação de senha via email (Nodemailer + SHA-256 token + expiração de 1h)
+
+## Fase 13 — Identificação por imagem (Gemini) ✅
 > Wow factor. Chave da API fica 100% no backend.
 
-- [ ] Rota `POST /api/identify` — recebe imagem em base64, chama Gemini 1.5 Flash, retorna JSON estruturado
-- [ ] Botão "Identificar por foto" no `AddPlant.js` — upload ou câmera
-- [ ] Pré-preenchimento automático do formulário com o retorno do Gemini
-- [ ] Tratar erros e respostas incertas do modelo (fallback manual)
+- [x] Rota `POST /api/identify` — recebe imagem em base64, chama Gemini 1.5 Flash, retorna JSON estruturado
+- [x] Botão "Identificar por foto" no `AddPlant.js` — abre câmera ou galeria (campo `capture="environment"`)
+- [x] Pré-preenchimento automático: nome, espécie, frequência de rega, adubação, hint de cuidado
+- [x] Trata resposta incerta (`confident: false`) com toast de aviso e fallback manual
+- [x] `GEMINI_API_KEY` necessária em `backend/.env` para funcionar
 
-## Fase 14 — PWA + notificações push
-> Transforma em app nativo no celular. Depende das datas calculadas na Fase 8.
+## Fase 14 — PWA + notificações ✅
+> Transforma em app nativo no celular.
 
-- [ ] Configurar `manifest.json` + ícones para instalação como PWA
-- [ ] Service Worker básico (cache offline das páginas principais)
-- [ ] Notificações locais agendadas via Notification API — dispara no dia da rega
-- [ ] Tela de configuração: ativar/desativar notificações por planta
+- [x] `manifest.json` atualizado: nome, tema verde, `start_url=/dashboard`, orientação portrait
+- [x] `index.html` atualizado: `lang=pt-BR`, título, apple-touch meta tags, theme-color verde
+- [x] Service Worker registrado manualmente (`public/service-worker.js`) — cache-first para assets, network-first para API
+- [x] `useNotifications` hook — pede permissão, verifica plantas urgentes e dispara notificação nativa
+- [x] Botão Bell/BellOff no header do dashboard — toggle com badge verde quando ativo
 
 ## Fase 15 — Histórico visual + estatísticas
 > Satisfação e retenção. Depende do histórico da Fase 10.

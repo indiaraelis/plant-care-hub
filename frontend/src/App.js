@@ -12,6 +12,8 @@ import Dashboard from './pages/Dashboard';
 import AddPlant from './pages/AddPlant';
 import EditPlant from './pages/EditPlant';
 import Account from './pages/Account';
+import PlantDetail from './pages/PlantDetail';
+import Stats from './pages/Stats';
 import NotFound from './pages/NotFound';
 import Layout from './components/Layout';
 
@@ -30,6 +32,8 @@ function App() {
             <Route path="/add-plant" element={<PrivateRoute><AddPlant /></PrivateRoute>} />
             <Route path="/edit-plant/:id" element={<PrivateRoute><EditPlant /></PrivateRoute>} />
             <Route path="/account" element={<PrivateRoute><Account /></PrivateRoute>} />
+            <Route path="/plants/:id" element={<PrivateRoute><PlantDetail /></PrivateRoute>} />
+            <Route path="/stats" element={<PrivateRoute><Stats /></PrivateRoute>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Layout>

@@ -5,7 +5,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import API from '../api';
 import { toast } from 'react-toastify';
 import { useAuth } from '../context/AuthContext';
-import { AlertCircle, Bell, BellOff, CheckCircle, Clock, Droplets, Leaf, MapPin, Pencil, Search, Settings, Trash2, X } from 'lucide-react';
+import { AlertCircle, BarChart2, Bell, BellOff, CheckCircle, Clock, Droplets, Leaf, MapPin, Pencil, Search, Settings, Trash2, X } from 'lucide-react';
 import { getCareStatus, statusLabel, statusBadgeClass, statusIconProps } from '../utils/careStatus';
 import { useNotifications } from '../hooks/useNotifications';
 
@@ -77,7 +77,7 @@ function PlantCard({ plant, onWater, onFertilize, onDelete }) {
     <div className={`plant-item flex flex-col justify-between ${cardBorder}`}>
       <div>
         <div className="flex items-start justify-between gap-2 mb-1">
-          <h3 className="text-lg leading-tight mb-0">{plant.name}</h3>
+          <Link to={`/plants/${plant._id}`} className="text-deep-forest no-underline hover:underline"><h3 className="text-lg leading-tight mb-0">{plant.name}</h3></Link>
           {plant.location && (
             <span className="flex items-center gap-1 text-xs text-text-muted whitespace-nowrap mt-1">
               <MapPin size={11} /> {plant.location}
@@ -234,6 +234,9 @@ function Dashboard() {
               {enabled ? <Bell size={16} /> : <BellOff size={16} />}
             </button>
           )}
+          <Link to="/stats" className="flex items-center justify-center w-9 h-9 rounded-xl border border-mint-light bg-white hover:border-sage-green text-text-muted hover:text-deep-forest transition-colors" title="Estatísticas do jardim">
+            <BarChart2 size={16} />
+          </Link>
           <Link to="/account" className="flex items-center justify-center w-9 h-9 rounded-xl border border-mint-light bg-white hover:border-sage-green text-text-muted hover:text-deep-forest transition-colors" title="Minha conta">
             <Settings size={16} />
           </Link>
