@@ -245,43 +245,42 @@ function Dashboard() {
           {user ? `Jardim de ${user.username}` : 'Meu Jardim'}
         </h2>
         <div className="flex items-center gap-2 shrink-0">
-          {'Notification' in window && (
-            <div className="relative">
-              <button
-                onClick={() => { handleNotificationToggle(); dismissBellHint(); }}
-                title={enabled ? 'Desativar notificações' : 'Ativar notificações'}
-                className={`flex items-center justify-center w-9 h-9 rounded-xl border transition-colors ${
-                  enabled
-                    ? 'bg-emerald-leaf/10 border-emerald-leaf text-emerald-leaf'
-                    : 'bg-white border-mint-light text-text-muted hover:border-sage-green'
-                }`}
-              >
-                {enabled ? <Bell size={16} /> : <BellOff size={16} />}
-              </button>
-              {showBellHint && (
-                <div className="absolute right-0 top-11 z-50 w-56 rounded-2xl border border-sage-green bg-white shadow-lg px-4 py-3 text-left">
-                  <p className="text-xs font-semibold text-deep-forest mt-0 mb-1">Ativar lembretes?</p>
-                  <p className="text-xs text-text-muted mt-0 mb-2">Seja avisada quando uma planta precisar de rega ou adubação.</p>
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() => { handleNotificationToggle(); dismissBellHint(); }}
-                      className="w-auto px-3 py-1 text-xs bg-emerald-leaf text-white rounded-lg"
-                      style={{ minHeight: 'auto' }}
-                    >
-                      Ativar
-                    </button>
-                    <button
-                      onClick={dismissBellHint}
-                      className="w-auto px-3 py-1 text-xs bg-white border border-mint-light text-text-muted rounded-lg hover:border-sage-green"
-                      style={{ minHeight: 'auto' }}
-                    >
-                      Agora não
-                    </button>
-                  </div>
+          {/* Bell: always render; graceful when Notification API unsupported */}
+          <div className="relative">
+            <button
+              onClick={() => { handleNotificationToggle(); dismissBellHint(); }}
+              title={enabled ? 'Desativar notificações' : 'Ativar notificações'}
+              className={`flex items-center justify-center w-9 h-9 rounded-xl border transition-colors ${
+                enabled
+                  ? 'bg-emerald-leaf/10 border-emerald-leaf text-emerald-leaf'
+                  : 'bg-white border-mint-light text-text-muted hover:border-sage-green'
+              }`}
+            >
+              {enabled ? <Bell size={16} /> : <BellOff size={16} />}
+            </button>
+            {showBellHint && (
+              <div className="absolute right-0 top-11 z-50 w-56 rounded-2xl border border-sage-green bg-white shadow-lg px-4 py-3 text-left">
+                <p className="text-xs font-semibold text-deep-forest mt-0 mb-1">Ativar lembretes?</p>
+                <p className="text-xs text-text-muted mt-0 mb-2">Seja avisada quando uma planta precisar de rega ou adubação.</p>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => { handleNotificationToggle(); dismissBellHint(); }}
+                    className="w-auto px-3 py-1 text-xs bg-emerald-leaf text-white rounded-lg flex items-center gap-1"
+                    style={{ minHeight: 'auto' }}
+                  >
+                    <Bell size={11} /> Ativar
+                  </button>
+                  <button
+                    onClick={dismissBellHint}
+                    className="w-auto px-3 py-1 text-xs bg-white border border-mint-light text-text-muted rounded-lg hover:border-sage-green"
+                    style={{ minHeight: 'auto' }}
+                  >
+                    Agora não
+                  </button>
                 </div>
-              )}
-            </div>
-          )}
+              </div>
+            )}
+          </div>
           <Link to="/stats" className="flex items-center justify-center w-9 h-9 rounded-xl border border-mint-light bg-white hover:border-sage-green text-text-muted hover:text-deep-forest transition-colors" title="Estatísticas do jardim">
             <BarChart2 size={16} />
           </Link>

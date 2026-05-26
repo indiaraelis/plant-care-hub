@@ -196,6 +196,12 @@ function AddPlant() {
         fertilizingDays: data.suggestedFertilizingDays ?? 30,
         hint: data.careHint || '',
         presetMatches: [2, 7, 15, 30].includes(data.suggestedWateringDays),
+        // Perenual structured fields
+        source: data.source,
+        wateringLevel: data.wateringLevel || null,
+        maintenanceLevel: data.maintenanceLevel || null,
+        sunlightLabel: data.sunlightLabel || null,
+        perenualName: data.perenualName || null,
       };
       setCareSuggestion(suggestion);
       if (suggestion.presetMatches) {
@@ -215,7 +221,8 @@ function AddPlant() {
           setFertilizingCustom(String(data.suggestedFertilizingDays));
         }
       }
-      if (data.confident !== false) toast.success('Sugestão de cuidados aplicada!');
+      const sourceLabel = data.source === 'perenual' ? 'Perenual' : 'IA';
+      if (data.confident !== false) toast.success(`Sugestão de cuidados aplicada (${sourceLabel})!`);
       else toast.warn(data.careHint || 'Sugestão aproximada — ajuste conforme sua experiência.');
     } catch {
       toast.error('Não foi possível buscar sugestões. Tente novamente.');
@@ -384,7 +391,7 @@ function AddPlant() {
           )}
 
           {!selectedPlantInfo.plant && (
-            <div className="flex items-center justify-between gap-3 mb-6">
+            <div className="flex items-center justify-between gap-3 mb-5">
               <p className="text-left mt-0 mb-0 text-text-muted text-sm flex-1">
                 Registrando agora: <strong>{name}</strong>{species ? ` (${species})` : ''}
               </p>
@@ -402,11 +409,41 @@ function AddPlant() {
             </div>
           )}
 
+          {/* Perenual structured data card — shown when suggestion came from Perenual */}
+          {careSuggestion?.source === 'perenual' && (
+            <div className="rounded-2xl border border-emerald-leaf/30 bg-emerald-leaf/5 px-4 py-3 mb-5 text-left">
+              <p className="text-xs font-semibold text-emerald-leaf mt-0 mb-2 flex items-center gap-1.5">
+                <Sparkles size={11} /> Dados da Perenual
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {careSuggestion.wateringLevel && (
+                  <span className="inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-full border border-blue-200 bg-blue-50 text-blue-700">
+                    💧 Rega {
+                      { Frequent: 'frequente', Average: 'média', Minimum: 'mínima', None: 'rara' }[careSuggestion.wateringLevel] || careSuggestion.wateringLevel
+                    }
+                  </span>
+                )}
+                {careSuggestion.sunlightLabel && (
+                  <span className="inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-full border border-yellow-200 bg-yellow-50 text-yellow-700">
+                    ☀️ {careSuggestion.sunlightLabel}
+                  </span>
+                )}
+                {careSuggestion.maintenanceLevel && (
+                  <span className="inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-full border border-mint-light bg-sage-green/10 text-deep-forest">
+                    🌱 Manutenção {
+                      { High: 'alta', Medium: 'média', Low: 'baixa', Minimum: 'mínima' }[careSuggestion.maintenanceLevel] || careSuggestion.maintenanceLevel
+                    }
+                  </span>
+                )}
+              </div>
+            </div>
+          )}
+
           <form onSubmit={handleSubmit}>
             {/* Watering frequency */}
             <div>
               <label>Com que frequência você rega?</label>
-              {careSuggestion && (
+              {careSuggestion?.hint && (
                 <p className="text-xs text-text-muted mt-0 mb-2">
                   {careSuggestion.hint} <span className="opacity-60">Ajuste conforme seu ambiente.</span>
                 </p>
