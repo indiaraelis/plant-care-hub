@@ -16,7 +16,7 @@ const WATERING_PRESETS = [
   { label: 'Mensal',        value: 30 },
 ];
 
-const LOCATION_OPTIONS = ['Sala', 'Varanda', 'Quarto', 'Escritório', 'Cozinha', 'Banheiro', 'Jardim', 'Outro'];
+const LOCATION_OPTIONS = ['Sala', 'Varanda', 'Quarto', 'Escritório', 'Cozinha', 'Banheiro', 'Jardim', 'Área externa', 'Outro'];
 
 // Returns today's date formatted as YYYY-MM-DD for date inputs
 function today() {

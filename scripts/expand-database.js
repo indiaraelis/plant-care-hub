@@ -168,8 +168,26 @@ function get(url) {
 
 function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
 
-function titleCase(str) {
-  return str.replace(/\b\w/g, c => c.toUpperCase());
+function formatCommonName(str) {
+  if (!str) return '';
+  // Normalize: lowercase first, then capitalize content words.
+  // de/da/do/das/dos/e/ou/a/o stay lowercase except the very first word of the whole name.
+  // Works correctly across hyphen junctions: "Lírio-da-Paz", "Espada-de-São-Jorge".
+  const LOWER_MIDDLE = new Set(['de', 'da', 'do', 'das', 'dos', 'e', 'ou', 'a', 'o']);
+  let globalIdx = 0;
+  return str.toLowerCase()
+    .split('-')
+    .map((segment) =>
+      segment.split(' ').map((word) => {
+        const isFirst = globalIdx === 0;
+        if (word) globalIdx++;
+        if (!word) return word;
+        if (isFirst) return word.charAt(0).toUpperCase() + word.slice(1);
+        if (LOWER_MIDDLE.has(word)) return word;
+        return word.charAt(0).toUpperCase() + word.slice(1);
+      }).join(' ')
+    )
+    .join('-');
 }
 
 function slugify(str) {
@@ -194,7 +212,7 @@ async function jbrjTaxon(scientificName) {
   // Nomes vernáculos PT — filtra valores inválidos (muito curtos, inglês, números)
   const ptNames = verns
     .filter(v => (v.language_vernacularname || '').toLowerCase().includes('portugu'))
-    .map(v => titleCase((v.vernacularname || '').trim()))
+    .map(v => formatCommonName((v.vernacularname || '').trim()))
     .filter(n => n.length >= 3 && /[a-záéíóúâêîôûãõàç]/i.test(n) && !/^(yes|no|true|false|null)$/i.test(n));
 
   // Formas de vida
@@ -232,7 +250,7 @@ async function gbifVernacularPt(usageKey) {
   const d = await get(url);
   return (d?.results || [])
     .filter(v => v.language === 'por' || v.language === 'pt')
-    .map(v => titleCase(v.vernacularName || ''))
+    .map(v => formatCommonName(v.vernacularName || ''))
     .filter(Boolean);
 }
 
@@ -390,7 +408,7 @@ function geminiPost(key, prompt) {
     generationConfig: { temperature: 0.2, responseMimeType: 'application/json' },
   });
   return new Promise((resolve, reject) => {
-    const url = new URL(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`);
+    const url = new URL(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${key}`);
     const req = https.request(
       { hostname: url.hostname, path: url.pathname + url.search, method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(body) } },

@@ -1,4 +1,5 @@
 // PlantDatabase.js
+import extraPlants from './PlantDatabaseExtra';
 // Simula um banco de dados local de plantas
 // Você pode carregar esses dados de um arquivo JSON ou de uma API no futuro.
 
@@ -1379,7 +1380,7 @@ const mergedPlants = [
 // Funções de busca
 export const searchPlantsByPortuguese = (query) => {
   const lowerCaseQuery = query.toLowerCase();
-  return mergedPlants.filter(plant =>
+  return [...mergedPlants, ...extraPlants].filter(plant =>
     (plant.commonNamePt && plant.commonNamePt.toLowerCase().includes(lowerCaseQuery)) ||
     (plant.alternativeNamesPt && plant.alternativeNamesPt.some(name => name.toLowerCase().includes(lowerCaseQuery)))
   );
@@ -1387,18 +1388,18 @@ export const searchPlantsByPortuguese = (query) => {
 
 export const searchPlantsByScientific = (query) => {
   const lowerCaseQuery = query.toLowerCase();
-  return mergedPlants.filter(plant =>
+  return [...mergedPlants, ...extraPlants].filter(plant =>
     (plant.scientificName && plant.scientificName.toLowerCase().includes(lowerCaseQuery))
   );
 };
 
 export const getPlantById = (id) => {
-  return mergedPlants.find(plant => plant.id === id);
+  return [...mergedPlants, ...extraPlants].find(plant => plant.id === id);
 };
 
 export const getAllPlantsOrderedByPortuguese = () => {
   // Cria uma cópia para não modificar o array original e ordena
-  return [...mergedPlants].sort((a, b) =>
+  return [...mergedPlants, ...extraPlants].sort((a, b) =>
     (a.commonNamePt || '').localeCompare((b.commonNamePt || ''), 'pt-BR', { sensitivity: 'base' })
   );
 };
