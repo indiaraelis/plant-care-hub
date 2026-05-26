@@ -9,7 +9,8 @@ const mongoose = require('mongoose');
 // Importa as rotas e o middleware
 const plantRoutes = require('./routes/plantRoutes');
 const authRoutes = require('./routes/authRoutes');
-const { protect } = require('./middlewares/authMiddleware'); // Importa o middleware de proteção
+const { protect } = require('./middlewares/authMiddleware');
+const errorHandler = require('./middlewares/errorMiddleware');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -47,7 +48,11 @@ app.use('/api/auth', authRoutes);
 // Todas as rotas definidas em plantRoutes serão agora protegidas pelo middleware 'protect'
 // Ou seja, precisarão de um JWT válido no cabeçalho 'Authorization'
 app.use('/api/plants', protect, plantRoutes);
-app.use('/api/trefle', require('./routes/trefleRoutes')); // Rota para buscar plantas do Trefle.io
+app.use('/api/trefle', require('./routes/trefleRoutes'));
+
+// Middleware global de erros — deve ficar após todas as rotas
+app.use(errorHandler);
+
 // Inicia o Servidor
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
