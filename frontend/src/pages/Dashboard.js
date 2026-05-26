@@ -5,7 +5,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import API from '../api';
 import { toast } from 'react-toastify';
 import { useAuth } from '../context/AuthContext';
-import { AlertCircle, BarChart2, Bell, BellOff, CheckCircle, Clock, Droplets, Leaf, Luggage, MapPin, Pencil, Search, Settings, Trash2, X } from 'lucide-react';
+import { AlertCircle, BarChart2, Bell, BellOff, Camera, CheckCircle, Clock, Droplets, Leaf, Luggage, MapPin, Pencil, Search, Settings, Trash2, X } from 'lucide-react';
 import { getCareStatus, statusLabel, statusBadgeClass, statusIconProps } from '../utils/careStatus';
 import { useNotifications } from '../hooks/useNotifications';
 
@@ -293,10 +293,26 @@ function Dashboard() {
       )}
 
       {plants.length === 0 ? (
-        <div className="text-center py-12">
-          <p className="text-5xl mb-4 mt-0">🌱</p>
-          <p className="text-text-muted text-lg mb-1 mt-0 font-medium">Seu jardim ainda está em silêncio.</p>
-          <p className="text-text-muted text-sm mt-1 mb-0">Adicione sua primeira planta e dê início a essa história verde.</p>
+        <div className="py-10 text-center">
+          <p className="text-5xl mb-3 mt-0">🌱</p>
+          <p className="text-text-muted text-lg font-medium mt-0 mb-1">Seu jardim ainda está em silêncio.</p>
+          <p className="text-text-muted text-sm mt-0 mb-8">Adicione sua primeira planta e dê início a essa história verde.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6 mx-auto" style={{ maxWidth: '440px' }}>
+            <Link to="/add-plant" className="no-underline group">
+              <div className="rounded-2xl border-2 border-dashed border-sage-green bg-sage-green/5 group-hover:bg-sage-green/10 p-5 text-center transition-colors">
+                <Camera size={24} className="text-emerald-leaf mx-auto mb-2" />
+                <p className="font-semibold text-deep-forest text-sm mt-0 mb-1">Identificar por foto</p>
+                <p className="text-xs text-text-muted mt-0 mb-0">Tire uma foto e a IA identifica e sugere os cuidados</p>
+              </div>
+            </Link>
+            <Link to="/add-plant" className="no-underline group">
+              <div className="rounded-2xl border-2 border-dashed border-mint-light group-hover:border-sage-green bg-white group-hover:bg-sage-green/5 p-5 text-center transition-colors">
+                <Search size={24} className="text-sage-green mx-auto mb-2" />
+                <p className="font-semibold text-deep-forest text-sm mt-0 mb-1">Buscar pelo nome</p>
+                <p className="text-xs text-text-muted mt-0 mb-0">130 espécies na base local com sugestões de rega</p>
+              </div>
+            </Link>
+          </div>
         </div>
       ) : filtered.length === 0 ? (
         <div className="text-center py-8">

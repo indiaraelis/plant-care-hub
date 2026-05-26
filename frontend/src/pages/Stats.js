@@ -78,6 +78,7 @@ function Stats() {
   const totalPlants = plants.length;
 
   const now = new Date();
+  const MONTH_NAMES = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
   const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
   const wateringsThisMonth = plants.reduce((sum, p) => {
     const count = (p.wateringHistory || []).filter((d) => new Date(d) >= startOfMonth).length;
@@ -131,7 +132,7 @@ function Stats() {
         <>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
             <StatCard icon={Sprout} label="Plantas" value={totalPlants} sub={`no jardim`} />
-            <StatCard icon={Droplets} label="Regas em {mês}" value={wateringsThisMonth} sub={`este mês`} />
+            <StatCard icon={Droplets} label={`Regas em ${MONTH_NAMES[now.getMonth()]}`} value={wateringsThisMonth} sub="este mês" />
             <StatCard icon={Leaf} label="Adubações" value={fertilizingsThisMonth} sub={`este mês`} />
             <StatCard icon={Trophy} label="Sequência" value={streak} sub={`dia${streak !== 1 ? 's' : ''} seguido${streak !== 1 ? 's' : ''}`} />
           </div>

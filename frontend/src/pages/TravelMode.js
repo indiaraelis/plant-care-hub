@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import API from '../api';
 import { toast } from 'react-toastify';
-import { AlertTriangle, CheckCircle, ClipboardCopy, Droplets, Luggage } from 'lucide-react';
+import { AlertTriangle, CheckCircle, Droplets, Luggage, Share2 } from 'lucide-react';
 
 function addDays(date, days) {
   const d = new Date(date);
@@ -108,13 +108,21 @@ function TravelMode() {
     return lines.join('\n');
   };
 
-  const handleCopy = () => {
+  const handleShare = async () => {
     const text = buildText();
-    navigator.clipboard.writeText(text).then(() => {
-      setCopied(true);
-      toast.success('Lista copiada!');
-      setTimeout(() => setCopied(false), 3000);
-    });
+    if (typeof navigator.share === 'function') {
+      try {
+        await navigator.share({ title: 'Cuidados das plantas — viagem', text });
+      } catch (e) {
+        if (e.name !== 'AbortError') toast.error('Erro ao compartilhar.');
+      }
+    } else {
+      navigator.clipboard.writeText(text).then(() => {
+        setCopied(true);
+        toast.success('Lista copiada!');
+        setTimeout(() => setCopied(false), 3000);
+      });
+    }
   };
 
   const totalNeedCare = results ? results.beforeLeaving.length + results.duringAbsence.length : 0;
@@ -240,11 +248,11 @@ function TravelMode() {
           )}
 
           <button
-            onClick={handleCopy}
+            onClick={handleShare}
             className="flex items-center gap-2 w-auto px-5 bg-sage-green/20 text-deep-forest border border-sage-green hover:bg-sage-green/30"
           >
-            <ClipboardCopy size={14} />
-            {copied ? 'Copiado!' : 'Copiar lista para compartilhar'}
+            <Share2 size={14} />
+            {copied ? 'Copiado!' : 'Compartilhar lista'}
           </button>
         </>
       )}

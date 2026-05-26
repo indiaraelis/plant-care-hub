@@ -91,6 +91,12 @@ exports.updatePlant = async (req, res, next) => {
         if (location !== undefined) plant.location = location;
         if (req.body.photoUrl !== undefined) plant.photoUrl = req.body.photoUrl;
 
+        // Track frequency changes for future analytics
+        const freqChanged =
+            (wateringFrequencyDays !== undefined && wateringFrequencyDays !== plant.wateringFrequencyDays) ||
+            (fertilizingFrequencyDays !== undefined && fertilizingFrequencyDays !== plant.fertilizingFrequencyDays);
+        if (freqChanged) plant.frequencyChangedAt = new Date();
+
         await plant.save();
         res.json(plant);
 

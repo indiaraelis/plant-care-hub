@@ -4,7 +4,7 @@ import React, { useRef, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import API from '../api';
 import { toast } from 'react-toastify';
-import { Camera, Loader } from 'lucide-react';
+import { Camera, Loader, Sparkles } from 'lucide-react';
 import PlantAutocomplete from '../components/PlantAutocomplete';
 import { suggestCareFromHabit } from '../utils/careDefaults';
 
@@ -32,6 +32,9 @@ function AddPlant() {
   const [speciesFromAutocomplete, setSpeciesFromAutocomplete] = useState(false);
   const [identifying, setIdentifying] = useState(false);
   const photoInputRef = useRef(null);
+  const [identifiedFile, setIdentifiedFile] = useState(null);
+  const [useIdentifiedPhoto, setUseIdentifiedPhoto] = useState(true);
+  const [suggesting, setSuggesting] = useState(false);
 
   // Step 2 — care details
   const [careSuggestion, setCareSuggestion] = useState(null); // { wateringDays, fertilizingDays, hint }
@@ -168,6 +171,7 @@ function AddPlant() {
         }
       }
 
+      setIdentifiedFile(file);
       toast.success(`Planta identificada: ${data.commonName}!`);
     } catch (error) {
       toast.error(error.response?.data?.msg ?? 'Erro ao identificar a planta.');
@@ -175,6 +179,48 @@ function AddPlant() {
       setIdentifying(false);
       // Reset input so the same file can be re-selected if needed
       if (photoInputRef.current) photoInputRef.current.value = '';
+    }
+  };
+
+  const handleSuggestCare = async () => {
+    if (!name.trim()) {
+      toast.warn('Informe o nome da planta primeiro.');
+      return;
+    }
+    setSuggesting(true);
+    try {
+      const res = await API.post('/api/suggest-care', { name: name.trim(), species: species.trim() });
+      const data = res.data;
+      const suggestion = {
+        wateringDays: data.suggestedWateringDays || 7,
+        fertilizingDays: data.suggestedFertilizingDays ?? 30,
+        hint: data.careHint || '',
+        presetMatches: [2, 7, 15, 30].includes(data.suggestedWateringDays),
+      };
+      setCareSuggestion(suggestion);
+      if (suggestion.presetMatches) {
+        setWateringPreset(suggestion.wateringDays);
+        setWateringCustom('');
+      } else if (data.suggestedWateringDays) {
+        setWateringPreset(null);
+        setWateringCustom(String(data.suggestedWateringDays));
+      }
+      if (data.suggestedFertilizingDays === 0) {
+        setNoFertilizing(true);
+      } else if (data.suggestedFertilizingDays) {
+        setNoFertilizing(false);
+        if ([2, 7, 15, 30].includes(data.suggestedFertilizingDays)) {
+          setFertilizingPreset(data.suggestedFertilizingDays);
+        } else {
+          setFertilizingCustom(String(data.suggestedFertilizingDays));
+        }
+      }
+      if (data.confident !== false) toast.success('Sugestão de cuidados aplicada!');
+      else toast.warn(data.careHint || 'Sugestão aproximada — ajuste conforme sua experiência.');
+    } catch {
+      toast.error('Não foi possível buscar sugestões. Tente novamente.');
+    } finally {
+      setSuggesting(false);
     }
   };
 
@@ -187,7 +233,7 @@ function AddPlant() {
     }
 
     try {
-      await API.post('/api/plants', {
+      const res = await API.post('/api/plants', {
         name: name.trim(),
         species: species.trim(),
         wateringFrequencyDays: wateringDays,
@@ -197,6 +243,13 @@ function AddPlant() {
         location: location || undefined,
         notes: notes.trim(),
       });
+      if (identifiedFile && useIdentifiedPhoto) {
+        try {
+          const fd = new FormData();
+          fd.append('photo', identifiedFile);
+          await API.patch(`/api/plants/${res.data._id}/photo`, fd, { headers: { 'Content-Type': 'multipart/form-data' } });
+        } catch { /* non-critical — plant was created */ }
+      }
       toast.success(`"${name}" adicionada ao jardim!`);
       navigate('/dashboard');
     } catch (error) {
@@ -298,6 +351,19 @@ function AddPlant() {
         <>
           <h2>Como você cuida dela?</h2>
 
+          {/* Keep Gemini identification photo? */}
+          {identifiedFile && (
+            <label className="flex items-center gap-2 mb-5 cursor-pointer text-sm text-text-muted rounded-2xl border border-mint-light bg-sage-green/10 px-4 py-3">
+              <input
+                type="checkbox"
+                checked={useIdentifiedPhoto}
+                onChange={(e) => setUseIdentifiedPhoto(e.target.checked)}
+                className="w-4 h-4 accent-emerald-leaf rounded"
+              />
+              Usar a foto da identificação como foto da planta
+            </label>
+          )}
+
           {/* Botanical info card — shown when a plant was selected from our database */}
           {selectedPlantInfo.plant && (
             <div className="rounded-2xl border border-mint-light bg-sage-green/10 px-5 py-4 mb-5 text-left">
@@ -318,9 +384,22 @@ function AddPlant() {
           )}
 
           {!selectedPlantInfo.plant && (
-            <p className="text-left mt-0 mb-6 text-text-muted text-sm">
-              Registrando agora: <strong>{name}</strong>{species ? ` (${species})` : ''}
-            </p>
+            <div className="flex items-center justify-between gap-3 mb-6">
+              <p className="text-left mt-0 mb-0 text-text-muted text-sm flex-1">
+                Registrando agora: <strong>{name}</strong>{species ? ` (${species})` : ''}
+              </p>
+              {!careSuggestion && (
+                <button
+                  type="button"
+                  onClick={handleSuggestCare}
+                  disabled={suggesting}
+                  className="w-auto px-3 py-1.5 text-xs flex items-center gap-1.5 bg-sage-green/10 border border-sage-green text-deep-forest hover:bg-sage-green/20 shrink-0"
+                  style={{ borderRadius: '10px', minHeight: 'auto' }}
+                >
+                  <Sparkles size={12} /> {suggesting ? 'Buscando...' : 'Sugerir com IA'}
+                </button>
+              )}
+            </div>
           )}
 
           <form onSubmit={handleSubmit}>

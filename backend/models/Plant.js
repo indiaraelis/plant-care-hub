@@ -61,6 +61,12 @@ const PlantSchema = new mongoose.Schema({
         type: String,
         default: null,
     },
+    frequencyChangedAt: {
+        // Tracks the last time wateringFrequencyDays or fertilizingFrequencyDays was changed,
+        // so future analyses can account for mid-history schedule changes.
+        type: Date,
+        default: null,
+    },
 }, {
     timestamps: true // Adiciona automaticamente createdAt e updatedAt
 });
