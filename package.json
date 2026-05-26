@@ -1,4 +1,12 @@
 {
+  "scripts": {
+    "dev": "concurrently --names \"backend,frontend\" --prefix-colors \"green,blue\" \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && node server.js",
+    "dev:frontend": "cd frontend && npm start"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  },
   "dependencies": {
     "dotenv": "^16.5.0"
   }

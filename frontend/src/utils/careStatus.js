@@ -59,14 +59,16 @@ export function statusBadgeClass(status) {
 }
 
 /**
- * Returns the Tailwind color class for the small dot indicator.
+ * Returns the Lucide icon name and color class for a given status + care type.
+ * Icons: AlertCircle = overdue, Droplets/Leaf = today, Clock = upcoming, CheckCircle = ok
  */
-export function statusDotClass(status) {
+export function statusIconProps(status, type) {
+  const isWater = type === 'rega';
   switch (status) {
-    case 'overdue':  return 'bg-red-500';
-    case 'today':    return 'bg-yellow-400';
-    case 'upcoming': return 'bg-blue-400';
-    case 'ok':       return 'bg-green-500';
-    default:         return '';
+    case 'overdue':  return { icon: 'AlertCircle', colorClass: 'text-red-600' };
+    case 'today':    return { icon: isWater ? 'Droplets' : 'Leaf', colorClass: 'text-yellow-600' };
+    case 'upcoming': return { icon: 'Clock',        colorClass: 'text-blue-500' };
+    case 'ok':       return { icon: 'CheckCircle',  colorClass: 'text-green-600' };
+    default:         return null;
   }
 }

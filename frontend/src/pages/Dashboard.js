@@ -5,15 +5,20 @@ import { useNavigate, Link } from 'react-router-dom';
 import API from '../api';
 import { toast } from 'react-toastify';
 import { useAuth } from '../context/AuthContext';
-import { getCareStatus, statusLabel, statusBadgeClass, statusDotClass } from '../utils/careStatus';
+import { AlertCircle, CheckCircle, Clock, Droplets, Leaf } from 'lucide-react';
+import { getCareStatus, statusLabel, statusBadgeClass, statusIconProps } from '../utils/careStatus';
+
+const LUCIDE_ICONS = { AlertCircle, CheckCircle, Clock, Droplets, Leaf };
 
 function CareBadge({ lastDate, freqDays, type }) {
   const { status, daysLeft } = getCareStatus(lastDate, freqDays);
   if (status === 'na') return null;
   const label = statusLabel(status, daysLeft, type);
+  const iconProps = statusIconProps(status, type);
+  const Icon = iconProps ? LUCIDE_ICONS[iconProps.icon] : null;
   return (
     <span className={`inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full ${statusBadgeClass(status)}`}>
-      <span className={`inline-block w-2 h-2 rounded-full flex-shrink-0 ${statusDotClass(status)}`} />
+      {Icon && <Icon size={12} className={`flex-shrink-0 ${iconProps.colorClass}`} />}
       {label}
     </span>
   );
@@ -41,7 +46,7 @@ function UrgentBanner({ plants }) {
           const needsFert  = f.status === 'overdue'  || f.status === 'today';
           return (
             <li key={p._id} className="text-sm text-yellow-800 text-left flex items-center gap-2">
-              <span className={`inline-block w-2 h-2 rounded-full flex-shrink-0 ${needsWater ? statusDotClass(w.status) : statusDotClass(f.status)}`} />
+              <AlertCircle size={14} className="flex-shrink-0 text-yellow-700" />
               <span className="font-medium">{p.name}</span>
               {needsWater && <span className="text-yellow-700">rega</span>}
               {needsFert  && <span className="text-yellow-700">adubação</span>}
