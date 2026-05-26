@@ -44,6 +44,11 @@ const PlantSchema = new mongoose.Schema({
         trim: true,
         maxlength: [500, 'As notas não podem ter mais de 500 caracteres'],
     },
+    location: {
+        type: String,
+        trim: true,
+        default: null,
+    },
 }, {
     timestamps: true // Adiciona automaticamente createdAt e updatedAt
 });

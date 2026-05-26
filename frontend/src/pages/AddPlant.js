@@ -1,258 +1,302 @@
-// AddPlantImproved.js
-// Versão melhorada do componente AddPlant com seletor de plantas em português
-// e integração aprimorada com busca Trefle.io via PlantAutocomplete
+// frontend/src/pages/AddPlant.js
 
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import API from '../api'; // Seu cliente Axios
+import API from '../api';
 import { toast } from 'react-toastify';
 import PlantAutocomplete from '../components/PlantAutocomplete';
-import PlantSelectSimple from '../components/PlantSelectSimple';
+
+// Quick-pick options for watering frequency
+const WATERING_PRESETS = [
+  { label: 'A cada 2 dias', value: 2 },
+  { label: 'Semanal',       value: 7 },
+  { label: 'Quinzenal',     value: 15 },
+  { label: 'Mensal',        value: 30 },
+];
+
+const LOCATION_OPTIONS = ['Sala', 'Varanda', 'Quarto', 'Escritório', 'Cozinha', 'Banheiro', 'Jardim', 'Outro'];
+
+// Returns today's date formatted as YYYY-MM-DD for date inputs
+function today() {
+  return new Date().toISOString().split('T')[0];
+}
 
 function AddPlant() {
+  // Step 1 — identification
+  const [step, setStep] = useState(1);
+  const [selectedPlantInfo, setSelectedPlantInfo] = useState({ id: '', scientificName: '', commonNamePt: '', plant: null });
   const [name, setName] = useState('');
   const [species, setSpecies] = useState('');
-  const [wateringFrequencyDays, setWateringFrequencyDays] = useState('');
-  const [fertilizingFrequencyDays, setFertilizingFrequencyDays] = useState('');
+  const [speciesFromAutocomplete, setSpeciesFromAutocomplete] = useState(false);
+
+  // Step 2 — care details
+  const [wateringPreset, setWateringPreset] = useState(null);
+  const [wateringCustom, setWateringCustom] = useState('');
+  const [lastWatered, setLastWatered] = useState(today());
+  const [noFertilizing, setNoFertilizing] = useState(false);
+  const [fertilizingPreset, setFertilizingPreset] = useState(null);
+  const [fertilizingCustom, setFertilizingCustom] = useState('');
+  const [acquisitionDate, setAcquisitionDate] = useState('');
+  const [location, setLocation] = useState('');
   const [notes, setNotes] = useState('');
-  
-  // Estado para o seletor de plantas
-  const [selectedPlantInfo, setSelectedPlantInfo] = useState({ 
-    id: "", 
-    scientificName: "", 
-    commonNamePt: "", 
-    plant: null 
-  });
-  const [useAutocomplete, setUseAutocomplete] = useState(true);
-  // Novo estado para controlar se a busca externa deve ser usada no PlantAutocomplete
-  const [useExternalSearchInAutocomplete, setUseExternalSearchInAutocomplete] = useState(false);
 
   const navigate = useNavigate();
 
-  // Função para buscar na API Trefle (passada para PlantAutocomplete)
-  const handleTrefleSearchInAutocomplete = async (query) => {
-    if (!query.trim()) {
-      return [];
-    }
-
+  const handleTrefleSearch = async (query) => {
+    if (!query.trim()) return [];
     try {
       const res = await API.get(`/api/trefle/search?query=${encodeURIComponent(query)}`);
       return res.data;
-    } catch (error) {
-      toast.error('Erro ao buscar plantas externas: ' + (error.response ? error.response.data.msg : error.message));
+    } catch {
       return [];
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    // Validações
-    if (!name || !wateringFrequencyDays) {
-      toast.error('Nome da planta e frequência de rega são obrigatórios!');
-      return;
-    }
-    if (isNaN(wateringFrequencyDays) || parseInt(wateringFrequencyDays) < 1) {
-      toast.error('Frequência de rega deve ser um número maior que 0.');
-      return;
-    }
-    if (fertilizingFrequencyDays && isNaN(fertilizingFrequencyDays)) {
-      toast.error('Frequência de adubação deve ser um número.');
-      return;
-    }
-
-    try {
-      const plantData = {
-        name,
-        species,
-        wateringFrequencyDays: parseInt(wateringFrequencyDays),
-        fertilizingFrequencyDays: fertilizingFrequencyDays ? parseInt(fertilizingFrequencyDays) : 0,
-        notes,
-      };
-
-      const res = await API.post('/api/plants', plantData);
-      toast.success('Planta adicionada com sucesso!');
-      navigate('/dashboard');
-    } catch (error) {
-      toast.error('Erro ao adicionar planta: ' + (error.response ? error.response.data.msg : error.message));
-    }
-  };
-
-  // Função para lidar com a seleção de planta do PlantAutocomplete ou PlantSelectSimple
   const handlePlantSelection = (selection) => {
     setSelectedPlantInfo(selection);
     if (selection.plant) {
       setName(selection.commonNamePt);
       setSpecies(selection.scientificName);
-      
-      // Adiciona informações da planta nas notas
-      let plantInfo = `Informações da planta:
-Nome científico: ${selection.plant.scientificName || 'N/A'}
-Família: ${selection.plant.family || 'N/A'}
-Origem: ${selection.plant.origin || 'N/A'}
-Hábito: ${selection.plant.habit || 'N/A'}`;
-      
-      if (selection.plant.alternativeNamesPt && selection.plant.alternativeNamesPt.length > 0) {
+      setSpeciesFromAutocomplete(true);
+
+      let plantInfo = `Nome científico: ${selection.plant.scientificName || 'N/A'}\nFamília: ${selection.plant.family || 'N/A'}`;
+      if (selection.plant.origin) plantInfo += `\nOrigem: ${selection.plant.origin}`;
+      if (selection.plant.alternativeNamesPt?.length > 0) {
         plantInfo += `\nOutros nomes: ${selection.plant.alternativeNamesPt.join(', ')}`;
       }
-
-      // Adiciona informações específicas do Trefle.io se a planta for externa
-      if (selection.plant.isExternal && selection.plant.originalTrefleData) {
-        const trefleData = selection.plant.originalTrefleData;
-        plantInfo += `\n\nDados do Trefle.io:
-Etimologia: ${trefleData.etymology || 'N/A'}
-Duração: ${trefleData.duration || 'N/A'}
-Folhagem persistente: ${trefleData.foliage?.evergreen ? 'Sim' : 'Não'}
-Tolerância à sombra: ${trefleData.growth?.light_tolerated || 'N/A'}
-Link Trefle: ${trefleData.links?.plant || 'N/A'}`;
-        // Você pode adicionar mais campos do Trefle.io conforme necessário
-      }
-
       setNotes(plantInfo);
-      toast.success(`Dados de "${selection.commonNamePt}" pré-preenchidos.`);
     } else {
-      // Limpa os campos se nenhuma planta foi selecionada
-      setName('');
-      setSpecies('');
-      setNotes('');
-      toast.info('Nenhuma planta selecionada.');
+      setSpeciesFromAutocomplete(false);
+    }
+  };
+
+  const getWateringDays = () => {
+    if (wateringPreset) return wateringPreset;
+    const v = parseInt(wateringCustom);
+    return isNaN(v) ? null : v;
+  };
+
+  const getFertilizingDays = () => {
+    if (noFertilizing) return 0;
+    if (fertilizingPreset) return fertilizingPreset;
+    const v = parseInt(fertilizingCustom);
+    return isNaN(v) ? null : v;
+  };
+
+  const handleStep1Next = (e) => {
+    e.preventDefault();
+    if (!name.trim()) {
+      toast.error('Informe o nome da planta antes de continuar.');
+      return;
+    }
+    setStep(2);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const wateringDays = getWateringDays();
+    if (!wateringDays || wateringDays < 1) {
+      toast.error('Selecione ou informe a frequência de rega.');
+      return;
+    }
+
+    try {
+      await API.post('/api/plants', {
+        name: name.trim(),
+        species: species.trim(),
+        wateringFrequencyDays: wateringDays,
+        lastWatered: lastWatered || undefined,
+        fertilizingFrequencyDays: getFertilizingDays() ?? 0,
+        acquisitionDate: acquisitionDate || undefined,
+        location: location || undefined,
+        notes: notes.trim(),
+      });
+      toast.success(`"${name}" adicionada ao jardim!`);
+      navigate('/dashboard');
+    } catch (error) {
+      toast.error('Erro ao adicionar planta: ' + (error.response?.data?.msg ?? error.message));
     }
   };
 
   return (
     <div className="container">
-      <h2>Adicionar Nova Planta</h2>
-
-      {/* Seletor de plantas em português */}
-      <div className="plant-selector-section">
-        <h3>Selecionar Planta</h3>
-        
-        {/* Toggle entre autocomplete e select simples */}
-        <div className="selector-toggle">
-          <label>
-            <input
-              type="radio"
-              name="selectorType"
-              checked={useAutocomplete}
-              onChange={() => {
-                setUseAutocomplete(true);
-                // Quando muda para autocomplete, define o uso da busca externa baseada na checkbox
-                // Isso evita que a busca externa seja ativada no select simples
-                setUseExternalSearchInAutocomplete(document.getElementById('toggleExternalSearch').checked);
-              }}
-            />
-            Busca com autocomplete (Base local &amp; Internacional)
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="selectorType"
-              checked={!useAutocomplete}
-              onChange={() => {
-                setUseAutocomplete(false);
-                // Desativa a busca externa ao mudar para o select simples
-                setUseExternalSearchInAutocomplete(false);
-              }}
-            />
-            Lista simples (Base local)
-          </label>
-        </div>
-
-        {/* Toggle para ativar/desativar busca externa no autocomplete */}
-        {useAutocomplete && (
-          <div className="external-search-toggle">
-            <label>
-              <input
-                type="checkbox"
-                id="toggleExternalSearch"
-                checked={useExternalSearchInAutocomplete}
-                onChange={(e) => setUseExternalSearchInAutocomplete(e.target.checked)}
-              />
-              Incluir busca na base internacional (Trefle.io)
-            </label>
-          </div>
-        )}
-
-        {/* Componente de seleção */}
-        {useAutocomplete ? (
-          <PlantAutocomplete
-            value={selectedPlantInfo.id}
-            onChange={handlePlantSelection}
-            placeholder="Digite o nome da planta em português ou científico..."
-            className="plant-selector"
-            onSearchExternal={handleTrefleSearchInAutocomplete} // Passa a função de busca externa
-            useExternalSearch={useExternalSearchInAutocomplete} // Passa o controle do uso da busca externa
-          />
-        ) : (
-          <PlantSelectSimple
-            value={selectedPlantInfo.id}
-            onChange={handlePlantSelection}
-            placeholder="Selecione uma planta..."
-            className="plant-selector"
-          />
-        )}
+      {/* Step indicator */}
+      <div className="flex items-center gap-2 mb-6 text-sm text-text-muted">
+        <span className={`font-semibold ${step === 1 ? 'text-emerald-leaf' : 'text-text-muted'}`}>1. Qual é a planta?</span>
+        <span className="text-text-muted">→</span>
+        <span className={`font-semibold ${step === 2 ? 'text-emerald-leaf' : 'text-text-muted'}`}>2. Como você cuida dela?</span>
       </div>
 
-      <hr className="my-8" />
+      {step === 1 && (
+        <>
+          <h2>Nova planta no jardim</h2>
 
-      {/* Formulário de detalhes da planta */}
-      <h3>Detalhes da Sua Planta</h3>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Nome da Planta (Ex: Costela de Adão):</label>
-          <input 
-            type="text" 
-            value={name} 
-            onChange={(e) => setName(e.target.value)} 
-            required 
-            placeholder="Nome que você dará para sua planta"
-          />
-        </div>
-        <div>
-          <label>Espécie (Ex: Monstera deliciosa):</label>
-          <input 
-            type="text" 
-            value={species} 
-            onChange={(e) => setSpecies(e.target.value)} 
-            placeholder="Nome científico da espécie"
-          />
-        </div>
-        <div>
-          <label>Frequência de Rega (dias):</label>
-          <input
-            type="number"
-            value={wateringFrequencyDays}
-            onChange={(e) => setWateringFrequencyDays(e.target.value)}
-            required
-            min="1"
-            placeholder="Quantos dias entre cada rega"
-          />
-        </div>
-        <div>
-          <label>Frequência de Adubação (dias - 0 para não adubar):</label>
-          <input 
-            type="number" 
-            value={fertilizingFrequencyDays} 
-            onChange={(e) => setFertilizingFrequencyDays(e.target.value)} 
-            min="0" 
-            placeholder="Quantos dias entre cada adubação"
-          />
-        </div>
-        <div>
-          <label>Notas (opcional):</label>
-          <textarea 
-            value={notes} 
-            onChange={(e) => setNotes(e.target.value)} 
-            rows="6"
-            placeholder="Informações adicionais sobre sua planta"
-          ></textarea>
-        </div>
-        <button type="submit">Adicionar Planta</button>
-      </form>
+          <div className="add-plant-section">
+            <h2>Qual é a planta?</h2>
+            <p className="text-left mt-0 mb-4 text-text-muted text-sm">
+              Busque pelo nome em português ou científico — preenchemos os dados automaticamente.
+            </p>
+            <PlantAutocomplete
+              value={selectedPlantInfo.id}
+              onChange={handlePlantSelection}
+              placeholder="Ex: Costela de Adão, Pothos, Samambaia..."
+              onSearchExternal={handleTrefleSearch}
+              useExternalSearch={true}
+            />
+          </div>
 
-      <p>
-        <Link to="/dashboard">Voltar para o Dashboard</Link>
-      </p>
+          <form onSubmit={handleStep1Next}>
+            <div>
+              <label>Nome da planta</label>
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => { setName(e.target.value); setSpeciesFromAutocomplete(false); }}
+                required
+                placeholder="Como você quer chamar ela?"
+              />
+            </div>
+
+            {species && (
+              <div>
+                <label>Nome científico</label>
+                <input
+                  type="text"
+                  value={species}
+                  onChange={speciesFromAutocomplete ? undefined : (e) => setSpecies(e.target.value)}
+                  readOnly={speciesFromAutocomplete}
+                  className={speciesFromAutocomplete ? 'opacity-60 cursor-default' : ''}
+                  placeholder="Nome científico da espécie"
+                />
+              </div>
+            )}
+
+            <button type="submit">Continuar</button>
+          </form>
+
+          <p><Link to="/dashboard">Voltar</Link></p>
+        </>
+      )}
+
+      {step === 2 && (
+        <>
+          <h2>Como você cuida dela?</h2>
+          <p className="text-left mt-0 mb-6 text-text-muted text-sm">
+            Registrando agora: <strong>{name}</strong>{species ? ` (${species})` : ''}
+          </p>
+
+          <form onSubmit={handleSubmit}>
+            {/* Watering frequency */}
+            <div>
+              <label>Com que frequência você rega?</label>
+              <div className="flex flex-wrap gap-2 mb-3">
+                {WATERING_PRESETS.map(p => (
+                  <button
+                    key={p.value}
+                    type="button"
+                    onClick={() => { setWateringPreset(p.value); setWateringCustom(''); }}
+                    className={`w-auto px-4 py-2 text-sm rounded-xl border transition-all ${
+                      wateringPreset === p.value
+                        ? 'bg-emerald-leaf text-white border-emerald-leaf'
+                        : 'bg-white text-text-primary border-mint-light hover:border-sage-green'
+                    }`}
+                  >
+                    {p.label}
+                  </button>
+                ))}
+              </div>
+              <input
+                type="number"
+                value={wateringCustom}
+                onChange={(e) => { setWateringCustom(e.target.value); setWateringPreset(null); }}
+                min="1"
+                placeholder="Ou digite o número de dias..."
+              />
+            </div>
+
+            {/* Last watered */}
+            <div>
+              <label>Última rega</label>
+              <input type="date" value={lastWatered} onChange={(e) => setLastWatered(e.target.value)} />
+            </div>
+
+            {/* Fertilizing */}
+            <div>
+              <label>Adubação</label>
+              <label className="flex items-center gap-2 mb-3 cursor-pointer font-normal text-sm text-text-muted">
+                <input
+                  type="checkbox"
+                  checked={noFertilizing}
+                  onChange={(e) => { setNoFertilizing(e.target.checked); setFertilizingPreset(null); setFertilizingCustom(''); }}
+                  className="w-4 h-4"
+                />
+                Essa planta não precisa de adubação
+              </label>
+
+              {!noFertilizing && (
+                <>
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {WATERING_PRESETS.map(p => (
+                      <button
+                        key={p.value}
+                        type="button"
+                        onClick={() => { setFertilizingPreset(p.value); setFertilizingCustom(''); }}
+                        className={`w-auto px-4 py-2 text-sm rounded-xl border transition-all ${
+                          fertilizingPreset === p.value
+                            ? 'bg-emerald-leaf text-white border-emerald-leaf'
+                            : 'bg-white text-text-primary border-mint-light hover:border-sage-green'
+                        }`}
+                      >
+                        {p.label}
+                      </button>
+                    ))}
+                  </div>
+                  <input
+                    type="number"
+                    value={fertilizingCustom}
+                    onChange={(e) => { setFertilizingCustom(e.target.value); setFertilizingPreset(null); }}
+                    min="1"
+                    placeholder="Ou digite o número de dias..."
+                  />
+                </>
+              )}
+            </div>
+
+            {/* Location */}
+            <div>
+              <label>Onde ela fica?</label>
+              <select value={location} onChange={(e) => setLocation(e.target.value)}>
+                <option value="">Selecione um cômodo (opcional)</option>
+                {LOCATION_OPTIONS.map(l => <option key={l} value={l}>{l}</option>)}
+              </select>
+            </div>
+
+            {/* Acquisition date */}
+            <div>
+              <label>Quando você a adquiriu? (opcional)</label>
+              <input type="date" value={acquisitionDate} onChange={(e) => setAcquisitionDate(e.target.value)} />
+            </div>
+
+            {/* Notes */}
+            <div>
+              <label>Alguma observação?</label>
+              <textarea
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+                rows="4"
+                placeholder="Onde ela fica, comportamento, cuidados especiais..."
+              />
+            </div>
+
+            <div className="flex gap-3">
+              <button type="button" onClick={() => setStep(1)} className="bg-white text-text-primary border border-mint-light hover:border-sage-green w-auto px-6">
+                Voltar
+              </button>
+              <button type="submit">Adicionar ao jardim</button>
+            </div>
+          </form>
+        </>
+      )}
     </div>
   );
 }

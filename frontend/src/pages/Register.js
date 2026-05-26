@@ -2,21 +2,24 @@
 
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import API from '../api'; // axios configurado com baseURL
+import API from '../api';
 import { toast } from 'react-toastify';
+import { useAuth } from '../context/AuthContext';
 
 function Register() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const res = await API.post('/api/auth/register', { username, email, password });
-      toast.success('Registro realizado com sucesso! Faça login agora.');
-      navigate('/login');
+      login(res.data);
+      toast.success('Conta criada com sucesso!');
+      navigate('/dashboard');
     } catch (error) {
       toast.error('Erro no registro: ' + (error.response ? error.response.data.msg : error.message));
     }

@@ -65,7 +65,7 @@ function EditPlant() {
         notes,
       };
 
-      const res = await API.put(`/api/plants/${id}`, plantData);
+      await API.put(`/api/plants/${id}`, plantData);
       toast.success('Planta atualizada com sucesso!');
       navigate('/dashboard');
     } catch (error) {

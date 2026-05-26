@@ -25,6 +25,11 @@ const createPlantValidators = [
         .optional()
         .trim()
         .isLength({ max: 500 }).withMessage('As notas não podem ter mais de 500 caracteres'),
+
+    body('location')
+        .optional()
+        .trim()
+        .isLength({ max: 50 }).withMessage('A localização não pode ter mais de 50 caracteres'),
 ];
 
 const updatePlantValidators = [
@@ -49,6 +54,11 @@ const updatePlantValidators = [
         .optional()
         .trim()
         .isLength({ max: 500 }).withMessage('As notas não podem ter mais de 500 caracteres'),
+
+    body('location')
+        .optional()
+        .trim()
+        .isLength({ max: 50 }).withMessage('A localização não pode ter mais de 50 caracteres'),
 ];
 
 const mongoIdValidator = [

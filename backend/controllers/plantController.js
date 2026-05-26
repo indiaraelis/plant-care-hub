@@ -20,7 +20,7 @@ exports.getPlants = async (req, res, next) => {
 // @access  Private
 exports.createPlant = async (req, res, next) => {
     try {
-        const { name, species, acquisitionDate, wateringFrequencyDays, fertilizingFrequencyDays, notes } = req.body;
+        const { name, species, acquisitionDate, wateringFrequencyDays, fertilizingFrequencyDays, notes, location } = req.body;
 
         const plant = await new Plant({
             owner: req.user.id,
@@ -30,6 +30,7 @@ exports.createPlant = async (req, res, next) => {
             wateringFrequencyDays,
             fertilizingFrequencyDays,
             notes,
+            location,
         }).save();
 
         res.status(201).json(plant);
@@ -66,7 +67,7 @@ exports.getPlantById = async (req, res, next) => {
 // @access  Private
 exports.updatePlant = async (req, res, next) => {
     try {
-        const { name, species, acquisitionDate, wateringFrequencyDays, lastWatered, fertilizingFrequencyDays, lastFertilized, notes } = req.body;
+        const { name, species, acquisitionDate, wateringFrequencyDays, lastWatered, fertilizingFrequencyDays, lastFertilized, notes, location } = req.body;
 
         const plant = await Plant.findById(req.params.id);
 
@@ -86,6 +87,7 @@ exports.updatePlant = async (req, res, next) => {
         if (fertilizingFrequencyDays !== undefined) plant.fertilizingFrequencyDays = fertilizingFrequencyDays;
         if (lastFertilized !== undefined) plant.lastFertilized = lastFertilized;
         if (notes !== undefined) plant.notes = notes;
+        if (location !== undefined) plant.location = location;
 
         await plant.save();
         res.json(plant);
