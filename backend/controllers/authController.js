@@ -1,14 +1,22 @@
 // backend/controllers/authController.js
 
 const User = require('../models/User');
-const jwt = require('jsonwebtoken'); // Importa o jsonwebtoken
+const Plant = require('../models/Plant');
+const jwt = require('jsonwebtoken');
 
-// Função auxiliar para gerar JWT
+const TOKEN_TTL    = '7d';
+const COOKIE_TTL   = 7 * 24 * 60 * 60 * 1000; // 7 days in ms
+
 const generateToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET, {
-        expiresIn: '1h', // Token expira em 1 hora (ajuste conforme necessidade)
-    });
+    return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: TOKEN_TTL });
 };
+
+const cookieOptions = () => ({
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'strict',
+    maxAge: COOKIE_TTL,
+});
 
 // @desc    Registrar novo usuário
 // @route   POST /api/auth/register
@@ -33,12 +41,7 @@ exports.registerUser = async (req, res, next) => {
 
         const token = generateToken(user._id);
 
-        res.cookie('token', token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'strict',
-            maxAge: 60 * 60 * 1000,
-        });
+        res.cookie('token', token, cookieOptions());
 
         res.status(201).json({
             _id: user._id,
@@ -72,12 +75,7 @@ exports.loginUser = async (req, res, next) => {
 
         const token = generateToken(user._id);
 
-        res.cookie('token', token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'strict',
-            maxAge: 60 * 60 * 1000,
-        });
+        res.cookie('token', token, cookieOptions());
 
         res.json({
             _id: user._id,
@@ -111,4 +109,41 @@ exports.getMe = async (req, res) => {
         username: req.user.username,
         email: req.user.email,
     });
+};
+
+// @desc    Alterar senha
+// @route   PATCH /api/auth/password
+// @access  Private
+exports.changePassword = async (req, res, next) => {
+    const { currentPassword, newPassword } = req.body;
+    try {
+        const user = await User.findById(req.user._id);
+        const isMatch = await user.matchPassword(currentPassword);
+        if (!isMatch) {
+            return res.status(400).json({ msg: 'Senha atual incorreta.' });
+        }
+        user.password = newPassword;
+        await user.save(); // pre-save hook fará o hash
+        res.json({ msg: 'Senha alterada com sucesso.' });
+    } catch (error) {
+        next(error);
+    }
+};
+
+// @desc    Deletar conta e todas as plantas do usuário
+// @route   DELETE /api/auth/account
+// @access  Private
+exports.deleteAccount = async (req, res, next) => {
+    try {
+        await Plant.deleteMany({ owner: req.user._id });
+        await User.findByIdAndDelete(req.user._id);
+        res.clearCookie('token', {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict',
+        });
+        res.json({ msg: 'Conta excluída com sucesso.' });
+    } catch (error) {
+        next(error);
+    }
 };

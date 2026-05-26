@@ -30,4 +30,13 @@ const loginValidators = [
         .notEmpty().withMessage('A senha é obrigatória'),
 ];
 
-module.exports = { registerValidators, loginValidators };
+const changePasswordValidators = [
+    body('currentPassword')
+        .notEmpty().withMessage('Informe a senha atual.'),
+
+    body('newPassword')
+        .notEmpty().withMessage('A nova senha é obrigatória.')
+        .isLength({ min: 6 }).withMessage('A nova senha deve ter no mínimo 6 caracteres.'),
+];
+
+module.exports = { registerValidators, loginValidators, changePasswordValidators };

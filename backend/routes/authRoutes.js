@@ -6,7 +6,7 @@ const rateLimit = require('express-rate-limit');
 const authController = require('../controllers/authController');
 const { protect } = require('../middlewares/authMiddleware');
 const validate = require('../middlewares/validate');
-const { registerValidators, loginValidators } = require('../validators/authValidators');
+const { registerValidators, loginValidators, changePasswordValidators } = require('../validators/authValidators');
 
 const loginLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // janela de 15 minutos
@@ -16,10 +16,11 @@ const loginLimiter = rateLimit({
     message: { msg: 'Muitas tentativas de login. Tente novamente em 15 minutos.' },
 });
 
-// Rotas de autenticação
-router.post('/register', registerValidators, validate, authController.registerUser);              // POST /api/auth/register
-router.post('/login', loginLimiter, loginValidators, validate, authController.loginUser);          // POST /api/auth/login
-router.post('/logout', authController.logoutUser);                                                 // POST /api/auth/logout
-router.get('/me', protect, authController.getMe);                                                  // GET  /api/auth/me
+router.post('/register', registerValidators, validate, authController.registerUser);
+router.post('/login', loginLimiter, loginValidators, validate, authController.loginUser);
+router.post('/logout', authController.logoutUser);
+router.get('/me', protect, authController.getMe);
+router.patch('/password', protect, changePasswordValidators, validate, authController.changePassword);
+router.delete('/account', protect, authController.deleteAccount);
 
 module.exports = router;

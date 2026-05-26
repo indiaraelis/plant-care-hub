@@ -5,7 +5,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import API from '../api';
 import { toast } from 'react-toastify';
 import { useAuth } from '../context/AuthContext';
-import { AlertCircle, CheckCircle, Clock, Droplets, Leaf, MapPin, Pencil, Search, Trash2, X } from 'lucide-react';
+import { AlertCircle, CheckCircle, Clock, Droplets, Leaf, MapPin, Pencil, Search, Settings, Trash2, X } from 'lucide-react';
 import { getCareStatus, statusLabel, statusBadgeClass, statusIconProps } from '../utils/careStatus';
 
 const LUCIDE_ICONS = { AlertCircle, CheckCircle, Clock, Droplets, Leaf };
@@ -208,7 +208,12 @@ function Dashboard() {
         <h2 className="mb-0 text-left" style={{ background: 'none', WebkitTextFillColor: 'inherit', color: 'inherit' }}>
           {user ? `Jardim de ${user.username}` : 'Meu Jardim'}
         </h2>
-        <button onClick={handleLogout} className="w-auto px-5 py-2 text-sm shrink-0">Sair</button>
+        <div className="flex items-center gap-2 shrink-0">
+          <Link to="/account" className="flex items-center justify-center w-9 h-9 rounded-xl border border-mint-light bg-white hover:border-sage-green text-text-muted hover:text-deep-forest transition-colors" title="Minha conta">
+            <Settings size={16} />
+          </Link>
+          <button onClick={handleLogout} className="w-auto px-5 py-2 text-sm">Sair</button>
+        </div>
       </div>
 
       <UrgentBanner plants={plants} />
