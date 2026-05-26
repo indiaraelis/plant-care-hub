@@ -5,6 +5,53 @@ import { useNavigate, Link } from 'react-router-dom';
 import API from '../api';
 import { toast } from 'react-toastify';
 import { useAuth } from '../context/AuthContext';
+import { getCareStatus, statusLabel, statusBadgeClass, statusDotClass } from '../utils/careStatus';
+
+function CareBadge({ lastDate, freqDays, type }) {
+  const { status, daysLeft } = getCareStatus(lastDate, freqDays);
+  if (status === 'na') return null;
+  const label = statusLabel(status, daysLeft, type);
+  return (
+    <span className={`inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full ${statusBadgeClass(status)}`}>
+      <span className={`inline-block w-2 h-2 rounded-full flex-shrink-0 ${statusDotClass(status)}`} />
+      {label}
+    </span>
+  );
+}
+
+function UrgentBanner({ plants }) {
+  const urgent = plants.filter(p => {
+    const w = getCareStatus(p.lastWatered, p.wateringFrequencyDays);
+    const f = getCareStatus(p.lastFertilized, p.fertilizingFrequencyDays);
+    return w.status === 'overdue' || w.status === 'today' || f.status === 'overdue' || f.status === 'today';
+  });
+
+  if (urgent.length === 0) return null;
+
+  return (
+    <div className="mb-6 rounded-2xl border border-yellow-300 bg-yellow-50 px-5 py-4">
+      <p className="text-yellow-800 font-semibold mb-2 text-sm text-left mt-0">
+        {urgent.length} planta{urgent.length !== 1 ? 's precisam' : ' precisa'} de atenção hoje:
+      </p>
+      <ul className="list-none m-0 p-0 flex flex-col gap-1">
+        {urgent.map(p => {
+          const w = getCareStatus(p.lastWatered, p.wateringFrequencyDays);
+          const f = getCareStatus(p.lastFertilized, p.fertilizingFrequencyDays);
+          const needsWater = w.status === 'overdue' || w.status === 'today';
+          const needsFert  = f.status === 'overdue'  || f.status === 'today';
+          return (
+            <li key={p._id} className="text-sm text-yellow-800 text-left flex items-center gap-2">
+              <span className={`inline-block w-2 h-2 rounded-full flex-shrink-0 ${needsWater ? statusDotClass(w.status) : statusDotClass(f.status)}`} />
+              <span className="font-medium">{p.name}</span>
+              {needsWater && <span className="text-yellow-700">rega</span>}
+              {needsFert  && <span className="text-yellow-700">adubação</span>}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
 
 function Dashboard() {
   const [plants, setPlants] = useState([]);
@@ -33,7 +80,6 @@ function Dashboard() {
     if (!window.confirm('Tem certeza que deseja excluir esta planta?')) {
       return;
     }
-
     try {
       await API.delete(`/api/plants/${plantId}`);
       toast.success('Planta excluída com sucesso!');
@@ -50,6 +96,8 @@ function Dashboard() {
         <button onClick={handleLogout} className="w-auto px-6">Sair</button>
       </div>
 
+      <UrgentBanner plants={plants} />
+
       {plants.length === 0 ? (
         <p>Você ainda não tem plantas cadastradas. Que tal adicionar uma?</p>
       ) : (
@@ -57,13 +105,19 @@ function Dashboard() {
           {plants.map((plant) => (
             <div key={plant._id} className="plant-item">
               <h3>{plant.name} ({plant.species})</h3>
+
+              <div className="flex flex-wrap gap-2 mb-3">
+                <CareBadge lastDate={plant.lastWatered} freqDays={plant.wateringFrequencyDays} type="rega" />
+                <CareBadge lastDate={plant.lastFertilized} freqDays={plant.fertilizingFrequencyDays} type="adubação" />
+              </div>
+
               <p>Frequência de Rega: {plant.wateringFrequencyDays} dias</p>
-              <p>Última Rega: {new Date(plant.lastWatered).toLocaleDateString()}</p>
+              <p>Última Rega: {new Date(plant.lastWatered).toLocaleDateString('pt-BR')}</p>
               {plant.fertilizingFrequencyDays > 0 && (
                 <p>Frequência de Adubação: {plant.fertilizingFrequencyDays} dias</p>
               )}
               {plant.lastFertilized && (
-                <p>Última Adubação: {new Date(plant.lastFertilized).toLocaleDateString()}</p>
+                <p>Última Adubação: {new Date(plant.lastFertilized).toLocaleDateString('pt-BR')}</p>
               )}
               {plant.notes && <p>Notas: {plant.notes}</p>}
 
