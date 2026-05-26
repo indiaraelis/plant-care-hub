@@ -168,14 +168,6 @@ Recomendação: Perenual pra dados estruturados + Gemini pra parágrafo explicat
 - [x] Cards do Dashboard linkados ao detalhe; ícone de estatísticas no cabeçalho
 
 ## Fase 16 — Features especiais ✅
-
-## Fase 17 — Onboarding do primeiro uso
-> Momento mais crítico de retenção: usuário cria conta e chega num dashboard vazio. O que acontece agora determina se ele volta amanhã.
-
-- [x] Empty state do dashboard com dois cards de entrada guiada: "Identificar por foto" e "Buscar pelo nome" — ambos linkam para `/add-plant` com contexto visual diferente
-- [ ] **Fluxo dedicado**: após registro, redirecionar para `/add-plant` diretamente em vez de `/dashboard` (evitar o empty state completamente no primeiro uso)
-- [ ] **Tooltip / coachmark**: na primeira visita ao dashboard *com plantas*, destacar o botão Bell de notificações (o recurso mais esquecido)
-- [ ] **Email de boas-vindas**: após registro, enviar email com 3 dicas de uso — rota Nodemailer já existe
 > Diferenciação. Implementar após o core estar sólido.
 
 - [x] **Modo viagem** (`/viagem`): datas de saída/retorno → grupos "regar antes de sair", "precisa de cuidado durante ausência", "em dia" + **Web Share API** (WhatsApp/Telegram/etc.) com fallback clipboard
@@ -183,3 +175,11 @@ Recomendação: Perenual pra dados estruturados + Gemini pra parágrafo explicat
 - [x] **Foto da planta**: upload JPEG/PNG/WebP via multer → Cloudinary (5 MB limit, 800px crop); thumbnail no card do dashboard; hero na página de detalhe; botão "Foto" / "Trocar foto" na tela de edição; campo `photoUrl` no modelo Plant
 - [x] **Foto da identificação Gemini → guardar**: checkbox "Usar a foto da identificação como foto da planta" no passo 2 do AddPlant; upload automático no submit
 - [x] **`frequencyChangedAt`**: campo `Date` no modelo Plant, preenchido automaticamente no `PATCH /:id` quando `wateringFrequencyDays` ou `fertilizingFrequencyDays` muda — preserva contexto para análises futuras do histórico
+
+## Fase 17 — Onboarding do primeiro uso ✅
+> Momento mais crítico de retenção: usuário cria conta e chega num dashboard vazio. O que acontece agora determina se ele volta amanhã.
+
+- [x] Empty state do dashboard com dois cards de entrada guiada: "Identificar por foto" e "Buscar pelo nome" — ambos linkam para `/add-plant` com contexto visual diferente
+- [x] **Fluxo dedicado**: após registro, redirecionar para `/add-plant` diretamente em vez de `/dashboard` (evitar o empty state completamente no primeiro uso)
+- [x] **Tooltip / coachmark**: na primeira visita ao dashboard *com plantas*, destacar o botão Bell de notificações com dica contextual (flag `pch_bell_hint_shown` em localStorage)
+- [x] **Email de boas-vindas**: após registro, enviar email com 3 dicas de uso via Nodemailer

@@ -4,7 +4,7 @@ const crypto = require('crypto');
 const User = require('../models/User');
 const Plant = require('../models/Plant');
 const jwt = require('jsonwebtoken');
-const { sendResetEmail } = require('../utils/email');
+const { sendResetEmail, sendWelcomeEmail } = require('../utils/email');
 
 const TOKEN_TTL    = '7d';
 const COOKIE_TTL   = 7 * 24 * 60 * 60 * 1000; // 7 days in ms
@@ -50,6 +50,9 @@ exports.registerUser = async (req, res, next) => {
             username: user.username,
             email: user.email,
         });
+
+        // Fire-and-forget: welcome email failure must never break registration
+        sendWelcomeEmail(user.email, user.username).catch(() => {});
 
     } catch (error) {
         next(error);
