@@ -6,7 +6,7 @@ const rateLimit = require('express-rate-limit');
 const authController = require('../controllers/authController');
 const { protect } = require('../middlewares/authMiddleware');
 const validate = require('../middlewares/validate');
-const { registerValidators, loginValidators, changePasswordValidators } = require('../validators/authValidators');
+const { registerValidators, loginValidators, changePasswordValidators, resetPasswordValidators } = require('../validators/authValidators');
 
 const loginLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // janela de 15 minutos
@@ -22,5 +22,7 @@ router.post('/logout', authController.logoutUser);
 router.get('/me', protect, authController.getMe);
 router.patch('/password', protect, changePasswordValidators, validate, authController.changePassword);
 router.delete('/account', protect, authController.deleteAccount);
+router.post('/forgot-password', authController.forgotPassword);
+router.post('/reset-password/:token', resetPasswordValidators, validate, authController.resetPassword);
 
 module.exports = router;

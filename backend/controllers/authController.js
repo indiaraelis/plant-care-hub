@@ -1,8 +1,10 @@
 // backend/controllers/authController.js
 
+const crypto = require('crypto');
 const User = require('../models/User');
 const Plant = require('../models/Plant');
 const jwt = require('jsonwebtoken');
+const { sendResetEmail } = require('../utils/email');
 
 const TOKEN_TTL    = '7d';
 const COOKIE_TTL   = 7 * 24 * 60 * 60 * 1000; // 7 days in ms
@@ -143,6 +145,58 @@ exports.deleteAccount = async (req, res, next) => {
             sameSite: 'strict',
         });
         res.json({ msg: 'Conta excluída com sucesso.' });
+    } catch (error) {
+        next(error);
+    }
+};
+
+// @desc    Envia e-mail com link de recuperação de senha
+// @route   POST /api/auth/forgot-password
+// @access  Public
+exports.forgotPassword = async (req, res, next) => {
+    const GENERIC = 'Se esse e-mail estiver cadastrado, você receberá as instruções em breve.';
+    let user;
+    try {
+        user = await User.findOne({ email: req.body.email });
+        if (!user) return res.json({ msg: GENERIC });
+
+        const token = crypto.randomBytes(32).toString('hex');
+        user.passwordResetToken = crypto.createHash('sha256').update(token).digest('hex');
+        user.passwordResetExpires = Date.now() + 60 * 60 * 1000; // 1h
+        await user.save({ validateBeforeSave: false });
+
+        const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${token}`;
+        await sendResetEmail(user.email, user.username, resetUrl);
+
+        res.json({ msg: GENERIC });
+    } catch (error) {
+        if (user) {
+            user.passwordResetToken = undefined;
+            user.passwordResetExpires = undefined;
+            await user.save({ validateBeforeSave: false }).catch(() => {});
+        }
+        next(error);
+    }
+};
+
+// @desc    Redefine a senha via token do e-mail
+// @route   POST /api/auth/reset-password/:token
+// @access  Public
+exports.resetPassword = async (req, res, next) => {
+    const hash = crypto.createHash('sha256').update(req.params.token).digest('hex');
+    try {
+        const user = await User.findOne({
+            passwordResetToken: hash,
+            passwordResetExpires: { $gt: Date.now() },
+        });
+        if (!user) return res.status(400).json({ msg: 'Link inválido ou expirado.' });
+
+        user.password = req.body.newPassword;
+        user.passwordResetToken = undefined;
+        user.passwordResetExpires = undefined;
+        await user.save();
+
+        res.json({ msg: 'Senha redefinida com sucesso. Faça login com sua nova senha.' });
     } catch (error) {
         next(error);
     }

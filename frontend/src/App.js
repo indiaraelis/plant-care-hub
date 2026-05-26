@@ -6,6 +6,8 @@ import { AuthProvider } from './context/AuthContext';
 import PrivateRoute from './components/PrivateRoute';
 import Register from './pages/Register';
 import Login from './pages/Login';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 import Dashboard from './pages/Dashboard';
 import AddPlant from './pages/AddPlant';
 import EditPlant from './pages/EditPlant';
@@ -22,6 +24,8 @@ function App() {
             <Route path="/" element={<Navigate to="/login" replace />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password/:token" element={<ResetPassword />} />
             <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
             <Route path="/add-plant" element={<PrivateRoute><AddPlant /></PrivateRoute>} />
             <Route path="/edit-plant/:id" element={<PrivateRoute><EditPlant /></PrivateRoute>} />
