@@ -20,7 +20,6 @@ function Login() {
       toast.success('Login realizado com sucesso!');
       navigate('/dashboard');
     } catch (error) {
-      console.error('Erro no login:', error.response ? error.response.data : error.message);
       toast.error('Erro no login: ' + (error.response ? error.response.data.msg : error.message));
     }
   };

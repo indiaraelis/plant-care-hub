@@ -39,13 +39,7 @@ function AddPlant() {
       const res = await API.get(`/api/trefle/search?query=${encodeURIComponent(query)}`);
       return res.data;
     } catch (error) {
-      console.error('Erro ao buscar plantas externas (Trefle):', error.response ? error.response.data : error.message);
-      if (error.response && error.response.status === 401) {
-        toast.error('Sessão expirada. Faça login novamente.');
-        navigate('/login');
-      } else {
-        toast.error('Erro ao buscar plantas externas: ' + (error.response ? error.response.data.msg : error.message));
-      }
+      toast.error('Erro ao buscar plantas externas: ' + (error.response ? error.response.data.msg : error.message));
       return [];
     }
   };
@@ -80,13 +74,7 @@ function AddPlant() {
       toast.success('Planta adicionada com sucesso!');
       navigate('/dashboard');
     } catch (error) {
-      console.error('Erro ao adicionar planta:', error.response ? error.response.data : error.message);
-      if (error.response && error.response.status === 401) {
-        toast.error('Sessão expirada. Faça login novamente.');
-        navigate('/login');
-      } else {
-        toast.error('Erro ao adicionar planta: ' + (error.response ? error.response.data.msg : error.message));
-      }
+      toast.error('Erro ao adicionar planta: ' + (error.response ? error.response.data.msg : error.message));
     }
   };
 

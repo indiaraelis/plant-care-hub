@@ -18,7 +18,6 @@ function Register() {
       toast.success('Registro realizado com sucesso! Faça login agora.');
       navigate('/login');
     } catch (error) {
-      console.error('Erro no registro:', error.response ? error.response.data : error.message);
       toast.error('Erro no registro: ' + (error.response ? error.response.data.msg : error.message));
     }
   };

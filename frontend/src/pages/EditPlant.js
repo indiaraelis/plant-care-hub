@@ -30,14 +30,8 @@ function EditPlant() {
         setLastFertilized(plantData.lastFertilized ? new Date(plantData.lastFertilized).toISOString().split('T')[0] : '');
         setNotes(plantData.notes || '');
       } catch (error) {
-        console.error('Erro ao buscar dados da planta:', error.response ? error.response.data : error.message);
-        if (error.response && error.response.status === 401) {
-          toast.error('Sessão expirada. Faça login novamente.');
-          navigate('/login');
-        } else {
-          toast.error('Erro ao carregar dados da planta: ' + (error.response ? error.response.data.msg : error.message));
-          navigate('/dashboard');
-        }
+        toast.error('Erro ao carregar dados da planta: ' + (error.response ? error.response.data.msg : error.message));
+        if (error.response?.status !== 401) navigate('/dashboard');
       }
     };
 
@@ -75,13 +69,7 @@ function EditPlant() {
       toast.success('Planta atualizada com sucesso!');
       navigate('/dashboard');
     } catch (error) {
-      console.error('Erro ao atualizar planta:', error.response ? error.response.data : error.message);
-      if (error.response && error.response.status === 401) {
-        toast.error('Sessão expirada. Faça login novamente.');
-        navigate('/login');
-      } else {
-        toast.error('Erro ao atualizar planta: ' + (error.response ? error.response.data.msg : error.message));
-      }
+      toast.error('Erro ao atualizar planta: ' + (error.response ? error.response.data.msg : error.message));
     }
   };
 

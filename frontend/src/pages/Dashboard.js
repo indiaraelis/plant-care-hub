@@ -16,15 +16,9 @@ function Dashboard() {
       const res = await API.get('/api/plants');
       setPlants(res.data);
     } catch (error) {
-      console.error('Erro ao buscar plantas:', error.response ? error.response.data : error.message);
-      if (error.response && error.response.status === 401) {
-        toast.error('Sessão expirada ou inválida. Faça login novamente.');
-        navigate('/login');
-      } else {
-        toast.error('Erro ao carregar plantas: ' + (error.response ? error.response.data.msg : error.message));
-      }
+      toast.error('Erro ao carregar plantas: ' + (error.response ? error.response.data.msg : error.message));
     }
-  }, [navigate]);
+  }, []);
 
   useEffect(() => {
     fetchPlants();
@@ -45,13 +39,7 @@ function Dashboard() {
       toast.success('Planta excluída com sucesso!');
       fetchPlants();
     } catch (error) {
-      console.error('Erro ao excluir planta:', error.response ? error.response.data : error.message);
-      if (error.response && error.response.status === 401) {
-        toast.error('Sessão expirada. Faça login novamente.');
-        navigate('/login');
-      } else {
-        toast.error('Erro ao excluir planta: ' + (error.response ? error.response.data.msg : error.message));
-      }
+      toast.error('Erro ao excluir planta: ' + (error.response ? error.response.data.msg : error.message));
     }
   };
 
