@@ -5,7 +5,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import API from '../api';
 import { toast } from 'react-toastify';
 import { useAuth } from '../context/AuthContext';
-import { AlertCircle, CheckCircle, Clock, Droplets, Leaf } from 'lucide-react';
+import { AlertCircle, CheckCircle, Clock, Droplets, Leaf, Pencil, Trash2 } from 'lucide-react';
 import { getCareStatus, statusLabel, statusBadgeClass, statusIconProps } from '../utils/careStatus';
 
 const LUCIDE_ICONS = { AlertCircle, CheckCircle, Clock, Droplets, Leaf };
@@ -81,6 +81,26 @@ function Dashboard() {
     navigate('/login');
   };
 
+  const handleWater = async (plantId, plantName) => {
+    try {
+      const res = await API.patch(`/api/plants/${plantId}/water`);
+      setPlants(prev => prev.map(p => p._id === plantId ? res.data : p));
+      toast.success(`${plantName} regada!`);
+    } catch (error) {
+      toast.error('Erro ao registrar rega: ' + (error.response?.data?.msg ?? error.message));
+    }
+  };
+
+  const handleFertilize = async (plantId, plantName) => {
+    try {
+      const res = await API.patch(`/api/plants/${plantId}/fertilize`);
+      setPlants(prev => prev.map(p => p._id === plantId ? res.data : p));
+      toast.success(`${plantName} adubada!`);
+    } catch (error) {
+      toast.error('Erro ao registrar adubação: ' + (error.response?.data?.msg ?? error.message));
+    }
+  };
+
   const handleDeletePlant = async (plantId) => {
     if (!window.confirm('Tem certeza que deseja excluir esta planta?')) {
       return;
@@ -127,8 +147,26 @@ function Dashboard() {
               {plant.notes && <p>Notas: {plant.notes}</p>}
 
               <div className="plant-actions">
-                <Link to={`/edit-plant/${plant._id}`} className="button-link small-button edit-button">Editar</Link>
-                <button onClick={() => handleDeletePlant(plant._id)} className="small-button delete-button">Excluir</button>
+                <button
+                  onClick={() => handleWater(plant._id, plant.name)}
+                  className="small-button flex items-center gap-1.5 bg-blue-50 text-blue-700 border border-blue-200 hover:bg-blue-100"
+                >
+                  <Droplets size={14} /> Reguei
+                </button>
+                {plant.fertilizingFrequencyDays > 0 && (
+                  <button
+                    onClick={() => handleFertilize(plant._id, plant.name)}
+                    className="small-button flex items-center gap-1.5 bg-green-50 text-green-700 border border-green-200 hover:bg-green-100"
+                  >
+                    <Leaf size={14} /> Adubei
+                  </button>
+                )}
+                <Link to={`/edit-plant/${plant._id}`} className="button-link small-button edit-button flex items-center gap-1.5">
+                  <Pencil size={14} /> Editar
+                </Link>
+                <button onClick={() => handleDeletePlant(plant._id)} className="small-button delete-button flex items-center gap-1.5">
+                  <Trash2 size={14} /> Excluir
+                </button>
               </div>
             </div>
           ))}

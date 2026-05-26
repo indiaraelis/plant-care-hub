@@ -31,6 +31,10 @@ const PlantSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+    wateringHistory: {
+        type: [Date],
+        default: [],
+    },
     fertilizingFrequencyDays: { // Frequência de adubação em dias
         type: Number,
         default: 0, // 0 significa que não precisa de adubação regular
@@ -38,6 +42,10 @@ const PlantSchema = new mongoose.Schema({
     lastFertilized: { // Última data de adubação
         type: Date,
         default: null, // Pode ser null se não for adubada
+    },
+    fertilizingHistory: {
+        type: [Date],
+        default: [],
     },
     notes: {
         type: String,

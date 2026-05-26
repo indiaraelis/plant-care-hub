@@ -119,3 +119,45 @@ exports.deletePlant = async (req, res, next) => {
         next(error);
     }
 };
+
+// @desc    Registrar rega imediata
+// @route   PATCH /api/plants/:id/water
+// @access  Private
+exports.waterPlant = async (req, res, next) => {
+    try {
+        const plant = await Plant.findById(req.params.id);
+
+        if (!plant) return res.status(404).json({ msg: 'Planta não encontrada' });
+        if (plant.owner.toString() !== req.user.id) return res.status(403).json({ msg: 'Não autorizado.' });
+
+        const now = new Date();
+        plant.lastWatered = now;
+        plant.wateringHistory.push(now);
+
+        await plant.save();
+        res.json(plant);
+    } catch (error) {
+        next(error);
+    }
+};
+
+// @desc    Registrar adubação imediata
+// @route   PATCH /api/plants/:id/fertilize
+// @access  Private
+exports.fertilizePlant = async (req, res, next) => {
+    try {
+        const plant = await Plant.findById(req.params.id);
+
+        if (!plant) return res.status(404).json({ msg: 'Planta não encontrada' });
+        if (plant.owner.toString() !== req.user.id) return res.status(403).json({ msg: 'Não autorizado.' });
+
+        const now = new Date();
+        plant.lastFertilized = now;
+        plant.fertilizingHistory.push(now);
+
+        await plant.save();
+        res.json(plant);
+    } catch (error) {
+        next(error);
+    }
+};
