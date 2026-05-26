@@ -5,6 +5,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import API from '../api';
 import { toast } from 'react-toastify';
 import PlantAutocomplete from '../components/PlantAutocomplete';
+import { suggestCareFromHabit } from '../utils/careDefaults';
 
 // Quick-pick options for watering frequency
 const WATERING_PRESETS = [
@@ -30,6 +31,7 @@ function AddPlant() {
   const [speciesFromAutocomplete, setSpeciesFromAutocomplete] = useState(false);
 
   // Step 2 — care details
+  const [careSuggestion, setCareSuggestion] = useState(null); // { wateringDays, fertilizingDays, hint }
   const [wateringPreset, setWateringPreset] = useState(null);
   const [wateringCustom, setWateringCustom] = useState('');
   const [lastWatered, setLastWatered] = useState(today());
@@ -59,14 +61,24 @@ function AddPlant() {
       setSpecies(selection.scientificName);
       setSpeciesFromAutocomplete(true);
 
-      let plantInfo = `Nome científico: ${selection.plant.scientificName || 'N/A'}\nFamília: ${selection.plant.family || 'N/A'}`;
-      if (selection.plant.origin) plantInfo += `\nOrigem: ${selection.plant.origin}`;
-      if (selection.plant.alternativeNamesPt?.length > 0) {
-        plantInfo += `\nOutros nomes: ${selection.plant.alternativeNamesPt.join(', ')}`;
+      // Derive care suggestion from botanical data
+      const suggestion = suggestCareFromHabit(
+        selection.plant.habit,
+        selection.plant.origin
+      );
+      setCareSuggestion(suggestion);
+
+      // Pre-select the suggested watering preset if it maps to a quick-pick
+      if (suggestion.presetMatches) {
+        setWateringPreset(suggestion.wateringDays);
+        setWateringCustom('');
       }
-      setNotes(plantInfo);
+
+      // Notes: leave clean — user can add their own
+      setNotes('');
     } else {
       setSpeciesFromAutocomplete(false);
+      setCareSuggestion(null);
     }
   };
 
@@ -181,14 +193,41 @@ function AddPlant() {
       {step === 2 && (
         <>
           <h2>Como você cuida dela?</h2>
-          <p className="text-left mt-0 mb-6 text-text-muted text-sm">
-            Registrando agora: <strong>{name}</strong>{species ? ` (${species})` : ''}
-          </p>
+
+          {/* Botanical info card — shown when a plant was selected from our database */}
+          {selectedPlantInfo.plant && (
+            <div className="rounded-2xl border border-mint-light bg-sage-green/10 px-5 py-4 mb-5 text-left">
+              <p className="text-sm font-semibold text-deep-forest mt-0 mb-1">
+                {name}
+                {selectedPlantInfo.plant.family ? ` · ${selectedPlantInfo.plant.family}` : ''}
+              </p>
+              {selectedPlantInfo.plant.origin && selectedPlantInfo.plant.origin !== 'Não informado' && selectedPlantInfo.plant.origin !== 'Desconhecida' && (
+                <p className="text-xs text-text-muted mt-0 mb-0">Origem: {selectedPlantInfo.plant.origin}</p>
+              )}
+              {selectedPlantInfo.plant.habit && selectedPlantInfo.plant.habit !== 'Não informado' && (
+                <p className="text-xs text-text-muted mt-0.5 mb-0">Hábito: {selectedPlantInfo.plant.habit}</p>
+              )}
+              {selectedPlantInfo.plant.alternativeNamesPt?.length > 0 && (
+                <p className="text-xs text-text-muted mt-0.5 mb-0">Também conhecida como: {selectedPlantInfo.plant.alternativeNamesPt.join(', ')}</p>
+              )}
+            </div>
+          )}
+
+          {!selectedPlantInfo.plant && (
+            <p className="text-left mt-0 mb-6 text-text-muted text-sm">
+              Registrando agora: <strong>{name}</strong>{species ? ` (${species})` : ''}
+            </p>
+          )}
 
           <form onSubmit={handleSubmit}>
             {/* Watering frequency */}
             <div>
               <label>Com que frequência você rega?</label>
+              {careSuggestion && (
+                <p className="text-xs text-text-muted mt-0 mb-2">
+                  {careSuggestion.hint} <span className="opacity-60">Ajuste conforme seu ambiente.</span>
+                </p>
+              )}
               <div className="flex flex-wrap gap-2 mb-3">
                 {WATERING_PRESETS.map(p => (
                   <button
