@@ -6,14 +6,28 @@ import API from '../api';
 import { toast } from 'react-toastify';
 import { ImagePlus } from 'lucide-react';
 
+const WATERING_PRESETS = [
+  { label: 'A cada 2 dias', value: 2 },
+  { label: 'Semanal',       value: 7 },
+  { label: 'Quinzenal',     value: 15 },
+  { label: 'Mensal',        value: 30 },
+];
+
+const LOCATION_OPTIONS = ['Sala', 'Varanda', 'Quarto', 'Escritório', 'Cozinha', 'Banheiro', 'Jardim', 'Outro'];
+
 function EditPlant() {
   const { id } = useParams();
   const [name, setName] = useState('');
   const [species, setSpecies] = useState('');
-  const [wateringFrequencyDays, setWateringFrequencyDays] = useState('');
+  const [wateringPreset, setWateringPreset] = useState(null);
+  const [wateringCustom, setWateringCustom] = useState('');
   const [lastWatered, setLastWatered] = useState('');
-  const [fertilizingFrequencyDays, setFertilizingFrequencyDays] = useState('');
+  const [noFertilizing, setNoFertilizing] = useState(false);
+  const [fertilizingPreset, setFertilizingPreset] = useState(null);
+  const [fertilizingCustom, setFertilizingCustom] = useState('');
   const [lastFertilized, setLastFertilized] = useState('');
+  const [location, setLocation] = useState('');
+  const [acquisitionDate, setAcquisitionDate] = useState('');
   const [notes, setNotes] = useState('');
   const [photoUrl, setPhotoUrl] = useState(null);
   const [uploading, setUploading] = useState(false);
@@ -24,18 +38,36 @@ function EditPlant() {
     const fetchPlant = async () => {
       try {
         const res = await API.get(`/api/plants/${id}`);
-        const plantData = res.data;
+        const p = res.data;
 
-        setName(plantData.name);
-        setSpecies(plantData.species);
-        setWateringFrequencyDays(plantData.wateringFrequencyDays);
-        setLastWatered(plantData.lastWatered ? new Date(plantData.lastWatered).toISOString().split('T')[0] : '');
-        setFertilizingFrequencyDays(plantData.fertilizingFrequencyDays || '');
-        setLastFertilized(plantData.lastFertilized ? new Date(plantData.lastFertilized).toISOString().split('T')[0] : '');
-        setNotes(plantData.notes || '');
-        setPhotoUrl(plantData.photoUrl || null);
+        setName(p.name);
+        setSpecies(p.species || '');
+        setLastWatered(p.lastWatered ? new Date(p.lastWatered).toISOString().split('T')[0] : '');
+        setLastFertilized(p.lastFertilized ? new Date(p.lastFertilized).toISOString().split('T')[0] : '');
+        setLocation(p.location || '');
+        setAcquisitionDate(p.acquisitionDate ? new Date(p.acquisitionDate).toISOString().split('T')[0] : '');
+        setNotes(p.notes || '');
+        setPhotoUrl(p.photoUrl || null);
+
+        // Watering: map to preset or custom
+        const wDays = p.wateringFrequencyDays;
+        if (WATERING_PRESETS.some(pr => pr.value === wDays)) {
+          setWateringPreset(wDays);
+        } else {
+          setWateringCustom(String(wDays || ''));
+        }
+
+        // Fertilizing
+        const fDays = p.fertilizingFrequencyDays;
+        if (!fDays || fDays === 0) {
+          setNoFertilizing(true);
+        } else if (WATERING_PRESETS.some(pr => pr.value === fDays)) {
+          setFertilizingPreset(fDays);
+        } else {
+          setFertilizingCustom(String(fDays));
+        }
       } catch (error) {
-        toast.error('Erro ao carregar dados da planta: ' + (error.response ? error.response.data.msg : error.message));
+        toast.error('Erro ao carregar dados da planta: ' + (error.response?.data?.msg ?? error.message));
         if (error.response?.status !== 401) navigate('/dashboard');
       }
     };
@@ -43,38 +75,43 @@ function EditPlant() {
     fetchPlant();
   }, [id, navigate]);
 
+  const getWateringDays = () => {
+    if (wateringPreset) return wateringPreset;
+    const v = parseInt(wateringCustom);
+    return isNaN(v) ? null : v;
+  };
+
+  const getFertilizingDays = () => {
+    if (noFertilizing) return 0;
+    if (fertilizingPreset) return fertilizingPreset;
+    const v = parseInt(fertilizingCustom);
+    return isNaN(v) ? 0 : v;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!name || !wateringFrequencyDays) {
-      toast.error('Nome da planta e frequência de rega são obrigatórios!');
-      return;
-    }
-    if (isNaN(wateringFrequencyDays) || parseInt(wateringFrequencyDays) < 1) {
-      toast.error('Frequência de rega deve ser um número maior que 0.');
-      return;
-    }
-    if (fertilizingFrequencyDays && isNaN(fertilizingFrequencyDays)) {
-      toast.error('Frequência de adubação deve ser um número.');
+    const wateringDays = getWateringDays();
+    if (!name || !wateringDays || wateringDays < 1) {
+      toast.error('Nome e frequência de rega são obrigatórios.');
       return;
     }
 
     try {
-      const plantData = {
+      await API.put(`/api/plants/${id}`, {
         name,
         species,
-        wateringFrequencyDays: parseInt(wateringFrequencyDays),
+        wateringFrequencyDays: wateringDays,
         lastWatered: lastWatered || null,
-        fertilizingFrequencyDays: fertilizingFrequencyDays ? parseInt(fertilizingFrequencyDays) : 0,
+        fertilizingFrequencyDays: getFertilizingDays(),
         lastFertilized: lastFertilized || null,
+        location: location || undefined,
+        acquisitionDate: acquisitionDate || undefined,
         notes,
-      };
-
-      await API.put(`/api/plants/${id}`, plantData);
-      toast.success('Planta atualizada com sucesso!');
+      });
+      toast.success('Planta atualizada!');
       navigate(`/plants/${id}`);
     } catch (error) {
-      toast.error('Erro ao atualizar planta: ' + (error.response ? error.response.data.msg : error.message));
+      toast.error('Erro ao atualizar planta: ' + (error.response?.data?.msg ?? error.message));
     }
   };
 
@@ -100,7 +137,12 @@ function EditPlant() {
 
   return (
     <div className="container">
-      <h2>Editar planta</h2>
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="mb-0 text-left" style={{ background: 'none', WebkitTextFillColor: 'inherit', color: 'inherit' }}>
+          Editar planta
+        </h2>
+        <Link to={`/plants/${id}`} className="text-sm text-text-muted hover:text-text-primary">← Voltar</Link>
+      </div>
 
       {/* Photo section */}
       <div className="mb-6 text-left">
@@ -124,36 +166,127 @@ function EditPlant() {
 
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Nome da Planta:</label>
+          <label>Nome da planta</label>
           <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
         </div>
+
         <div>
-          <label>Espécie:</label>
-          <input type="text" value={species} onChange={(e) => setSpecies(e.target.value)} />
+          <label>Nome científico (opcional)</label>
+          {species && (
+            <div className="rounded-2xl border border-mint-light bg-sage-green/10 px-4 py-2.5 mb-2 text-left">
+              <p className="text-xs text-text-muted mt-0 mb-0 italic">{species}</p>
+            </div>
+          )}
+          <input
+            type="text"
+            value={species}
+            onChange={(e) => setSpecies(e.target.value)}
+            placeholder="Ex: Monstera deliciosa"
+          />
         </div>
+
+        {/* Watering frequency */}
         <div>
-          <label>Frequência de Rega (dias):</label>
-          <input type="number" value={wateringFrequencyDays} onChange={(e) => setWateringFrequencyDays(e.target.value)} required min="1" />
+          <label>Com que frequência você rega?</label>
+          <div className="flex flex-wrap gap-2 mb-3">
+            {WATERING_PRESETS.map(p => (
+              <button
+                key={p.value}
+                type="button"
+                onClick={() => { setWateringPreset(p.value); setWateringCustom(''); }}
+                className={`w-auto px-4 py-2 text-sm rounded-xl border transition-all ${
+                  wateringPreset === p.value
+                    ? 'bg-emerald-leaf text-white border-emerald-leaf'
+                    : 'bg-white text-text-primary border-mint-light hover:border-sage-green'
+                }`}
+              >
+                {p.label}
+              </button>
+            ))}
+          </div>
+          <input
+            type="number"
+            value={wateringCustom}
+            onChange={(e) => { setWateringCustom(e.target.value); setWateringPreset(null); }}
+            min="1"
+            placeholder="Ou digite o número de dias..."
+          />
         </div>
+
         <div>
-          <label>Última Rega:</label>
+          <label>Última rega</label>
           <input type="date" value={lastWatered} onChange={(e) => setLastWatered(e.target.value)} />
         </div>
+
+        {/* Fertilizing */}
         <div>
-          <label>Frequência de Adubação (dias - 0 para não adubar):</label>
-          <input type="number" value={fertilizingFrequencyDays} onChange={(e) => setFertilizingFrequencyDays(e.target.value)} min="0" />
+          <label>Adubação</label>
+          <label className="flex items-center gap-2 mb-3 cursor-pointer font-normal text-sm text-text-muted">
+            <input
+              type="checkbox"
+              checked={noFertilizing}
+              onChange={(e) => { setNoFertilizing(e.target.checked); setFertilizingPreset(null); setFertilizingCustom(''); }}
+              className="w-4 h-4"
+            />
+            Essa planta não precisa de adubação
+          </label>
+
+          {!noFertilizing && (
+            <>
+              <div className="flex flex-wrap gap-2 mb-3">
+                {WATERING_PRESETS.map(p => (
+                  <button
+                    key={p.value}
+                    type="button"
+                    onClick={() => { setFertilizingPreset(p.value); setFertilizingCustom(''); }}
+                    className={`w-auto px-4 py-2 text-sm rounded-xl border transition-all ${
+                      fertilizingPreset === p.value
+                        ? 'bg-emerald-leaf text-white border-emerald-leaf'
+                        : 'bg-white text-text-primary border-mint-light hover:border-sage-green'
+                    }`}
+                  >
+                    {p.label}
+                  </button>
+                ))}
+              </div>
+              <input
+                type="number"
+                value={fertilizingCustom}
+                onChange={(e) => { setFertilizingCustom(e.target.value); setFertilizingPreset(null); }}
+                min="1"
+                placeholder="Ou digite o número de dias..."
+              />
+            </>
+          )}
         </div>
+
         <div>
-          <label>Última Adubação:</label>
-          <input type="date" value={lastFertilized} onChange={(e) => setLastFertilized(e.target.value)} />
+          <label>Última adubação</label>
+          <input type="date" value={lastFertilized} onChange={(e) => setLastFertilized(e.target.value)} disabled={noFertilizing} />
         </div>
+
+        {/* Location */}
         <div>
-          <label>Notas:</label>
-          <textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows="4"></textarea>
+          <label>Onde ela fica?</label>
+          <select value={location} onChange={(e) => setLocation(e.target.value)}>
+            <option value="">Selecione um cômodo (opcional)</option>
+            {LOCATION_OPTIONS.map(l => <option key={l} value={l}>{l}</option>)}
+          </select>
         </div>
+
+        {/* Acquisition date */}
+        <div>
+          <label>Quando você a adquiriu? (opcional)</label>
+          <input type="date" value={acquisitionDate} onChange={(e) => setAcquisitionDate(e.target.value)} />
+        </div>
+
+        <div>
+          <label>Notas</label>
+          <textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows="4" placeholder="Cuidados especiais, comportamento..." />
+        </div>
+
         <button type="submit">Salvar alterações</button>
       </form>
-      <p><Link to="/dashboard">← Voltar ao jardim</Link></p>
     </div>
   );
 }

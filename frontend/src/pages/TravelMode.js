@@ -22,10 +22,13 @@ function todayStr() {
   return new Date().toISOString().split('T')[0];
 }
 
+const LS_DEP = 'pch_travel_departure';
+const LS_RET = 'pch_travel_return';
+
 function TravelMode() {
   const [plants, setPlants] = useState([]);
-  const [departure, setDeparture] = useState('');
-  const [returnDate, setReturnDate] = useState('');
+  const [departure, setDeparture] = useState(() => localStorage.getItem(LS_DEP) || '');
+  const [returnDate, setReturnDate] = useState(() => localStorage.getItem(LS_RET) || '');
   const [results, setResults] = useState(null);
   const [copied, setCopied] = useState(false);
 
@@ -34,6 +37,16 @@ function TravelMode() {
       .then((r) => setPlants(r.data))
       .catch(() => toast.error('Erro ao carregar plantas.'));
   }, []);
+
+  useEffect(() => {
+    if (departure) localStorage.setItem(LS_DEP, departure);
+    else localStorage.removeItem(LS_DEP);
+  }, [departure]);
+
+  useEffect(() => {
+    if (returnDate) localStorage.setItem(LS_RET, returnDate);
+    else localStorage.removeItem(LS_RET);
+  }, [returnDate]);
 
   const analyze = () => {
     if (!departure || !returnDate) {

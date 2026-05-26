@@ -11,6 +11,30 @@ import { useNotifications } from '../hooks/useNotifications';
 
 const LUCIDE_ICONS = { AlertCircle, CheckCircle, Clock, Droplets, Leaf };
 
+// Consecutive-day streak from a list of ISO date strings
+function calcStreak(dates) {
+  if (!dates || dates.length === 0) return 0;
+  const unique = [...new Set(dates.map((d) => new Date(d).toISOString().split('T')[0]))].sort().reverse();
+  const today = new Date().toISOString().split('T')[0];
+  const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
+  if (unique[0] !== today && unique[0] !== yesterday) return 0;
+  let streak = 1;
+  for (let i = 1; i < unique.length; i++) {
+    const diff = Math.round((new Date(unique[i - 1]) - new Date(unique[i])) / 86400000);
+    if (diff === 1) streak++;
+    else break;
+  }
+  return streak;
+}
+
+// 0 = overdue, 1 = today, 2 = ok/na (lower = more urgent)
+function urgencyScore(p) {
+  const rank = (s) => s === 'overdue' ? 0 : s === 'today' ? 1 : 2;
+  const w = getCareStatus(p.lastWatered, p.wateringFrequencyDays);
+  const f = getCareStatus(p.lastFertilized, p.fertilizingFrequencyDays);
+  return Math.min(rank(w.status), rank(f.status));
+}
+
 const FILTER_OPTIONS = [
   { value: 'all',     label: 'Todas' },
   { value: 'overdue', label: 'Atrasadas' },
@@ -220,6 +244,11 @@ function Dashboard() {
     }
   };
 
+  const streak = useMemo(() => {
+    const allDates = plants.flatMap(p => p.wateringHistory || []);
+    return calcStreak(allDates);
+  }, [plants]);
+
   const filtered = useMemo(() => {
     return plants
       .filter(p => {
@@ -235,7 +264,8 @@ function Dashboard() {
         if (filter === 'today')   return w.status === 'today'   || f.status === 'today';
         if (filter === 'ok')      return w.status === 'ok'      && (f.status === 'ok' || f.status === 'na');
         return true;
-      });
+      })
+      .sort((a, b) => urgencyScore(a) - urgencyScore(b));
   }, [plants, search, filter]);
 
   return (
@@ -261,7 +291,8 @@ function Dashboard() {
             {showBellHint && (
               <div className="absolute right-0 top-11 z-50 w-56 rounded-2xl border border-sage-green bg-white shadow-lg px-4 py-3 text-left">
                 <p className="text-xs font-semibold text-deep-forest mt-0 mb-1">Ativar lembretes?</p>
-                <p className="text-xs text-text-muted mt-0 mb-2">Seja avisada quando uma planta precisar de rega ou adubação.</p>
+                <p className="text-xs text-text-muted mt-0 mb-1">Seja avisada quando uma planta precisar de rega ou adubação.</p>
+                <p className="text-xs text-text-muted mt-0 mb-2 opacity-70">Os lembretes aparecem quando você abre o app.</p>
                 <div className="flex gap-2">
                   <button
                     onClick={() => { handleNotificationToggle(); dismissBellHint(); }}
@@ -293,6 +324,16 @@ function Dashboard() {
           <button onClick={handleLogout} className="w-auto px-5 py-2 text-sm">Sair</button>
         </div>
       </div>
+
+      {streak >= 2 && (
+        <div className="mb-5 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-2.5 flex items-center gap-2">
+          <span className="text-base">🔥</span>
+          <span className="text-sm font-medium text-amber-800">
+            {streak} dia{streak !== 1 ? 's' : ''} cuidando bem do jardim
+          </span>
+          <Link to="/stats" className="ml-auto text-xs text-amber-700 hover:text-amber-900">Ver detalhes →</Link>
+        </div>
+      )}
 
       <UrgentBanner plants={plants} />
 
