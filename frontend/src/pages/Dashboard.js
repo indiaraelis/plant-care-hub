@@ -46,8 +46,9 @@ function Dashboard() {
   return (
     <div className="container">
       <h2>Suas Plantas{user ? `, ${user.username}` : ''}</h2>
-      <button onClick={handleLogout} style={{ float: 'right', marginBottom: '20px' }}>Sair</button>
-      <div style={{ clear: 'both' }}></div>
+      <div className="flex justify-end mb-5">
+        <button onClick={handleLogout} className="w-auto px-6">Sair</button>
+      </div>
 
       {plants.length === 0 ? (
         <p>Você ainda não tem plantas cadastradas. Que tal adicionar uma?</p>

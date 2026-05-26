@@ -282,7 +282,7 @@ const PlantAutocomplete = ({
                 <img 
                   src={plant.imageUrl} 
                   alt={plant.commonNamePt} 
-                  style={{ width: '40px', height: '40px', objectFit: 'cover', borderRadius: '4px', marginLeft: 'auto' }} 
+                  className="w-10 h-10 object-cover rounded ml-auto"
                 />
               )}
             </div>

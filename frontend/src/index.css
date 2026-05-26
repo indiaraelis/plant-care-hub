@@ -1,830 +1,459 @@
-/* Importando fonte mais orgânica do Google Fonts */
+/* Google Fonts — must precede @tailwind directives */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
 
-/* Definindo variáveis CSS para cores botânicas */
-:root {
-  --deep-forest: #1a3b1a;
-  --forest-green: #2d5016;
-  --emerald-leaf: #228b22;
-  --sage-green: #87a96b;
-  --mint-light: #b8d4b8;
-  --cream-white: #faf8f3;
-  --warm-beige: #f4f1eb;
-  --earth-brown: #8b6f47;
-  --soft-shadow: rgba(26, 59, 26, 0.12);
-  --warm-shadow: rgba(139, 111, 71, 0.08);
-  --text-primary: #1a3b1a;
-  --text-secondary: #2d5016;
-  --text-muted: #5a6b5a;
-  --accent-gold: #d4af37;
-}
-
-/* Base global styles for a clean slate and botanical theme */
-/* NOVO: Aplicar box-sizing globalmente para facilitar o layout */
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: var(--text-primary);
-  min-height: 100vh;
-  line-height: 1.6;
-  position: relative;
-  overflow-x: hidden; /* Prevent horizontal scroll from background elements */
-
-  /* CORREÇÃO AQUI: Caminho relativo da imagem */
-  background-image: url('../public/fundo marfim com tex.png'); /* Caminho ajustado */
-  background-size: cover; /* Garante que a imagem cubra toda a área */
-  background-position: center center; /* Centraliza a imagem */
-  background-repeat: no-repeat; /* Evita que a imagem se repita */
-  background-attachment: fixed; /* Fixa a imagem para não rolar com o conteúdo */
-  background-color: var(--warm-beige); /* Cor de fallback caso a imagem não carregue ou para transições */
-}
-
-/* NOVO: Estilos para o wrapper do conteúdo principal no Layout.js */
-.main-app-content {
-  min-height: 100vh; /* Garante que ocupe a altura total do viewport */
-  display: flex; /* Permite que o conteúdo interno use flexbox se necessário */
-  flex-direction: column; /* Organiza o conteúdo em coluna */
-  background-color: transparent; /* Garante que não tenha um fundo opaco que cubra o body */
-  position: relative; /* Para que seus filhos possam se posicionar em relação a ele */
-  z-index: 1; /* Altere para 1 ou superior para garantir que o conteúdo fique acima do fundo */
-  width: 100%; /* Garante que ele ocupe a largura total */
-}
-
-code {
-  font-family: 'Courier New', monospace;
-  background-color: var(--mint-light);
-  padding: 3px 8px;
-  border-radius: 6px;
-  font-size: 0.9em;
-  color: var(--text-secondary);
-}
-
-/* --- Main Content Container --- */
-.container {
-  max-width: 720px;
-  margin: 40px auto;
-  padding: 40px;
-  background: rgba(255, 255, 255, 0.96); /* Slightly transparent white for content */
-  backdrop-filter: blur(12px); /* Frosted glass effect */
-  border-radius: 24px;
-  box-shadow:
-    0 12px 40px var(--soft-shadow),
-    0 4px 12px var(--warm-shadow),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(135, 169, 107, 0.15);
-  position: relative;
-  overflow: hidden;
-  animation: fadeIn 0.8s ease-out; /* Apply fade-in animation to containers */
-}
-
-/* Container com decoração botânica elegante (top border) */
-.container::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 8px;
-  background: linear-gradient(90deg,
-    var(--deep-forest) 0%,
-    var(--emerald-leaf) 20%,
-    var(--sage-green) 40%,
-    var(--accent-gold) 50%,
-    var(--sage-green) 60%,
-    var(--emerald-leaf) 80%,
-    var(--deep-forest) 100%);
-  border-radius: 0 0 4px 4px;
-}
-
-/* --- Headings --- */
-h1, h2 {
-  font-family: 'Playfair Display', serif;
-  color: var(--deep-forest);
-  text-align: center;
-  margin-bottom: 28px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  position: relative;
-}
-
-h1 {
-  font-size: 2.4em;
-  margin-bottom: 12px;
-  background: linear-gradient(135deg, var(--deep-forest) 0%, var(--emerald-leaf) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-h2 {
-  font-size: 1.9em;
-  color: var(--forest-green);
-  /* Ajuste para centralizar o h2 da seção */
-  margin-bottom: 30px; /* Aumentar um pouco o espaço abaixo do título da seção */
-}
-
-/* Decoração sofisticada para títulos */
-h1::after {
-  content: '🌿 Plant Care Hub 🌿'; /* Custom text below main heading */
-  display: block; /* MUDANÇA: de 'auto' para 'block' */
-  font-size: 0.32em;
-  margin-top: 16px;
-  opacity: 0.7;
-  color: var(--sage-green);
-  font-family: 'Inter', sans-serif;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  background: none; /* Override parent gradient */
-  -webkit-text-fill-color: var(--sage-green); /* Ensure color is visible */
-}
-
-/* --- Form Elements --- */
-form div {
-  margin-bottom: 24px;
-}
-
-form label {
-  display: block; /* MUDANÇA: de 'auto' para 'block' para melhor layout */
-  margin-bottom: 10px;
-  font-weight: 500;
-  color: var(--text-primary);
-  font-size: 0.96em;
-  letter-spacing: 0.01em;
-  /* NOVO: Ajuste para labels que ficam pequenas */
-  min-height: 20px;
-  line-height: 1.4;
-  word-wrap: break-word;
-  white-space: normal;
-}
-
-form input[type="text"],
-form input[type="email"],
-form input[type="password"],
-form input[type="number"], /* NOVO: Adicionado suporte para campos numéricos */
-form input[type="date"], /* NOVO: Adicionado suporte para campos de data */
-textarea,
-select { /* NOVO: Adicionado suporte para select */
-  width: 100%;
-  padding: 16px 14px;
-  border: 2px solid var(--mint-light);
-  border-radius: 14px;
-  font-size: 16px;
-  font-family: 'Inter', sans-serif;
-  background-color: rgba(250, 248, 243, 0.9); /* Subtle background for inputs */
-  color: var(--text-primary);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  /* Removido box-sizing: border-box; aqui, pois já está no seletor universal */
-  /* NOVO: Altura mínima para garantir que o texto caiba */
-  min-height: 56px;
-}
-
-form input:focus,
-textarea:focus,
-select:focus { /* NOVO: Adicionado select no focus */
-  outline: none;
-  border-color: var(--emerald-leaf);
-  background-color: #fff; /* White background on focus */
-  box-shadow: 0 0 0 4px rgba(34, 139, 34, 0.1);
-  transform: translateY(-2px); /* Slight lift on focus */
-}
-
-textarea {
-  resize: vertical;
-  min-height: 130px;
-  font-family: 'Inter', sans-serif;
-}
-
-/* NOVO: Estilos específicos para select */
-select {
-  cursor: pointer;
-  appearance: none; /* Remove estilo padrão do browser */
-  background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23666" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>');
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-  background-size: 12px;
-  padding-right: 40px; /* Espaço para a seta */
-}
-
-/* --- Buttons (Standardized and Subtle) --- */
-button,
-.button-link { /* General styles for all main buttons and links styled as buttons */
-  background: linear-gradient(135deg, var(--emerald-leaf) 0%, var(--sage-green) 100%);
-  color: white;
-  padding: 16px 24px;
-  border: none;
-  border-radius: 14px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: 500;
-  width: 100%; /* Full width for main buttons */
-  min-height: 56px; /* Consistent height */
-  /* Removido box-sizing: border-box; aqui, pois já está no seletor universal */
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  letter-spacing: 0.02em;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none; /* Remove underline for links styled as buttons */
-  box-shadow: 0 4px 16px rgba(34, 139, 34, 0.2);
-}
-
-button::before,
-.button-link::before { /* Shimmer effect on hover */
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-  transition: left 0.6s;
-}
-
-button:hover::before,
-.button-link:hover::before {
-  left: 100%;
-}
-
-button:hover,
-.button-link:hover {
-  background: linear-gradient(135deg, var(--deep-forest) 0%, var(--emerald-leaf) 100%);
-  transform: translateY(-3px); /* Lift effect on hover */
-  box-shadow: 0 8px 25px rgba(26, 59, 26, 0.3);
-}
-
-button:active,
-.button-link:active {
-  transform: translateY(-1px); /* Press effect */
-}
-
-/* --- Paragraphs and Links --- */
-p {
-  text-align: center;
-  margin-top: 28px;
-  color: var(--text-muted);
-}
-
-p a {
-  color: var(--emerald-leaf);
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
-
-p a:hover {
-  color: var(--deep-forest);
-  text-decoration: underline;
-}
-
-/* --- Plant List with Botanical Design --- */
-.plant-list {
-  margin-top: 40px;
-  border-top: 3px solid var(--mint-light);
-  padding-top: 40px;
-  position: relative;
-}
-
-.plant-list::before {
-  content: '🌱 Suas Plantas Cultivadas';
-  position: absolute;
-  top: -16px;
-  left: 24px;
-  background: var(--cream-white);
-  padding: 0 16px;
-  font-weight: 600;
-  color: var(--emerald-leaf);
-  font-size: 0.95em;
-  font-family: 'Playfair Display', serif;
-  letter-spacing: 0.02em;
-}
-
-.plant-item {
-  /* MODIFICAÇÃO AQUI: Ajustando a opacidade do branco no gradiente */
-  background: linear-gradient(135deg,
-    rgba(184, 212, 184, 0.5) 0%,
-    rgba(255, 255, 255, 0.1) 25%,
-    rgba(184, 212, 184, 0.3) 100%);
-  border: 2px solid var(--mint-light);
-  border-radius: 24px;
-  padding: 28px;
-  margin-bottom: 24px;
-  box-shadow:
-    0 6px 20px var(--soft-shadow),
-    inset 0 1px 0 rgba(255, 255, 255, 0.7);
-  text-align: left;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-  animation: fadeIn 0.6s ease-out; /* Animation for individual items */
-}
-
-.plant-item:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 35px rgba(26, 59, 26, 0.18);
-  border-color: var(--sage-green);
-}
-
-.plant-item h3 {
-  margin-top: 0;
-  margin-bottom: 16px;
-  color: var(--deep-forest);
-  font-family: 'Playfair Display', serif;
-  font-size: 1.5em;
-  font-weight: 600;
-  position: relative;
-  /* Removido z-index: -1; */
-}
-
-.plant-item p {
-  margin: 10px 0;
-  font-size: 0.96em;
-  color: var(--text-muted);
-  text-align: left;
-  line-height: 1.6;
-  position: relative;
-  /* Removido z-index: -1; */
-  /* NOVO: Garantir que o texto não seja cortado */
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-}
-
-.plant-actions {
-  margin-top: 24px;
-  display: flex;
-  gap: 16px;
-  justify-content: flex-end;
-  position: relative;
-  /* Removido z-index: -1; */
-}
-
-/* Botões pequenos padronizados para ações como Edit/Delete */
-.small-button {
-  padding: 14px 20px;
-  font-size: 0.9em;
-  font-weight: 500;
-  border-radius: 12px;
-  width: 140px; /* Fixed width for consistency */
-  min-height: 48px; /* Consistent height */
-  text-align: center;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: none;
-  cursor: pointer;
-  /* Removido box-sizing: border-box; aqui, pois já está no seletor universal */
-  display: flex; /* Ensure centering for text/icons */
-  align-items: center;
-  justify-content: center;
-  text-decoration: none; /* For links styled as buttons */
-  box-shadow: 0 3px 10px rgba(0,0,0,0.1); /* Lighter shadow for small buttons */
-  position: relative;
-  overflow: hidden;
-}
-
-.small-button::before { /* Reapply shimmer effect for small buttons */
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-  transition: left 0.6s;
-}
-
-.small-button:hover::before {
-  left: 100%;
-}
-
-.edit-button {
-  background: linear-gradient(135deg, #ff8a50 0%, #ff7043 100%); /* Orange palette */
-  color: white;
-  box-shadow: 0 4px 16px rgba(255, 112, 67, 0.25);
-}
-
-.edit-button:hover {
-  background: linear-gradient(135deg, #ff7043 0%, #ff5722 100%);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(255, 87, 34, 0.35);
-}
-
-.delete-button {
-  background: linear-gradient(135deg, #e57373 0%, #ef5350 100%); /* Red palette */
-  color: white;
-  box-shadow: 0 4px 16px rgba(239, 83, 80, 0.25);
-}
-
-.delete-button:hover {
-  background: linear-gradient(135deg, #ef5350 0%, #f44336 100%);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(244, 67, 54, 0.35);
-}
-
-/* --- Base para Seções de Formulário (Adicionar e Buscar) --- */
-/* Agrupando estilos comuns para .add-plant-section e .search-section */
-.add-plant-section,
-.search-section,
-.intro-section { /* NOVO: Adicionado .intro-section aqui também */
-  background: linear-gradient(135deg,
-    rgba(184, 212, 184, 0.25) 0%,
-    rgba(255, 255, 255, 0.9) 25%,
-    rgba(184, 212, 184, 0.1) 100%);
-  border: 2px solid var(--mint-light);
-  border-radius: 24px;
-  padding: 32px;
-  margin-bottom: 40px;
-  box-shadow:
-    0 6px 20px var(--soft-shadow),
-    inset 0 1px 0 rgba(255, 255, 255, 0.7);
-  position: relative;
-  overflow: hidden;
-  animation: fadeIn 0.7s ease-out;
-}
-
-/* --- Seção de Adicionar Nova Planta --- */
-/* Mantido específico para o ::before e h2, removendo duplicações de background/border/shadow etc. */
-.add-plant-section::before {
-  /* Ícone de folha para 'Adicionar Nova Planta' */
-  content: ''; /* Usaremos background-image para o ícone */
-  position: absolute;
-  top: -20px; /* Ajuste a posição vertical */
-  left: 24px;
-  width: 60px; /* Tamanho do ícone */
-  height: 60px; /* Tamanho do ícone */
-  /* Ícone de folha (SVG otimizado, exemplo de um ícone de "adicionar" ou "folha com sinal de mais") */
-  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23228b22"%3E%3Cpath d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/%3E%3C/svg%3E'); /* Ícone de folha com sinal de mais */
-  background-size: 70%; /* Ajuste o tamanho do ícone dentro do espaço */
-  background-position: center; /* Centraliza o ícone */
-  background-repeat: no-repeat;
-  background-color: var(--cream-white); /* Cor de fundo para "recortar" o ícone */
-  border-radius: 50%; /* Faz a base parecer um círculo */
-  padding: 8px; /* Espaçamento interno para o ícone dentro do círculo */
-  box-shadow: 0 4px 12px rgba(34, 139, 34, 0.15); /* Sombra sutil */
-  z-index: 2; /* Garante que o ícone esteja acima da borda da seção */
-}
-
-.add-plant-section h2 {
-  /* Ajuste para o h2 da seção de adicionar */
-  margin-top: 40px; /* Afasta o título do ícone */
-  margin-bottom: 24px; /* Espaço para o formulário */
-}
-
-/* --- Seção de Buscar Plantas (Ajustada) --- */
-/* Mantido específico para o h2 e o formulário de busca, removendo duplicações */
-.search-section h2 {
-  font-family: 'Playfair Display', serif;
-  color: var(--deep-forest);
-  margin-top: 40px;
-  margin-bottom: 24px;
-  font-weight: 600;
-  font-size: 1.9em;
-  letter-spacing: -0.02em;
-  z-index: 1; /* Mantenha um z-index para a seção, se necessário */
-
-  /* Propriedades Flexbox para o H2 */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  position: relative; /* Importante para z-index e se precisar de posicionamento interno futuro */
-}
-
-.search-section h2::before {
-  content: ''; /* Mantemos vazio e usamos background-image */
-  /* Ajustar o tamanho para garantir que seja visível */
-  width: 32px; /* Aumentar um pouco o tamanho */
-  height: 32px; /* Aumentar um pouco o tamanho */
-
-  /* O SVG da lupa */
-  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%232d5016"%3E%3Cpath d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/%3E%3C/svg%3E');
-  /* Cor do preenchimento alterada para --forest-green (#2d5016) para maior contraste */
-
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-  flex-shrink: 0;
-}
-
-.search-section form {
-  display: flex;
-  gap: 16px;
-  margin-bottom: 28px;
-}
-
-.search-section input[type="text"] {
-  flex-grow: 1;
-  padding: 16px 14px;
-  border: 2px solid var(--mint-light);
-  border-radius: 14px;
-  font-size: 16px;
-  font-family: 'Inter', sans-serif;
-  background-color: rgba(250, 248, 243, 0.9);
-  color: var(--text-primary);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  /* Removido box-sizing: border-box; aqui, pois já está no seletor universal */
-}
-
-.search-section input[type="text"]:focus {
-  outline: none;
-  border-color: var(--emerald-leaf);
-  background-color: #fff;
-  box-shadow: 0 0 0 4px rgba(34, 139, 34, 0.1);
-  transform: translateY(-2px);
-}
-
-.search-section button {
-  width: auto;
-  padding: 16px 24px;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-/* NOVO: Estilos para seção de introdução da página de login */
-/* Removido o bloco completo, pois agora herda de .add-plant-section, .search-section, .intro-section */
-
-.intro-section h2 {
-  color: var(--deep-forest);
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.intro-section h3 {
-  color: var(--forest-green);
-  margin-top: 24px;
-  margin-bottom: 16px;
-  font-size: 1.3em;
-  font-family: 'Playfair Display', serif;
-}
-
-.intro-section p {
-  text-align: left;
-  margin: 16px 0;
-  color: var(--text-muted);
-  line-height: 1.7;
-}
-
-.intro-section ul {
-  margin: 16px 0;
-  padding-left: 24px;
-}
-
-.intro-section li {
-  margin: 12px 0;
-  color: var(--text-muted);
-  line-height: 1.6;
-}
-
-.intro-section strong {
-  color: var(--text-primary);
-  font-weight: 600;
-}
-
-/* NOVO: Estilos para componentes de seleção de plantas */
-.plant-selector {
-  margin-bottom: 24px;
-}
-
-.plant-selector label {
-  display: block;
-  margin-bottom: 10px;
-  font-weight: 500;
-  color: var(--text-primary);
-  font-size: 0.96em;
-  letter-spacing: 0.01em;
-}
-
-.plant-autocomplete {
-  position: relative;
-}
-
-.plant-autocomplete input {
-  width: 100%;
-  padding: 16px 14px;
-  border: 2px solid var(--mint-light);
-  border-radius: 14px;
-  font-size: 16px;
-  font-family: 'Inter', sans-serif;
-  background-color: rgba(250, 248, 243, 0.9);
-  color: var(--text-primary);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  /* Removido box-sizing: border-box; aqui, pois já está no seletor universal */
-  min-height: 56px;
-}
-
-.plant-autocomplete input:focus {
-  outline: none;
-  border-color: var(--emerald-leaf);
-  background-color: #fff;
-  box-shadow: 0 0 0 4px rgba(34, 139, 34, 0.1);
-  transform: translateY(-2px);
-}
-
-.plant-suggestions {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  background: white;
-  border: 2px solid var(--mint-light);
-  border-top: none;
-  border-radius: 0 0 14px 14px;
-  max-height: 200px;
-  overflow-y: auto;
-  z-index: 1000;
-  box-shadow: 0 4px 16px var(--soft-shadow);
-}
-
-.plant-suggestion {
-  padding: 12px 16px;
-  cursor: pointer;
-  border-bottom: 1px solid var(--mint-light);
-  transition: background-color 0.2s ease;
-}
-
-.plant-suggestion:hover {
-  background-color: var(--mint-light);
-}
-
-.plant-suggestion:last-child {
-  border-bottom: none;
-}
-
-.plant-suggestion-name {
-  font-weight: 500;
-  color: var(--text-primary);
-}
-
-.plant-suggestion-scientific {
-  font-size: 0.9em;
-  color: var(--text-muted);
-  font-style: italic;
-}
-
-/* NOVO: Estilos para campos de formulário melhorados */
-.form-group {
-  margin-bottom: 24px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 10px;
-  font-weight: 500;
-  color: var(--text-primary);
-  font-size: 0.96em;
-  letter-spacing: 0.01em;
-  /* Removido min-height, line-height, word-wrap, white-space, overflow pois já estão em form label */
-}
-
-.form-row {
-  display: flex;
-  gap: 16px;
-  margin-bottom: 24px;
-}
-
-.form-row .form-group {
-  flex: 1;
-  margin-bottom: 0;
-}
-
-/* NOVO: Estilos para campos de data e número */
-.form-group input[type="number"],
-.form-group input[type="date"] {
-  width: 100%;
-  padding: 16px 14px;
-  border: 2px solid var(--mint-light);
-  border-radius: 14px;
-  font-size: 16px;
-  font-family: 'Inter', sans-serif;
-  background-color: rgba(250, 248, 243, 0.9);
-  color: var(--text-primary);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  /* Removido box-sizing: border-box; aqui, pois já está no seletor universal */
-  min-height: 56px;
-}
-
-/* NOVO: Estilos para resultados de busca */
-.search-results {
-  margin-top: 24px;
-}
-
-.search-result-item {
-  background: rgba(255, 255, 255, 0.9);
-  border: 2px solid var(--mint-light);
-  border-radius: 16px;
-  padding: 20px;
-  margin-bottom: 16px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: pointer;
-}
-
-.search-result-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(26, 59, 26, 0.15);
-  border-color: var(--sage-green);
-}
-
-.search-result-name {
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 8px;
-  font-size: 1.1em;
-}
-
-.search-result-scientific {
-  font-style: italic;
-  color: var(--text-muted);
-  margin-bottom: 8px;
-}
-
-.search-result-family {
-  font-size: 0.9em;
-  color: var(--text-secondary);
-}
-
-/* NOVO: Animações */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+/* Tailwind directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Base ─── */
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  body {
+    @apply font-sans antialiased text-text-primary leading-relaxed min-h-screen overflow-x-hidden;
+    background-image: url('../public/fundo marfim com tex.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: theme('colors.warm-beige');
+  }
+
+  h1, h2 {
+    @apply font-display text-center font-semibold;
+    letter-spacing: -0.02em;
+  }
+
+  h1 {
+    @apply text-4xl mb-3;
+    background: linear-gradient(135deg, theme('colors.deep-forest') 0%, theme('colors.emerald-leaf') 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  h1::after {
+    content: '🌿 Plant Care Hub 🌿';
+    display: block;
+    font-size: 0.32em;
+    margin-top: 16px;
+    opacity: 0.7;
+    color: theme('colors.sage-green');
+    font-family: theme('fontFamily.sans');
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    background: none;
+    -webkit-text-fill-color: theme('colors.sage-green');
+  }
+
+  h2 {
+    @apply text-3xl text-forest-green mb-7;
+  }
+
+  p {
+    @apply text-center mt-7 text-text-muted;
+  }
+
+  p a {
+    @apply text-emerald-leaf no-underline font-medium transition-colors duration-300;
+  }
+
+  p a:hover {
+    @apply text-deep-forest underline;
+  }
+
+  code {
+    font-family: 'Courier New', monospace;
+    background-color: theme('colors.mint-light');
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 0.9em;
+    color: theme('colors.text-secondary');
   }
 }
 
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
+/* ─── Components ─── */
+@layer components {
 
-/* NOVO: Responsividade melhorada */
-@media (max-width: 768px) {
+  /* Main content wrapper */
+  .main-app-content {
+    @apply flex flex-col min-h-screen w-full relative;
+    background-color: transparent;
+    z-index: 1;
+  }
+
+  /* Card container with frosted glass */
   .container {
-    margin: 20px;
-    padding: 24px;
+    @apply max-w-2xl mx-auto my-10 p-10 relative overflow-hidden;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(12px);
+    border-radius: 24px;
+    box-shadow:
+      0 12px 40px rgba(26, 59, 26, 0.12),
+      0 4px 12px rgba(139, 111, 71, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(135, 169, 107, 0.15);
+    animation: fadeIn 0.8s ease-out;
   }
 
-  .form-row {
-    flex-direction: column;
-    gap: 0;
+  .container::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 8px;
+    background: linear-gradient(90deg,
+      theme('colors.deep-forest') 0%,
+      theme('colors.emerald-leaf') 20%,
+      theme('colors.sage-green') 40%,
+      theme('colors.accent-gold') 50%,
+      theme('colors.sage-green') 60%,
+      theme('colors.emerald-leaf') 80%,
+      theme('colors.deep-forest') 100%);
+    border-radius: 0 0 4px 4px;
   }
 
-  .form-row .form-group {
-    margin-bottom: 24px;
+  /* Form elements */
+  form div {
+    @apply mb-6;
+  }
+
+  form label {
+    @apply block mb-2.5 font-medium text-text-primary text-sm leading-snug;
+    letter-spacing: 0.01em;
+  }
+
+  form input[type="text"],
+  form input[type="email"],
+  form input[type="password"],
+  form input[type="number"],
+  form input[type="date"],
+  textarea,
+  select {
+    @apply w-full text-base font-sans text-text-primary transition-all duration-300;
+    padding: 16px 14px;
+    border: 2px solid theme('colors.mint-light');
+    border-radius: 14px;
+    background-color: rgba(250, 248, 243, 0.9);
+    min-height: 56px;
+  }
+
+  form input:focus,
+  textarea:focus,
+  select:focus {
+    @apply outline-none bg-white;
+    border-color: theme('colors.emerald-leaf');
+    box-shadow: 0 0 0 4px rgba(34, 139, 34, 0.1);
+    transform: translateY(-2px);
+  }
+
+  textarea {
+    @apply resize-y font-sans;
+    min-height: 130px;
+  }
+
+  select {
+    @apply cursor-pointer;
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23666" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 12px;
+    padding-right: 40px;
+  }
+
+  /* Primary buttons */
+  button,
+  .button-link {
+    @apply text-white font-medium text-base w-full relative overflow-hidden flex items-center justify-center no-underline transition-all duration-300 cursor-pointer border-none;
+    background: linear-gradient(135deg, theme('colors.emerald-leaf') 0%, theme('colors.sage-green') 100%);
+    padding: 16px 24px;
+    border-radius: 14px;
+    min-height: 56px;
+    letter-spacing: 0.02em;
+    box-shadow: 0 4px 16px rgba(34, 139, 34, 0.2);
+  }
+
+  button::before,
+  .button-link::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.6s;
+  }
+
+  button:hover::before,
+  .button-link:hover::before {
+    left: 100%;
+  }
+
+  button:hover,
+  .button-link:hover {
+    background: linear-gradient(135deg, theme('colors.deep-forest') 0%, theme('colors.emerald-leaf') 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(26, 59, 26, 0.3);
+  }
+
+  button:active,
+  .button-link:active {
+    transform: translateY(-1px);
+  }
+
+  /* Plant list */
+  .plant-list {
+    @apply mt-10 pt-10 relative;
+    border-top: 3px solid theme('colors.mint-light');
+  }
+
+  .plant-list::before {
+    content: '🌱 Suas Plantas Cultivadas';
+    position: absolute;
+    top: -16px; left: 24px;
+    background: theme('colors.cream-white');
+    padding: 0 16px;
+    font-weight: 600;
+    color: theme('colors.emerald-leaf');
+    font-size: 0.95em;
+    font-family: theme('fontFamily.display');
+    letter-spacing: 0.02em;
+  }
+
+  .plant-item {
+    @apply rounded-[24px] p-7 mb-6 text-left relative overflow-hidden transition-all duration-300;
+    background: linear-gradient(135deg,
+      rgba(184, 212, 184, 0.5) 0%,
+      rgba(255, 255, 255, 0.1) 25%,
+      rgba(184, 212, 184, 0.3) 100%);
+    border: 2px solid theme('colors.mint-light');
+    box-shadow:
+      0 6px 20px rgba(26, 59, 26, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    animation: fadeIn 0.6s ease-out;
+  }
+
+  .plant-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 35px rgba(26, 59, 26, 0.18);
+    border-color: theme('colors.sage-green');
+  }
+
+  .plant-item h3 {
+    @apply mt-0 mb-4 font-display font-semibold text-deep-forest;
+    font-size: 1.5em;
+  }
+
+  .plant-item p {
+    @apply my-2.5 text-text-muted text-left leading-relaxed break-words;
+    font-size: 0.96em;
   }
 
   .plant-actions {
-    flex-direction: column;
-    gap: 12px;
+    @apply mt-6 flex gap-4 justify-end;
   }
 
+  /* Small action buttons */
   .small-button {
-    width: 100%;
+    @apply relative overflow-hidden flex items-center justify-center no-underline font-medium border-none cursor-pointer transition-all duration-300;
+    padding: 14px 20px;
+    font-size: 0.9em;
+    border-radius: 12px;
+    width: 140px;
+    min-height: 48px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
   }
 
-  h1 {
-    font-size: 2em;
+  .small-button::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.6s;
   }
 
-  h2 {
-    font-size: 1.6em;
+  .small-button:hover::before { left: 100%; }
+
+  .edit-button {
+    @apply text-white;
+    background: linear-gradient(135deg, #ff8a50 0%, #ff7043 100%);
+    box-shadow: 0 4px 16px rgba(255, 112, 67, 0.25);
   }
+
+  .edit-button:hover {
+    background: linear-gradient(135deg, #ff7043 0%, #ff5722 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 87, 34, 0.35);
+  }
+
+  .delete-button {
+    @apply text-white;
+    background: linear-gradient(135deg, #e57373 0%, #ef5350 100%);
+    box-shadow: 0 4px 16px rgba(239, 83, 80, 0.25);
+  }
+
+  .delete-button:hover {
+    background: linear-gradient(135deg, #ef5350 0%, #f44336 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(244, 67, 54, 0.35);
+  }
+
+  /* Section cards */
+  .add-plant-section,
+  .search-section,
+  .intro-section {
+    @apply rounded-[24px] p-8 mb-10 relative overflow-hidden;
+    background: linear-gradient(135deg,
+      rgba(184, 212, 184, 0.25) 0%,
+      rgba(255, 255, 255, 0.9) 25%,
+      rgba(184, 212, 184, 0.1) 100%);
+    border: 2px solid theme('colors.mint-light');
+    box-shadow:
+      0 6px 20px rgba(26, 59, 26, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    animation: fadeIn 0.7s ease-out;
+  }
+
+  .add-plant-section::before {
+    content: '';
+    position: absolute;
+    top: -20px; left: 24px;
+    width: 60px; height: 60px;
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23228b22"%3E%3Cpath d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/%3E%3C/svg%3E');
+    background-size: 70%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: theme('colors.cream-white');
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 4px 12px rgba(34, 139, 34, 0.15);
+    z-index: 2;
+  }
+
+  .add-plant-section h2 { @apply mt-10 mb-6; }
+
+  .search-section h2 {
+    @apply font-display text-deep-forest font-semibold mt-10 mb-6 flex items-center justify-center gap-2.5 relative;
+    font-size: 1.9em;
+    letter-spacing: -0.02em;
+    z-index: 1;
+  }
+
+  .search-section h2::before {
+    content: '';
+    width: 32px; height: 32px;
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%232d5016"%3E%3Cpath d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/%3E%3C/svg%3E');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    flex-shrink: 0;
+  }
+
+  .search-section form { @apply flex gap-4 mb-7; }
+  .search-section button { @apply w-auto whitespace-nowrap shrink-0; }
+
+  .intro-section h2  { @apply text-deep-forest mb-5 text-center; }
+  .intro-section h3  { @apply text-forest-green mt-6 mb-4 font-display; font-size: 1.3em; }
+  .intro-section p   { @apply text-left my-4 text-text-muted leading-7; }
+  .intro-section ul  { @apply my-4 pl-6; }
+  .intro-section li  { @apply my-3 text-text-muted leading-relaxed; }
+  .intro-section strong { @apply text-text-primary font-semibold; }
+
+  /* Autocomplete */
+  .plant-autocomplete { @apply relative; }
+
+  .plant-autocomplete input {
+    @apply w-full text-base font-sans text-text-primary transition-all duration-300;
+    padding: 16px 14px;
+    border: 2px solid theme('colors.mint-light');
+    border-radius: 14px;
+    background-color: rgba(250, 248, 243, 0.9);
+    min-height: 56px;
+  }
+
+  .plant-autocomplete input:focus {
+    @apply outline-none bg-white;
+    border-color: theme('colors.emerald-leaf');
+    box-shadow: 0 0 0 4px rgba(34, 139, 34, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .plant-suggestions {
+    @apply absolute left-0 right-0 bg-white overflow-y-auto z-50;
+    top: 100%;
+    border: 2px solid theme('colors.mint-light');
+    border-top: none;
+    border-radius: 0 0 14px 14px;
+    max-height: 200px;
+    box-shadow: 0 4px 16px rgba(26, 59, 26, 0.12);
+  }
+
+  .plant-suggestion {
+    @apply px-4 py-3 cursor-pointer transition-colors duration-200;
+    border-bottom: 1px solid theme('colors.mint-light');
+  }
+
+  .plant-suggestion:hover     { background-color: theme('colors.mint-light'); }
+  .plant-suggestion:last-child { @apply border-b-0; }
+
+  .plant-suggestion-name       { @apply font-medium text-text-primary; }
+  .plant-suggestion-scientific { @apply text-sm text-text-muted italic; }
+
+  /* Form helpers */
+  .form-group       { @apply mb-6; }
+  .form-group label { @apply block mb-2.5 font-medium text-text-primary text-sm; letter-spacing: 0.01em; }
+  .form-row         { @apply flex gap-4 mb-6; }
+  .form-row .form-group { @apply flex-1 mb-0; }
+
+  /* Search results */
+  .search-results        { @apply mt-6; }
+  .search-result-item    {
+    @apply rounded-2xl p-5 mb-4 cursor-pointer transition-all duration-300;
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid theme('colors.mint-light');
+  }
+  .search-result-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(26, 59, 26, 0.15);
+    border-color: theme('colors.sage-green');
+  }
+  .search-result-name       { @apply font-semibold text-text-primary mb-2; font-size: 1.1em; }
+  .search-result-scientific { @apply italic text-text-muted mb-2; }
+  .search-result-family     { @apply text-sm text-text-secondary; }
+}
+
+/* ─── Animations ─── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .container { @apply mx-5 p-6; }
+  .form-row  { @apply flex-col gap-0; }
+  .form-row .form-group { @apply mb-6; }
+  .plant-actions { @apply flex-col gap-3; }
+  .small-button  { @apply w-full; }
+  h1 { font-size: 2em; }
+  h2 { font-size: 1.6em; }
 }
 
 @media (max-width: 480px) {
-  .container {
-    margin: 10px;
-    padding: 20px;
-  }
-
-  h1 {
-    font-size: 1.8em;
-  }
-
-  h2 {
-    font-size: 1.4em;
-  }
-
-  .search-section form {
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .search-section button {
-    width: 100%;
-  }
+  .container { @apply mx-2.5 p-5; }
+  h1 { font-size: 1.8em; }
+  h2 { font-size: 1.4em; }
+  .search-section form { @apply flex-col gap-3; }
+  .search-section button { @apply w-full; }
 }
+
+

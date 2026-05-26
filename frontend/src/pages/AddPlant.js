@@ -193,7 +193,7 @@ Link Trefle: ${trefleData.links?.plant || 'N/A'}`;
         )}
       </div>
 
-      <hr style={{ margin: '30px 0' }} />
+      <hr className="my-8" />
 
       {/* Formulário de detalhes da planta */}
       <h3>Detalhes da Sua Planta</h3>
