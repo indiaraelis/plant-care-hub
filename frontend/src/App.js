@@ -14,6 +14,7 @@ import EditPlant from './pages/EditPlant';
 import Account from './pages/Account';
 import PlantDetail from './pages/PlantDetail';
 import Stats from './pages/Stats';
+import TravelMode from './pages/TravelMode';
 import NotFound from './pages/NotFound';
 import Layout from './components/Layout';
 
@@ -34,6 +35,7 @@ function App() {
             <Route path="/account" element={<PrivateRoute><Account /></PrivateRoute>} />
             <Route path="/plants/:id" element={<PrivateRoute><PlantDetail /></PrivateRoute>} />
             <Route path="/stats" element={<PrivateRoute><Stats /></PrivateRoute>} />
+            <Route path="/viagem" element={<PrivateRoute><TravelMode /></PrivateRoute>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Layout>

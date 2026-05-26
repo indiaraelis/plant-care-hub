@@ -20,7 +20,7 @@ exports.getPlants = async (req, res, next) => {
 // @access  Private
 exports.createPlant = async (req, res, next) => {
     try {
-        const { name, species, acquisitionDate, wateringFrequencyDays, fertilizingFrequencyDays, notes, location } = req.body;
+        const { name, species, acquisitionDate, wateringFrequencyDays, fertilizingFrequencyDays, notes, location, photoUrl } = req.body;
 
         const plant = await new Plant({
             owner: req.user.id,
@@ -31,6 +31,7 @@ exports.createPlant = async (req, res, next) => {
             fertilizingFrequencyDays,
             notes,
             location,
+            photoUrl,
         }).save();
 
         res.status(201).json(plant);
@@ -88,6 +89,7 @@ exports.updatePlant = async (req, res, next) => {
         if (lastFertilized !== undefined) plant.lastFertilized = lastFertilized;
         if (notes !== undefined) plant.notes = notes;
         if (location !== undefined) plant.location = location;
+        if (req.body.photoUrl !== undefined) plant.photoUrl = req.body.photoUrl;
 
         await plant.save();
         res.json(plant);
@@ -115,6 +117,29 @@ exports.deletePlant = async (req, res, next) => {
         await Plant.deleteOne({ _id: req.params.id });
         res.json({ msg: 'Planta removida com sucesso' });
 
+    } catch (error) {
+        next(error);
+    }
+};
+
+// @desc    Upload de foto da planta
+// @route   PATCH /api/plants/:id/photo
+// @access  Private
+exports.uploadPhoto = async (req, res, next) => {
+    try {
+        if (!req.file) return res.status(400).json({ msg: 'Nenhum arquivo enviado.' });
+
+        const plant = await require('../models/Plant').findById(req.params.id);
+        if (!plant) return res.status(404).json({ msg: 'Planta não encontrada.' });
+        if (plant.owner.toString() !== req.user.id) return res.status(403).json({ msg: 'Não autorizado.' });
+
+        const { uploadBuffer } = require('../utils/cloudinary');
+        const publicId = `user_${req.user.id}_plant_${req.params.id}`;
+        const url = await uploadBuffer(req.file.buffer, publicId);
+
+        plant.photoUrl = url;
+        await plant.save();
+        res.json({ photoUrl: url });
     } catch (error) {
         next(error);
     }

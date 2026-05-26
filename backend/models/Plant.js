@@ -57,6 +57,10 @@ const PlantSchema = new mongoose.Schema({
         trim: true,
         default: null,
     },
+    photoUrl: {
+        type: String,
+        default: null,
+    },
 }, {
     timestamps: true // Adiciona automaticamente createdAt e updatedAt
 });

@@ -160,9 +160,9 @@ Recomendação: Perenual pra dados estruturados + Gemini pra parágrafo explicat
 - [x] Página de detalhe da planta (`/plants/:id`) com heatmap de 26 semanas, botões de ação, link de edição
 - [x] Cards do Dashboard linkados ao detalhe; ícone de estatísticas no cabeçalho
 
-## Fase 16 — Features especiais
+## Fase 16 — Features especiais ✅
 > Diferenciação. Implementar após o core estar sólido.
 
-- [ ] **Modo viagem**: usuário informa datas de ausência → app calcula quais plantas precisam de rega e gera lista copiável
-- [ ] **Voz e personalidade**: revisar todas as mensagens do app (dashboard vazio, toasts, erros) com texto com charme
-- [ ] Foto da planta (upload de imagem do usuário — Cloudinary free tier ou S3)
+- [x] **Modo viagem** (`/viagem`): datas de saída/retorno → grupos "regar antes de sair", "precisa de cuidado durante ausência", "em dia" + lista copiável para compartilhar
+- [x] **Voz e personalidade**: empty state do dashboard, mensagem de exclusão, NotFound, botão "+ Nova planta", toasts com charme
+- [x] **Foto da planta**: upload JPEG/PNG/WebP via multer → Cloudinary (5 MB limit, 800px crop); thumbnail no card do dashboard; hero na página de detalhe; botão "Foto" / "Trocar foto" na tela de edição; campo `photoUrl` no modelo Plant

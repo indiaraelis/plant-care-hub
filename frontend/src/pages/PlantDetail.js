@@ -5,7 +5,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import API from '../api';
 import { toast } from 'react-toastify';
-import { Droplets, Leaf, MapPin, Pencil, Trash2 } from 'lucide-react';
+import { Droplets, ImagePlus, Leaf, MapPin, Pencil, Trash2 } from 'lucide-react';
 import { getCareStatus, statusBadgeClass, statusLabel } from '../utils/careStatus';
 
 // ── Heatmap helpers ────────────────────────────────────────────────────────────
@@ -100,6 +100,8 @@ function PlantDetail() {
   const navigate = useNavigate();
   const [plant, setPlant] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [uploading, setUploading] = useState(false);
+  const photoInputRef = React.useRef(null);
 
   const fetchPlant = useCallback(async () => {
     try {
@@ -136,13 +138,42 @@ function PlantDetail() {
   };
 
   const handleDelete = async () => {
-    if (!window.confirm('Excluir esta planta permanentemente?')) return;
+    if (!window.confirm(`Excluir "${plant.name}" permanentemente? Não dá pra desfazer.`)) return;
     try {
       await API.delete(`/api/plants/${id}`);
-      toast.success('Planta removida.');
+      toast.success(`Até logo, ${plant.name}!`);
       navigate('/dashboard');
     } catch {
       toast.error('Erro ao excluir.');
+    }
+  };
+
+  const handlePhotoChange = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const ALLOWED = ['image/jpeg', 'image/png', 'image/webp'];
+    if (!ALLOWED.includes(file.type)) {
+      toast.error('Use uma imagem JPEG, PNG ou WebP.');
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error('Imagem muito grande. Máximo 5 MB.');
+      return;
+    }
+    const formData = new FormData();
+    formData.append('photo', file);
+    setUploading(true);
+    try {
+      const res = await API.patch(`/api/plants/${id}/photo`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      setPlant((prev) => ({ ...prev, photoUrl: res.data.photoUrl }));
+      toast.success('Foto atualizada!');
+    } catch {
+      toast.error('Erro ao enviar foto.');
+    } finally {
+      setUploading(false);
+      if (photoInputRef.current) photoInputRef.current.value = '';
     }
   };
 
@@ -154,6 +185,12 @@ function PlantDetail() {
 
   return (
     <div className="container" style={{ maxWidth: '700px' }}>
+      {/* Photo hero */}
+      {plant.photoUrl && (
+        <div className="mb-5 rounded-2xl overflow-hidden border border-mint-light" style={{ maxHeight: '280px' }}>
+          <img src={plant.photoUrl} alt={plant.name} className="w-full h-full object-cover" style={{ maxHeight: '280px' }} />
+        </div>
+      )}
       <div className="flex items-start justify-between gap-4 mb-4">
         <div>
           <h2 className="mb-0 text-left" style={{ background: 'none', WebkitTextFillColor: 'inherit', color: 'inherit' }}>
@@ -246,6 +283,17 @@ function PlantDetail() {
         <Link to={`/edit-plant/${id}`} className="button-link flex items-center gap-1.5 w-auto px-5">
           <Pencil size={14} /> Editar
         </Link>
+        <label className="flex items-center gap-1.5 w-auto px-5 cursor-pointer small-button bg-sage-green/10 text-deep-forest border border-mint-light hover:border-sage-green" style={{ minHeight: '44px', borderRadius: '12px', fontSize: '0.875rem' }}>
+          <ImagePlus size={14} /> {uploading ? 'Enviando...' : 'Foto'}
+          <input
+            ref={photoInputRef}
+            type="file"
+            accept="image/jpeg,image/png,image/webp"
+            className="hidden"
+            onChange={handlePhotoChange}
+            disabled={uploading}
+          />
+        </label>
         <button onClick={handleDelete} className="flex items-center gap-1.5 w-auto px-5 bg-red-50 text-red-600 border border-red-200 hover:bg-red-100">
           <Trash2 size={14} /> Excluir
         </button>

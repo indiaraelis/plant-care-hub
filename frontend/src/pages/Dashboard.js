@@ -5,7 +5,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import API from '../api';
 import { toast } from 'react-toastify';
 import { useAuth } from '../context/AuthContext';
-import { AlertCircle, BarChart2, Bell, BellOff, CheckCircle, Clock, Droplets, Leaf, MapPin, Pencil, Search, Settings, Trash2, X } from 'lucide-react';
+import { AlertCircle, BarChart2, Bell, BellOff, CheckCircle, Clock, Droplets, Leaf, Luggage, MapPin, Pencil, Search, Settings, Trash2, X } from 'lucide-react';
 import { getCareStatus, statusLabel, statusBadgeClass, statusIconProps } from '../utils/careStatus';
 import { useNotifications } from '../hooks/useNotifications';
 
@@ -75,6 +75,11 @@ function PlantCard({ plant, onWater, onFertilize, onDelete }) {
 
   return (
     <div className={`plant-item flex flex-col justify-between ${cardBorder}`}>
+      {plant.photoUrl && (
+        <div className="-mx-5 -mt-5 mb-4 rounded-t-2xl overflow-hidden" style={{ height: '140px' }}>
+          <img src={plant.photoUrl} alt={plant.name} className="w-full h-full object-cover" />
+        </div>
+      )}
       <div>
         <div className="flex items-start justify-between gap-2 mb-1">
           <Link to={`/plants/${plant._id}`} className="text-deep-forest no-underline hover:underline"><h3 className="text-lg leading-tight mb-0">{plant.name}</h3></Link>
@@ -237,6 +242,9 @@ function Dashboard() {
           <Link to="/stats" className="flex items-center justify-center w-9 h-9 rounded-xl border border-mint-light bg-white hover:border-sage-green text-text-muted hover:text-deep-forest transition-colors" title="Estatísticas do jardim">
             <BarChart2 size={16} />
           </Link>
+          <Link to="/viagem" className="flex items-center justify-center w-9 h-9 rounded-xl border border-mint-light bg-white hover:border-sage-green text-text-muted hover:text-deep-forest transition-colors" title="Modo viagem">
+            <Luggage size={16} />
+          </Link>
           <Link to="/account" className="flex items-center justify-center w-9 h-9 rounded-xl border border-mint-light bg-white hover:border-sage-green text-text-muted hover:text-deep-forest transition-colors" title="Minha conta">
             <Settings size={16} />
           </Link>
@@ -286,8 +294,9 @@ function Dashboard() {
 
       {plants.length === 0 ? (
         <div className="text-center py-12">
-          <p className="text-text-muted text-lg mb-1 mt-0">Seu jardim está esperando pela primeira planta.</p>
-          <p className="text-text-muted text-sm mt-1">Adicione uma e comece a acompanhar os cuidados.</p>
+          <p className="text-5xl mb-4 mt-0">🌱</p>
+          <p className="text-text-muted text-lg mb-1 mt-0 font-medium">Seu jardim ainda está em silêncio.</p>
+          <p className="text-text-muted text-sm mt-1 mb-0">Adicione sua primeira planta e dê início a essa história verde.</p>
         </div>
       ) : filtered.length === 0 ? (
         <div className="text-center py-8">
@@ -307,7 +316,7 @@ function Dashboard() {
         </div>
       )}
 
-      <Link to="/add-plant" className="button-link">Nova planta no jardim</Link>
+      <Link to="/add-plant" className="button-link">+ Nova planta no jardim</Link>
     </div>
   );
 }

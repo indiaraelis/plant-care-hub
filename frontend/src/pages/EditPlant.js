@@ -1,9 +1,10 @@
 // frontend/src/pages/EditPlant.js
 
-import React, { useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
-import API from '../api'; // axios configurado
+import API from '../api';
 import { toast } from 'react-toastify';
+import { ImagePlus } from 'lucide-react';
 
 function EditPlant() {
   const { id } = useParams();
@@ -14,6 +15,9 @@ function EditPlant() {
   const [fertilizingFrequencyDays, setFertilizingFrequencyDays] = useState('');
   const [lastFertilized, setLastFertilized] = useState('');
   const [notes, setNotes] = useState('');
+  const [photoUrl, setPhotoUrl] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const photoInputRef = useRef(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,6 +33,7 @@ function EditPlant() {
         setFertilizingFrequencyDays(plantData.fertilizingFrequencyDays || '');
         setLastFertilized(plantData.lastFertilized ? new Date(plantData.lastFertilized).toISOString().split('T')[0] : '');
         setNotes(plantData.notes || '');
+        setPhotoUrl(plantData.photoUrl || null);
       } catch (error) {
         toast.error('Erro ao carregar dados da planta: ' + (error.response ? error.response.data.msg : error.message));
         if (error.response?.status !== 401) navigate('/dashboard');
@@ -67,15 +72,56 @@ function EditPlant() {
 
       await API.put(`/api/plants/${id}`, plantData);
       toast.success('Planta atualizada com sucesso!');
-      navigate('/dashboard');
+      navigate(`/plants/${id}`);
     } catch (error) {
       toast.error('Erro ao atualizar planta: ' + (error.response ? error.response.data.msg : error.message));
     }
   };
 
+  const handlePhotoChange = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const ALLOWED = ['image/jpeg', 'image/png', 'image/webp'];
+    if (!ALLOWED.includes(file.type)) { toast.error('Use JPEG, PNG ou WebP.'); return; }
+    if (file.size > 5 * 1024 * 1024) { toast.error('Máximo 5 MB.'); return; }
+    const formData = new FormData();
+    formData.append('photo', file);
+    setUploading(true);
+    try {
+      const res = await API.patch(`/api/plants/${id}/photo`, formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+      setPhotoUrl(res.data.photoUrl);
+      toast.success('Foto atualizada!');
+    } catch { toast.error('Erro ao enviar foto.'); }
+    finally {
+      setUploading(false);
+      if (photoInputRef.current) photoInputRef.current.value = '';
+    }
+  };
+
   return (
     <div className="container">
-      <h2>Editar Planta</h2>
+      <h2>Editar planta</h2>
+
+      {/* Photo section */}
+      <div className="mb-6 text-left">
+        {photoUrl && (
+          <div className="mb-3 rounded-2xl overflow-hidden border border-mint-light" style={{ maxHeight: '200px', maxWidth: '340px' }}>
+            <img src={photoUrl} alt="foto" className="w-full h-full object-cover" style={{ maxHeight: '200px' }} />
+          </div>
+        )}
+        <label className="inline-flex items-center gap-2 cursor-pointer small-button bg-sage-green/10 text-deep-forest border border-mint-light hover:border-sage-green" style={{ borderRadius: '10px', padding: '8px 14px', fontSize: '0.85rem' }}>
+          <ImagePlus size={14} /> {uploading ? 'Enviando...' : photoUrl ? 'Trocar foto' : 'Adicionar foto'}
+          <input
+            ref={photoInputRef}
+            type="file"
+            accept="image/jpeg,image/png,image/webp"
+            className="hidden"
+            onChange={handlePhotoChange}
+            disabled={uploading}
+          />
+        </label>
+      </div>
+
       <form onSubmit={handleSubmit}>
         <div>
           <label>Nome da Planta:</label>
@@ -105,9 +151,9 @@ function EditPlant() {
           <label>Notas:</label>
           <textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows="4"></textarea>
         </div>
-        <button type="submit">Salvar Alterações</button>
+        <button type="submit">Salvar alterações</button>
       </form>
-      <p><Link to="/dashboard">Voltar para o Dashboard</Link></p>
+      <p><Link to="/dashboard">← Voltar ao jardim</Link></p>
     </div>
   );
 }
