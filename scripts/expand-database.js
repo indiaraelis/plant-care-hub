@@ -16,19 +16,21 @@
  *
  * Uso:
  *   node scripts/expand-database.js
- *   node scripts/expand-database.js --limit 10    → processa só 10 plantas
- *   node scripts/expand-database.js --dry-run     → imprime sem salvar
+ *   node scripts/expand-database.js --limit 10      → processa só 10 plantas
+ *   node scripts/expand-database.js --dry-run       → imprime sem salvar
+ *   node scripts/expand-database.js --gemini        → chama Gemini API direto
  *
  * Saída:
- *   scripts/output/new-plants.json               ← revisão humana
- *   scripts/output/new-plants-gemini-prompt.txt  ← cola no Gemini
+ *   scripts/output/new-plants.json                 ← taxonomia (JBRJ + GBIF)
+ *   scripts/output/new-plants-gemini-prompt.txt    ← prompt para colar manualmente
+ *   scripts/output/new-plants-enriched.json        ← resultado final com dados Gemini
  *
  * Fluxo completo:
- *   1. Rode este script
- *   2. Revise new-plants.json (corrija nomes populares se necessário)
- *   3. Cole new-plants-gemini-prompt.txt no Gemini
- *   4. Gemini devolve JSON com wateringFrequencyDays, careHint...
- *   5. Mescle as entradas aprovadas em frontend/src/data/PlantDatabase.js
+ *   Opção A (manual):  rodar sem --gemini → revisar JSON → colar prompt no Gemini
+ *   Opção B (auto):    rodar com --gemini → revisar new-plants-enriched.json
+ *   Em ambos: mesclar entradas aprovadas em frontend/src/data/PlantDatabase.js
+ *
+ * GEMINI_API_KEY: lido de backend/.env automaticamente se existir, ou de process.env.
  */
 
 const https = require('https');
@@ -41,10 +43,22 @@ const OUTPUT_DIR = path.join(__dirname, 'output');
 const JSON_OUT   = path.join(OUTPUT_DIR, 'new-plants.json');
 const PROMPT_OUT = path.join(OUTPUT_DIR, 'new-plants-gemini-prompt.txt');
 
-const args    = process.argv.slice(2);
-const DRY_RUN = args.includes('--dry-run');
-const LIMIT   = (() => { const i = args.indexOf('--limit'); return i !== -1 ? parseInt(args[i + 1]) : Infinity; })();
-const DELAY_MS = 400; // respeita rate limit das duas APIs
+const args        = process.argv.slice(2);
+const DRY_RUN     = args.includes('--dry-run');
+const USE_GEMINI  = args.includes('--gemini');
+const LIMIT       = (() => { const i = args.indexOf('--limit'); return i !== -1 ? parseInt(args[i + 1]) : Infinity; })();
+const DELAY_MS    = 400;  // respeita rate limit das duas APIs
+const GEMINI_BATCH = 10; // plantas por chamada ao Gemini
+const GEMINI_BATCH_DELAY = 5000; // 5s entre batches → fica bem abaixo de 15 req/min
+
+// Lê GEMINI_API_KEY de backend/.env ou process.env
+function loadGeminiKey() {
+  if (process.env.GEMINI_API_KEY) return process.env.GEMINI_API_KEY;
+  const envPath = path.join(__dirname, '..', 'backend', '.env');
+  if (!fs.existsSync(envPath)) return null;
+  const line = fs.readFileSync(envPath, 'utf8').split('\n').find(l => l.startsWith('GEMINI_API_KEY='));
+  return line ? line.split('=')[1].trim() : null;
+}
 
 // ─── Lista de plantas ────────────────────────────────────────────────────────
 // Edite conforme os gaps que você identificar no uso real do app.
@@ -131,7 +145,7 @@ const PLANTS_TO_FETCH = [
 // ─── Helpers HTTP ─────────────────────────────────────────────────────────────
 
 function get(url) {
-  return new Promise((resolve, reject) => {
+  const fetchPromise = new Promise((resolve, reject) => {
     const req = https.get(
       url,
       { headers: { 'User-Agent': 'plant-care-hub/1.0 (github.com/indiaraelis/plant-care-hub)' } },
@@ -143,11 +157,13 @@ function get(url) {
           try { resolve(JSON.parse(data)); }
           catch { resolve(null); }
         });
+        res.on('error', () => resolve(null));
       }
     );
-    req.on('error', reject);
-    req.setTimeout(8000, () => { req.destroy(); resolve(null); });
+    req.on('error', () => resolve(null));
   });
+  const timeoutPromise = new Promise(resolve => setTimeout(() => resolve(null), 8000));
+  return Promise.race([fetchPromise, timeoutPromise]);
 }
 
 function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
@@ -175,11 +191,11 @@ async function jbrjTaxon(scientificName) {
   const dist  = item.distribuition  || [];
   const verns = item.vernacular_name || [];
 
-  // Nomes vernáculos PT
+  // Nomes vernáculos PT — filtra valores inválidos (muito curtos, inglês, números)
   const ptNames = verns
     .filter(v => (v.language_vernacularname || '').toLowerCase().includes('portugu'))
-    .map(v => titleCase(v.vernacularname || ''))
-    .filter(Boolean);
+    .map(v => titleCase((v.vernacularname || '').trim()))
+    .filter(n => n.length >= 3 && /[a-záéíóúâêîôûãõàç]/i.test(n) && !/^(yes|no|true|false|null)$/i.test(n));
 
   // Formas de vida
   const lifeForms = sp.lifeForm || [];
@@ -323,8 +339,20 @@ async function main() {
     }
   }
 
+  // ── Resumo de qualidade ───────────────────────────────────────────────────
+  const bySource = {
+    'JBRJ+GBIF': results.filter(r => r.source === 'JBRJ+GBIF'),
+    'JBRJ':      results.filter(r => r.source === 'JBRJ'),
+    'GBIF':      results.filter(r => r.source === 'GBIF'),
+  };
   console.log(`\n✅ ${results.length} plantas coletadas | ❌ ${failed.length} falhas`);
-  if (failed.length) console.log('   Falhas:', failed.join(', '));
+  console.log(`   Qualidade das fontes:`);
+  console.log(`   • JBRJ+GBIF (dados botânicos + taxonômicos): ${bySource['JBRJ+GBIF'].length + bySource['JBRJ'].length}`);
+  console.log(`   • GBIF-only (habit/origin por heurística — revisar com mais atenção): ${bySource['GBIF'].length}`);
+  if (bySource['GBIF'].length > 0) {
+    console.log('     ' + bySource['GBIF'].map(r => r.commonNamePt).join(', '));
+  }
+  if (failed.length) console.log('   ❌ Falhas:', failed.join(', '));
 
   if (DRY_RUN) {
     console.log('\n--- DRY RUN (primeiras 3) ---');
@@ -334,19 +362,115 @@ async function main() {
 
   fs.writeFileSync(JSON_OUT,   JSON.stringify(results, null, 2), 'utf8');
   fs.writeFileSync(PROMPT_OUT, buildGeminiPrompt(results),       'utf8');
-
   console.log(`\n📄 ${path.basename(JSON_OUT)}   → ${JSON_OUT}`);
   console.log(`📝 ${path.basename(PROMPT_OUT)} → ${PROMPT_OUT}`);
+
+  if (USE_GEMINI) {
+    await enrichWithGemini(results);
+  } else {
+    console.log(`
+─────────────────────────────────────────────────────────────
+Próximos passos (manual):
+  1. Revise new-plants.json — corrija commonNamePt se necessário
+  2. Cole new-plants-gemini-prompt.txt no Gemini
+  3. Mescle as entradas em frontend/src/data/PlantDatabase.js
+
+Ou rode com --gemini para enriquecimento automático:
+  node scripts/expand-database.js --gemini
+─────────────────────────────────────────────────────────────
+`);
+  }
+}
+
+// ─── Gemini API ───────────────────────────────────────────────────────────────
+
+function geminiPost(key, prompt) {
+  const body = JSON.stringify({
+    contents: [{ parts: [{ text: prompt }] }],
+    generationConfig: { temperature: 0.2, responseMimeType: 'application/json' },
+  });
+  return new Promise((resolve, reject) => {
+    const url = new URL(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`);
+    const req = https.request(
+      { hostname: url.hostname, path: url.pathname + url.search, method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(body) } },
+      (res) => {
+        let data = '';
+        res.on('data', c => data += c);
+        res.on('end', () => { try { resolve(JSON.parse(data)); } catch { resolve(null); } });
+      }
+    );
+    req.on('error', reject);
+    req.setTimeout(30000, () => { req.destroy(); resolve(null); });
+    req.write(body);
+    req.end();
+  });
+}
+
+async function enrichWithGemini(plants) {
+  const key = loadGeminiKey();
+  if (!key) {
+    console.error('\n⚠️  GEMINI_API_KEY não encontrada. Configure em backend/.env ou como variável de ambiente.');
+    return;
+  }
+
+  const enriched = [];
+  const batches = [];
+  for (let i = 0; i < plants.length; i += GEMINI_BATCH) batches.push(plants.slice(i, i + GEMINI_BATCH));
+
+  console.log(`\n🤖 Chamando Gemini — ${batches.length} batch${batches.length !== 1 ? 'es' : ''} de até ${GEMINI_BATCH} plantas...\n`);
+
+  for (let b = 0; b < batches.length; b++) {
+    const batch = batches[b];
+    process.stdout.write(`  Batch ${b + 1}/${batches.length} (${batch.length} plantas)...`);
+    try {
+      const prompt = buildGeminiPrompt(batch);
+      const res    = await geminiPost(key, prompt);
+      const text   = res?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+
+      // Gemini pode devolver o JSON com ou sem markdown fence
+      const clean = text.replace(/^```json\s*/i, '').replace(/\s*```$/, '').trim();
+      const parsed = JSON.parse(clean);
+
+      // Mescla dados Gemini nos registros originais
+      for (const entry of parsed) {
+        const orig = batch.find(p => p.id === entry.id);
+        if (!orig) continue;
+        enriched.push({
+          ...orig,
+          origin:                   entry.origin      || orig.origin,
+          habit:                    entry.habit       || orig.habit,
+          wateringFrequencyDays:    entry.wateringFrequencyDays    ?? null,
+          fertilizingFrequencyDays: entry.fertilizingFrequencyDays ?? null,
+          careHint:                 entry.careHint    || null,
+          needsGeminiReview: false,
+        });
+      }
+      console.log(` ✓`);
+    } catch (err) {
+      console.log(` ✗ ${err.message}`);
+      // Adiciona batch original sem enriquecimento para não perder os dados
+      batch.forEach(p => enriched.push({ ...p, geminiError: true }));
+    }
+
+    if (b < batches.length - 1) {
+      process.stdout.write(`  Aguardando ${GEMINI_BATCH_DELAY / 1000}s...\n`);
+      await delay(GEMINI_BATCH_DELAY);
+    }
+  }
+
+  const enrichedOut = path.join(OUTPUT_DIR, 'new-plants-enriched.json');
+  fs.writeFileSync(enrichedOut, JSON.stringify(enriched, null, 2), 'utf8');
+  const ok  = enriched.filter(p => !p.geminiError).length;
+  const err = enriched.filter(p =>  p.geminiError).length;
+  console.log(`\n✅ Enriquecimento: ${ok} ok | ⚠️  ${err} com erro Gemini`);
+  console.log(`📄 new-plants-enriched.json → ${enrichedOut}`);
   console.log(`
 ─────────────────────────────────────────────────────────────
 Próximos passos:
-
-1. Revise new-plants.json — corrija commonNamePt se necessário
-2. Cole new-plants-gemini-prompt.txt no Gemini (ou via API)
-   Gemini devolve JSON com wateringFrequencyDays, fertilizingFrequencyDays,
-   origin refinada, habit refinado e careHint em português
-3. Mescle as entradas aprovadas em:
-   frontend/src/data/PlantDatabase.js  (array mergedPlants)
+  1. Revise new-plants-enriched.json (foco nas entradas com geminiError:true)
+  2. Mescle as entradas aprovadas em:
+     frontend/src/data/PlantDatabase.js  (array mergedPlants)
 ─────────────────────────────────────────────────────────────
 `);
 }
