@@ -50,16 +50,6 @@ function AddPlant() {
 
   const navigate = useNavigate();
 
-  const handleTrefleSearch = async (query) => {
-    if (!query.trim()) return [];
-    try {
-      const res = await API.get(`/api/trefle/search?query=${encodeURIComponent(query)}`);
-      return res.data;
-    } catch {
-      return [];
-    }
-  };
-
   const handlePlantSelection = (selection) => {
     setSelectedPlantInfo(selection);
     if (selection.plant) {
@@ -316,8 +306,6 @@ function AddPlant() {
               value={selectedPlantInfo.id}
               onChange={handlePlantSelection}
               placeholder="Ex: Costela de Adão, Pothos, Samambaia..."
-              onSearchExternal={handleTrefleSearch}
-              useExternalSearch={true}
             />
           </div>
 
