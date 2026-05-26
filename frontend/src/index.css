@@ -224,7 +224,7 @@
   }
 
   .plant-item {
-    @apply rounded-[24px] p-7 mb-6 text-left relative overflow-hidden transition-all duration-300;
+    @apply rounded-[24px] p-7 text-left relative overflow-hidden transition-all duration-300;
     background: linear-gradient(135deg,
       rgba(184, 212, 184, 0.5) 0%,
       rgba(255, 255, 255, 0.1) 25%,
