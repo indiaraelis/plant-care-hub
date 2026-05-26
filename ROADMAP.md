@@ -151,12 +151,14 @@ Recomendação: Perenual pra dados estruturados + Gemini pra parágrafo explicat
 - [x] `useNotifications` hook — pede permissão, verifica plantas urgentes e dispara notificação nativa
 - [x] Botão Bell/BellOff no header do dashboard — toggle com badge verde quando ativo
 
-## Fase 15 — Histórico visual + estatísticas
+## Fase 15 — Histórico visual + estatísticas ✅
 > Satisfação e retenção. Depende do histórico da Fase 10.
 
-- [ ] Calendário heatmap na página de detalhes da planta (estilo GitHub contributions) com `wateringHistory`
-- [ ] Tela "Meu Jardim": total de plantas, regas esse mês, planta mais antiga, sequência atual (streak)
-- [ ] Ampliar base local: +50 plantas domésticas comuns (Monstera, Pothos, Orquídea, Samambaia, Cacto, etc.)
+- [x] Calendário heatmap na página de detalhes da planta (estilo GitHub contributions) com `wateringHistory`
+- [x] Tela "Meu Jardim" (`/stats`): total de plantas, regas esse mês, planta mais antiga, sequência atual (streak), bar de atividade por planta
+- [x] Ampliar base local: +51 plantas domésticas comuns → 130 total (Monstera, Pothos, Orquídea, Samambaia, Cacto, ZZ Plant, Ficus, etc.)
+- [x] Página de detalhe da planta (`/plants/:id`) com heatmap de 26 semanas, botões de ação, link de edição
+- [x] Cards do Dashboard linkados ao detalhe; ícone de estatísticas no cabeçalho
 
 ## Fase 16 — Features especiais
 > Diferenciação. Implementar após o core estar sólido.
