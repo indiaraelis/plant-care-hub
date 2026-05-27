@@ -16,7 +16,7 @@ const generateToken = (id) => {
 const cookieOptions = () => ({
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
-    sameSite: 'strict',
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
     maxAge: COOKIE_TTL,
 });
 
@@ -97,11 +97,7 @@ exports.loginUser = async (req, res, next) => {
 // @route   POST /api/auth/logout
 // @access  Private
 exports.logoutUser = (req, res) => {
-    res.clearCookie('token', {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
-    });
+    res.clearCookie('token', cookieOptions());
     res.json({ msg: 'Logout realizado com sucesso' });
 };
 
@@ -142,11 +138,7 @@ exports.deleteAccount = async (req, res, next) => {
     try {
         await Plant.deleteMany({ owner: req.user._id });
         await User.findByIdAndDelete(req.user._id);
-        res.clearCookie('token', {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'strict',
-        });
+        res.clearCookie('token', cookieOptions());
         res.json({ msg: 'Conta excluída com sucesso.' });
     } catch (error) {
         next(error);
