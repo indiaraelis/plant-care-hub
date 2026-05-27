@@ -392,7 +392,7 @@ function Dashboard() {
               <div className="rounded-2xl border-2 border-dashed border-mint-light group-hover:border-sage-green bg-white group-hover:bg-sage-green/5 p-5 text-center transition-colors">
                 <Search size={24} className="text-sage-green mx-auto mb-2" />
                 <p className="font-semibold text-deep-forest text-sm mt-0 mb-1">Buscar pelo nome</p>
-                <p className="text-xs text-text-muted mt-0 mb-0">130 espécies na base local com sugestões de rega</p>
+                <p className="text-xs text-text-muted mt-0 mb-0">+580 espécies na base local com cuidados e sugestões de rega</p>
               </div>
             </Link>
           </div>

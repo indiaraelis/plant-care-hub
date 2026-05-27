@@ -1,5 +1,5 @@
 // PlantAutocomplete.js
-// Busca por nome popular (PT) ou científico na base local (130 espécies).
+// Busca por nome popular (PT) ou científico na base local (+580 espécies).
 // Quando não há resultado, orienta o usuário a digitar e usar a IA no passo 2.
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
