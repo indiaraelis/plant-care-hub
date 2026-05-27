@@ -151,21 +151,37 @@ function AddPlant() {
       toast.error('Use uma imagem JPEG, PNG ou WebP.');
       return;
     }
-    if (file.size > 5 * 1024 * 1024) {
-      toast.error('Imagem muito grande. Máximo 5 MB.');
+    if (file.size > 20 * 1024 * 1024) {
+      toast.error('Imagem muito grande. Máximo 20 MB.');
       return;
     }
 
     setIdentifying(true);
     try {
+      // Resize to max 1024px on longest side before encoding
+      // Reduces iPhone 12MP (~6MB) to ~150-300KB, well within limits
       const base64 = await new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result.split(',')[1]);
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
+        const img = new Image();
+        img.onload = () => {
+          const MAX = 1024;
+          let { width, height } = img;
+          if (width > MAX || height > MAX) {
+            if (width > height) { height = Math.round(height * MAX / width); width = MAX; }
+            else { width = Math.round(width * MAX / height); height = MAX; }
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+          URL.revokeObjectURL(img.src);
+          resolve(dataUrl.split(',')[1]);
+        };
+        img.onerror = reject;
+        img.src = URL.createObjectURL(file);
       });
 
-      const res = await API.post('/api/identify', { imageBase64: base64, mimeType: file.type });
+      const res = await API.post('/api/identify', { imageBase64: base64, mimeType: 'image/jpeg' });
       const data = res.data;
 
       if (!data.confident || !data.commonName) {
