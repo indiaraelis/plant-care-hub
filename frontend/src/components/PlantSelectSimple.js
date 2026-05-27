@@ -3,6 +3,7 @@
 // Exibe nomes em português, mas usa nome científico como valor
 
 import React, { useState, useEffect } from 'react';
+import { Leaf } from 'lucide-react';
 import { getAllPlantsOrderedByPortuguese, getPlantById } from '../data/PlantDatabase';
 
 const PlantSelectSimple = ({ 
@@ -70,7 +71,7 @@ const PlantSelectSimple = ({
       </select>
       
       {/* Informações adicionais da planta selecionada */}
-      {value && !value.startsWith('trefle-') && ( // Não exibe PlantInfo para IDs Trefle aqui
+      {value && (
         <PlantInfo plantId={value} />
       )}
     </div>
@@ -84,21 +85,38 @@ const PlantInfo = ({ plantId }) => {
   if (!plant) return null;
 
   return (
-    <div className="plant-info">
-      <div className="plant-info-item">
-        <strong>Nome científico:</strong> <em>{plant.scientificName}</em>
-      </div>
-      <div className="plant-info-item">
-        <strong>Família:</strong> {plant.family}
-      </div>
-      <div className="plant-info-item">
-        <strong>Origem:</strong> {plant.origin}
-      </div>
-      {plant.alternativeNamesPt.length > 0 && (
-        <div className="plant-info-item">
-          <strong>Outros nomes:</strong> {plant.alternativeNamesPt.join(', ')}
+    <div className="plant-info overflow-hidden rounded-xl border border-mint-light">
+      {/* Species reference image */}
+      {plant.imageUrl ? (
+        <div className="w-full overflow-hidden" style={{ height: '120px' }}>
+          <img
+            src={plant.imageUrl}
+            alt={plant.scientificName}
+            className="w-full h-full object-cover"
+            onError={(e) => { e.target.parentElement.style.display = 'none'; }}
+          />
+        </div>
+      ) : (
+        <div className="w-full flex items-center justify-center bg-sage-green/10" style={{ height: '70px' }}>
+          <Leaf size={28} className="text-sage-green opacity-40" />
         </div>
       )}
+      <div className="p-3">
+        <div className="plant-info-item">
+          <strong>Nome científico:</strong> <em>{plant.scientificName}</em>
+        </div>
+        <div className="plant-info-item">
+          <strong>Família:</strong> {plant.family}
+        </div>
+        <div className="plant-info-item">
+          <strong>Origem:</strong> {plant.origin}
+        </div>
+        {plant.alternativeNamesPt.length > 0 && (
+          <div className="plant-info-item">
+            <strong>Outros nomes:</strong> {plant.alternativeNamesPt.join(', ')}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

@@ -4,7 +4,7 @@ import React, { useRef, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import API from '../api';
 import { toast } from 'react-toastify';
-import { Camera, Loader, Sparkles } from 'lucide-react';
+import { Camera, Leaf, Loader, Sparkles } from 'lucide-react';
 import PlantAutocomplete from '../components/PlantAutocomplete';
 import { suggestCareFromHabit } from '../utils/careDefaults';
 
@@ -57,17 +57,49 @@ function AddPlant() {
       setSpecies(selection.scientificName);
       setSpeciesFromAutocomplete(true);
 
-      // Derive care suggestion from botanical data
-      const suggestion = suggestCareFromHabit(
-        selection.plant.habit,
-        selection.plant.origin
-      );
+      // Se a planta do banco já tem dados de cuidado (fase 19), usa direto
+      const plant = selection.plant;
+      const hasDbCare = plant.wateringFrequencyDays != null;
+
+      const wateringDays = hasDbCare ? plant.wateringFrequencyDays : null;
+      const fertilizingDays = hasDbCare ? (plant.fertilizingFrequencyDays ?? 30) : null;
+      const hint = hasDbCare
+        ? (plant.careHint || null)
+        : null;
+
+      const suggestion = hasDbCare
+        ? {
+            wateringDays,
+            fertilizingDays,
+            hint,
+            presetMatches: [2, 7, 15, 30].includes(wateringDays),
+            source: 'db',
+          }
+        : suggestCareFromHabit(plant.habit, plant.origin);
+
       setCareSuggestion(suggestion);
 
-      // Pre-select the suggested watering preset if it maps to a quick-pick
-      if (suggestion.presetMatches) {
-        setWateringPreset(suggestion.wateringDays);
-        setWateringCustom('');
+      // Pré-seleciona rega
+      if (suggestion.wateringDays) {
+        if ([2, 7, 15, 30].includes(suggestion.wateringDays)) {
+          setWateringPreset(suggestion.wateringDays);
+          setWateringCustom('');
+        } else {
+          setWateringPreset(null);
+          setWateringCustom(String(suggestion.wateringDays));
+        }
+      }
+
+      // Pré-seleciona adubação
+      if (fertilizingDays === 0) {
+        setNoFertilizing(true);
+      } else if (fertilizingDays) {
+        setNoFertilizing(false);
+        if ([7, 15, 30].includes(fertilizingDays)) {
+          setFertilizingPreset(fertilizingDays);
+        } else {
+          setFertilizingCustom(String(fertilizingDays));
+        }
       }
 
       // Notes: leave clean — user can add their own
@@ -188,10 +220,7 @@ function AddPlant() {
         presetMatches: [2, 7, 15, 30].includes(data.suggestedWateringDays),
         // Perenual structured fields
         source: data.source,
-        wateringLevel: data.wateringLevel || null,
-        maintenanceLevel: data.maintenanceLevel || null,
-        sunlightLabel: data.sunlightLabel || null,
-        perenualName: data.perenualName || null,
+  
       };
       setCareSuggestion(suggestion);
       if (suggestion.presetMatches) {
@@ -211,8 +240,7 @@ function AddPlant() {
           setFertilizingCustom(String(data.suggestedFertilizingDays));
         }
       }
-      const sourceLabel = data.source === 'perenual' ? 'Perenual' : 'IA';
-      if (data.confident !== false) toast.success(`Sugestão de cuidados aplicada (${sourceLabel})!`);
+      if (data.confident !== false) toast.success('Sugestão de cuidados aplicada!');
       else toast.warn(data.careHint || 'Sugestão aproximada — ajuste conforme sua experiência.');
     } catch {
       toast.error('Não foi possível buscar sugestões. Tente novamente.');
@@ -361,20 +389,37 @@ function AddPlant() {
 
           {/* Botanical info card — shown when a plant was selected from our database */}
           {selectedPlantInfo.plant && (
-            <div className="rounded-2xl border border-mint-light bg-sage-green/10 px-5 py-4 mb-5 text-left">
-              <p className="text-sm font-semibold text-deep-forest mt-0 mb-1">
-                {name}
-                {selectedPlantInfo.plant.family ? ` · ${selectedPlantInfo.plant.family}` : ''}
-              </p>
-              {selectedPlantInfo.plant.origin && selectedPlantInfo.plant.origin !== 'Não informado' && selectedPlantInfo.plant.origin !== 'Desconhecida' && (
-                <p className="text-xs text-text-muted mt-0 mb-0">Origem: {selectedPlantInfo.plant.origin}</p>
+            <div className="rounded-2xl border border-mint-light bg-sage-green/10 mb-5 text-left overflow-hidden">
+              {/* Species reference image */}
+              {selectedPlantInfo.plant.imageUrl ? (
+                <div className="w-full overflow-hidden" style={{ height: '160px' }}>
+                  <img
+                    src={selectedPlantInfo.plant.imageUrl}
+                    alt={selectedPlantInfo.plant.scientificName}
+                    className="w-full h-full object-cover"
+                    onError={(e) => { e.target.parentElement.style.display = 'none'; }}
+                  />
+                </div>
+              ) : (
+                <div className="w-full flex items-center justify-center bg-sage-green/20" style={{ height: '100px' }}>
+                  <Leaf size={40} className="text-sage-green opacity-40" />
+                </div>
               )}
-              {selectedPlantInfo.plant.habit && selectedPlantInfo.plant.habit !== 'Não informado' && (
-                <p className="text-xs text-text-muted mt-0.5 mb-0">Hábito: {selectedPlantInfo.plant.habit}</p>
-              )}
-              {selectedPlantInfo.plant.alternativeNamesPt?.length > 0 && (
-                <p className="text-xs text-text-muted mt-0.5 mb-0">Também conhecida como: {selectedPlantInfo.plant.alternativeNamesPt.join(', ')}</p>
-              )}
+              <div className="px-5 py-4">
+                <p className="text-sm font-semibold text-deep-forest mt-0 mb-1">
+                  {name}
+                  {selectedPlantInfo.plant.family ? ` · ${selectedPlantInfo.plant.family}` : ''}
+                </p>
+                {selectedPlantInfo.plant.origin && selectedPlantInfo.plant.origin !== 'Não informado' && selectedPlantInfo.plant.origin !== 'Desconhecida' && (
+                  <p className="text-xs text-text-muted mt-0 mb-0">Origem: {selectedPlantInfo.plant.origin}</p>
+                )}
+                {selectedPlantInfo.plant.habit && selectedPlantInfo.plant.habit !== 'Não informado' && (
+                  <p className="text-xs text-text-muted mt-0.5 mb-0">Hábito: {selectedPlantInfo.plant.habit}</p>
+                )}
+                {selectedPlantInfo.plant.alternativeNamesPt?.length > 0 && (
+                  <p className="text-xs text-text-muted mt-0.5 mb-0">Também conhecida como: {selectedPlantInfo.plant.alternativeNamesPt.join(', ')}</p>
+                )}
+              </div>
             </div>
           )}
 
@@ -394,36 +439,6 @@ function AddPlant() {
                   <Sparkles size={12} /> {suggesting ? 'Buscando...' : 'Sugerir com IA'}
                 </button>
               )}
-            </div>
-          )}
-
-          {/* Perenual structured data card — shown when suggestion came from Perenual */}
-          {careSuggestion?.source === 'perenual' && (
-            <div className="rounded-2xl border border-emerald-leaf/30 bg-emerald-leaf/5 px-4 py-3 mb-5 text-left">
-              <p className="text-xs font-semibold text-emerald-leaf mt-0 mb-2 flex items-center gap-1.5">
-                <Sparkles size={11} /> Dados da Perenual
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {careSuggestion.wateringLevel && (
-                  <span className="inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-full border border-blue-200 bg-blue-50 text-blue-700">
-                    💧 Rega {
-                      { Frequent: 'frequente', Average: 'média', Minimum: 'mínima', None: 'rara' }[careSuggestion.wateringLevel] || careSuggestion.wateringLevel
-                    }
-                  </span>
-                )}
-                {careSuggestion.sunlightLabel && (
-                  <span className="inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-full border border-yellow-200 bg-yellow-50 text-yellow-700">
-                    ☀️ {careSuggestion.sunlightLabel}
-                  </span>
-                )}
-                {careSuggestion.maintenanceLevel && (
-                  <span className="inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-full border border-mint-light bg-sage-green/10 text-deep-forest">
-                    🌱 Manutenção {
-                      { High: 'alta', Medium: 'média', Low: 'baixa', Minimum: 'mínima' }[careSuggestion.maintenanceLevel] || careSuggestion.maintenanceLevel
-                    }
-                  </span>
-                )}
-              </div>
             </div>
           )}
 
