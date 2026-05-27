@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import API from '../api';
 import { toast } from 'react-toastify';
-import { Camera, Leaf, Loader, Sparkles } from 'lucide-react';
+import { Camera, Leaf, Loader, Sparkles, Sun } from 'lucide-react';
 import PlantAutocomplete from '../components/PlantAutocomplete';
 import { suggestCareFromHabit } from '../utils/careDefaults';
 
@@ -430,18 +430,26 @@ function AddPlant() {
                 </div>
               )}
               <div className="px-5 py-4">
-                <p className="text-sm font-semibold text-deep-forest mt-0 mb-1">
+                <p className="text-sm font-semibold text-deep-forest mt-0 mb-0.5">
                   {name}
                   {selectedPlantInfo.plant.family ? ` · ${selectedPlantInfo.plant.family}` : ''}
                 </p>
-                {selectedPlantInfo.plant.origin && selectedPlantInfo.plant.origin !== 'Não informado' && selectedPlantInfo.plant.origin !== 'Desconhecida' && (
-                  <p className="text-xs text-text-muted mt-0 mb-0">Origem: {selectedPlantInfo.plant.origin}</p>
+                {selectedPlantInfo.plant.scientificName && (
+                  <p className="text-xs text-text-muted italic mt-0 mb-2">{selectedPlantInfo.plant.scientificName}</p>
                 )}
-                {selectedPlantInfo.plant.habit && selectedPlantInfo.plant.habit !== 'Não informado' && (
-                  <p className="text-xs text-text-muted mt-0.5 mb-0">Hábito: {selectedPlantInfo.plant.habit}</p>
-                )}
+                <div className="flex flex-wrap gap-x-4 gap-y-0.5">
+                  {selectedPlantInfo.plant.origin && selectedPlantInfo.plant.origin !== 'Não informado' && selectedPlantInfo.plant.origin !== 'Desconhecida' && (
+                    <p className="text-xs text-text-muted mt-0 mb-0">🌍 {selectedPlantInfo.plant.origin}</p>
+                  )}
+                  {selectedPlantInfo.plant.habit && selectedPlantInfo.plant.habit !== 'Não informado' && (
+                    <p className="text-xs text-text-muted mt-0 mb-0">🌿 {selectedPlantInfo.plant.habit}</p>
+                  )}
+                  {selectedPlantInfo.plant.sunlight && selectedPlantInfo.plant.sunlight !== 'Não informado' && (
+                    <p className="text-xs text-text-muted mt-0 mb-0"><Sun size={11} className="inline mb-0.5" /> {selectedPlantInfo.plant.sunlight}</p>
+                  )}
+                </div>
                 {selectedPlantInfo.plant.alternativeNamesPt?.length > 0 && (
-                  <p className="text-xs text-text-muted mt-0.5 mb-0">Também conhecida como: {selectedPlantInfo.plant.alternativeNamesPt.join(', ')}</p>
+                  <p className="text-xs text-text-muted mt-1.5 mb-0">Também: {selectedPlantInfo.plant.alternativeNamesPt.join(', ')}</p>
                 )}
               </div>
             </div>
