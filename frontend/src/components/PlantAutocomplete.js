@@ -139,22 +139,18 @@ const PlantAutocomplete = ({
       </div>
 
       {showSuggestions && suggestions.length > 0 && (
-        <div ref={suggestionsRef} className="suggestions-container">
+        <div ref={suggestionsRef} className="plant-suggestions">
           {suggestions.map((plant, index) => (
             <div
               key={plant.id}
-              className={`suggestion-item ${index === selectedIndex ? 'selected' : ''}`}
+              className={`plant-suggestion${index === selectedIndex ? ' selected' : ''}`}
               onMouseDown={(e) => e.preventDefault()}
               onClick={() => handleSuggestionClick(plant)}
             >
-              <div className="suggestion-main">
-                <span className="plant-name-pt">{plant.commonNamePt}</span>
-                {plant.alternativeNamesPt?.length > 0 && (
-                  <span className="plant-alternatives">({plant.alternativeNamesPt.join(', ')})</span>
-                )}
-              </div>
-              <div className="suggestion-scientific"><em>{plant.scientificName}</em></div>
-              <div className="suggestion-family">{plant.family}</div>
+              <span className="plant-suggestion-name">{plant.commonNamePt}</span>
+              {plant.scientificName && (
+                <em className="plant-suggestion-scientific ml-1.5">{plant.scientificName}</em>
+              )}
             </div>
           ))}
         </div>
