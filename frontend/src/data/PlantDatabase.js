@@ -19,6 +19,11 @@ const mergedPlants = [
     "farmacopeia": false,
     "source": "Embrapa",
     "imageUrl": null
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Pleno sol",
+    "careHint": "Prefere solos profundos e bem drenados. Evite encharcamento para não apodrecer as raízes."
   },
   {
     "id": "duguetia_furfuracea_sthil_bet_h",
@@ -37,6 +42,11 @@ const mergedPlants = [
     "farmacopeia": false,
     "source": "Embrapa",
     "imageUrl": null
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Pleno sol",
+    "careHint": "Planta de cerrado, necessita de muita luminosidade e solo com boa aeração."
   },
   {
     "id": "himatanthus_obovatus_margwoods",
@@ -55,6 +65,11 @@ const mergedPlants = [
     "farmacopeia": false,
     "source": "Embrapa",
     "imageUrl": null
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Pleno sol",
+    "careHint": "Aprecia sol pleno e tolera períodos de seca. Ideal para jardins externos com espaço."
   },
   {
     "id": "annona_dioica_st_hil",
@@ -72,7 +87,12 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "Embrapa",
-    "imageUrl": null
+    "imageUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/58531859/medium.jpg"
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Pleno sol",
+    "careHint": "Necessita de solo rico em matéria orgânica e regas regulares, mas sem acúmulo de água."
   },
   {
     "id": "rollinia_emarginata_schl",
@@ -88,7 +108,12 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "Embrapa",
-    "imageUrl": null
+    "imageUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/69292127/medium.jpeg"
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Meia sombra",
+    "careHint": "Adapta-se bem a locais com luz filtrada. Mantenha o solo levemente úmido."
   },
   {
     "id": "myracrodruon_urundeuva_engl_frall",
@@ -105,6 +130,11 @@ const mergedPlants = [
     "farmacopeia": false,
     "source": "Embrapa",
     "imageUrl": null
+  ,
+    "wateringFrequencyDays": 14,
+    "fertilizingFrequencyDays": 90,
+    "sunlight": "Pleno sol",
+    "careHint": "Árvore de crescimento lento, exige muito sol e solo bem drenado. Evite podas drásticas."
   },
   {
     "id": "annona_cornifolia_st_hil",
@@ -122,7 +152,12 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "Embrapa",
-    "imageUrl": null
+    "imageUrl": "https://static.inaturalist.org/photos/343803354/medium.jpeg"
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Pleno sol",
+    "careHint": "Planta rústica que prefere solos arenosos e boa exposição solar."
   },
   {
     "id": "justicia_gendarussa_burm_f",
@@ -138,7 +173,11 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
-    "imageUrl": null
+    "imageUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/263625847/medium.jpg",
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Meia sombra",
+    "careHint": "Prefere solo rico em matéria orgânica e umidade constante, mas sem encharcamento."
   },
   {
     "id": "rosmarinus_officinalis_l",
@@ -154,7 +193,12 @@ const mergedPlants = [
     "renisus": true,
     "farmacopeia": true,
     "source": "IFSULDEMINAS",
-    "imageUrl": null
+    "imageUrl": "https://static.inaturalist.org/photos/87326219/medium.jpg"
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Pleno sol",
+    "careHint": "Exige sol direto por várias horas e solo com excelente drenagem. Não tolera solo encharcado."
   },
   {
     "id": "ocimum_campechianum_mill",
@@ -170,7 +214,11 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
-    "imageUrl": null
+    "imageUrl": "https://static.inaturalist.org/photos/41135689/medium.jpeg",
+    "wateringFrequencyDays": 2,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Pleno sol",
+    "careHint": "Necessita de regas frequentes e solo fértil para manter o vigor das folhas aromáticas."
   },
   {
     "id": "lavandula_dentata_l",
@@ -186,7 +234,12 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
-    "imageUrl": null
+    "imageUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/131668174/medium.jpeg"
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Pleno sol",
+    "careHint": "Precisa de boa circulação de ar e sol pleno para evitar fungos nas folhas."
   },
   {
     "id": "lavandula_angustifolia_mill",
@@ -202,7 +255,12 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
-    "imageUrl": null
+    "imageUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/157057/medium.jpg"
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Pleno sol",
+    "careHint": "Sensível ao calor excessivo e umidade alta; prefira locais arejados e com sol da manhã."
   },
   {
     "id": "allium_tuberosum_rottler_ex_spreng",
@@ -219,6 +277,11 @@ const mergedPlants = [
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
     "imageUrl": null
+  ,
+    "wateringFrequencyDays": 2,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Pleno sol",
+    "careHint": "Mantenha o solo sempre úmido, mas nunca encharcado. Colha as folhas regularmente para estimular o crescimento."
   },
   {
     "id": "alstroemeria_cf_psittacina_lehm",
@@ -234,7 +297,11 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "Embrapa",
-    "imageUrl": null
+    "imageUrl": null,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Meia sombra",
+    "careHint": "Mantenha o solo úmido e evite sol direto nas horas mais quentes do dia."
   },
   {
     "id": "bryophyllum_daigremontianum_raym_hamet_&_hperrier_aberger",
@@ -250,7 +317,11 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
-    "imageUrl": null
+    "imageUrl": null,
+    "wateringFrequencyDays": 14,
+    "fertilizingFrequencyDays": null,
+    "sunlight": "Pleno sol",
+    "careHint": "Planta extremamente resistente; evite regar em excesso para não apodrecer as raízes."
   },
   {
     "id": "solidago_chilensis_meyen",
@@ -267,6 +338,11 @@ const mergedPlants = [
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
     "imageUrl": null
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Pleno sol",
+    "careHint": "Planta rústica que prefere solos bem drenados. Evite o excesso de umidade nas raízes para prevenir fungos."
   },
   {
     "id": "ruta_graveolens_l",
@@ -282,7 +358,12 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
-    "imageUrl": null
+    "imageUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/33838148/medium.jpg"
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Pleno sol",
+    "careHint": "Precisa de muita luz solar direta e solo com boa drenagem. Evite regar as folhas para não causar manchas."
   },
   {
     "id": "vernonia_polyanthes_less",
@@ -298,7 +379,12 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
-    "imageUrl": null
+    "imageUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/49045965/medium.jpg"
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Pleno sol",
+    "careHint": "É uma planta de crescimento vigoroso que tolera solos pobres. Pode ser podada para controlar o tamanho."
   },
   {
     "id": "euphorbia_tirucalli_l",
@@ -314,7 +400,11 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
-    "imageUrl": null
+    "imageUrl": "https://static.inaturalist.org/photos/325352497/medium.jpeg",
+    "wateringFrequencyDays": 30,
+    "fertilizingFrequencyDays": null,
+    "sunlight": "Pleno sol",
+    "careHint": "Cuidado com o látex tóxico ao podar; exige pouquíssima água e muito sol."
   },
   {
     "id": "curcuma_longa_l",
@@ -330,7 +420,12 @@ const mergedPlants = [
     "renisus": true,
     "farmacopeia": true,
     "source": "IFSULDEMINAS",
-    "imageUrl": null
+    "imageUrl": "https://static.inaturalist.org/photos/428017250/medium.jpeg"
+  ,
+    "wateringFrequencyDays": 5,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Meia sombra",
+    "careHint": "Prefere solos ricos em matéria orgânica e bem drenados. Mantenha o solo úmido durante o período de crescimento."
   },
   {
     "id": "aristolochia_esperanzae_kze",
@@ -346,7 +441,12 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "Embrapa",
-    "imageUrl": null
+    "imageUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/59600429/medium.jpg"
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Meia sombra",
+    "careHint": "Como trepadeira, necessita de suporte para se desenvolver. Aprecia umidade constante, mas sem encharcamento."
   },
   {
     "id": "aloe_vera_l_burm_f",
@@ -363,6 +463,11 @@ const mergedPlants = [
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
     "imageUrl": null
+  ,
+    "wateringFrequencyDays": 14,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Pleno sol",
+    "careHint": "Não tolera solo encharcado, o que pode apodrecer as raízes. Utilize substrato específico para suculentas."
   },
   {
     "id": "aloe_arborescens_mill",
@@ -378,7 +483,12 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
-    "imageUrl": null
+    "imageUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/221831309/medium.jpeg"
+  ,
+    "wateringFrequencyDays": 14,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Pleno sol",
+    "careHint": "Muito resistente, prefere sol pleno para florescer bem. Regue apenas quando o solo estiver completamente seco."
   },
   {
     "id": "plectranthus_ornatus_codd",
@@ -396,7 +506,12 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
-    "imageUrl": null
+    "imageUrl": "https://static.inaturalist.org/photos/29339609/medium.jpg"
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Pleno sol",
+    "careHint": "Planta de fácil cultivo que tolera bem podas de formação. Evite regas excessivas para manter a planta compacta."
   },
   {
     "id": "plectranthus_barbatus_andrews",
@@ -416,6 +531,11 @@ const mergedPlants = [
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
     "imageUrl": null
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Pleno sol",
+    "careHint": "Gosta de sol pleno e solo fértil. É uma planta arbustiva que responde muito bem a podas regulares."
   },
   {
     "id": "plectranthus_neochilus_schltr",
@@ -431,7 +551,12 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
-    "imageUrl": null
+    "imageUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/227387235/medium.jpeg"
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Pleno sol",
+    "careHint": "Planta muito rústica, prefere solos bem drenados e tolera bem períodos curtos de seca."
   },
   {
     "id": "vernonia_condensata_baker",
@@ -448,6 +573,11 @@ const mergedPlants = [
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
     "imageUrl": null
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Pleno sol",
+    "careHint": "Necessita de podas regulares para manter o formato arbustivo e estimular a brotação."
   },
   {
     "id": "bonafousia_siphilitica_lf_l_allorge",
@@ -463,7 +593,11 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "Embrapa",
-    "imageUrl": null
+    "imageUrl": null,
+    "wateringFrequencyDays": 5,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Meia sombra",
+    "careHint": "Gosta de ambientes tropicais com umidade elevada e solo bem drenado."
   },
   {
     "id": "sedum_dendroideum_moc_&_sessé_ex_dc",
@@ -480,6 +614,11 @@ const mergedPlants = [
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
     "imageUrl": null
+  ,
+    "wateringFrequencyDays": 14,
+    "fertilizingFrequencyDays": 90,
+    "sunlight": "Pleno sol",
+    "careHint": "Como toda suculenta, evite encharcar o solo para não apodrecer as raízes."
   },
   {
     "id": "spondias_lutea_l",
@@ -499,7 +638,11 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "Embrapa",
-    "imageUrl": null
+    "imageUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/604477/medium.jpeg",
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Pleno sol",
+    "careHint": "Árvore de grande porte, ideal para jardins externos com espaço para raízes."
   },
   {
     "id": "stenandrium_pohlii_nees",
@@ -518,6 +661,11 @@ const mergedPlants = [
     "farmacopeia": false,
     "source": "Embrapa",
     "imageUrl": null
+  ,
+    "wateringFrequencyDays": 5,
+    "fertilizingFrequencyDays": 45,
+    "sunlight": "Meia sombra",
+    "careHint": "Prefere umidade constante no solo e proteção contra o sol direto forte do meio-dia."
   },
   {
     "id": "anacardium_humile_st_hil",
@@ -537,7 +685,12 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "Embrapa",
-    "imageUrl": null
+    "imageUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/117611007/medium.jpeg"
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Pleno sol",
+    "careHint": "Adapta-se bem a vasos grandes, mas prefere solo profundo e bem drenado."
   },
   {
     "id": "achyranthes_aspera_l",
@@ -557,7 +710,12 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "Embrapa",
-    "imageUrl": null
+    "imageUrl": "https://static.inaturalist.org/photos/63571019/medium.jpg"
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": null,
+    "sunlight": "Pleno sol",
+    "careHint": "É uma planta de crescimento espontâneo e vigoroso; controle o espaço para não se tornar invasiva."
   },
   {
     "id": "glinus_radiatus_l",
@@ -573,7 +731,12 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "Embrapa",
-    "imageUrl": null
+    "imageUrl": "https://static.inaturalist.org/photos/126216214/medium.jpeg"
+  ,
+    "wateringFrequencyDays": 2,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Meia sombra",
+    "careHint": "Como o nome sugere, aprecia solo úmido e rico em matéria orgânica."
   },
   {
     "id": "amaranthus_lividus_l_ssp_polygonoides",
@@ -589,7 +752,12 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "Embrapa",
-    "imageUrl": null
+    "imageUrl": "https://static.inaturalist.org/photos/149170256/medium.jpg"
+  ,
+    "wateringFrequencyDays": 2,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Pleno sol",
+    "careHint": "Exige regas frequentes para manter o vigor das folhas, especialmente em climas quentes."
   },
   {
     "id": "rhabdadenia_pohlii_marg",
@@ -605,7 +773,12 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "Embrapa",
-    "imageUrl": null
+    "imageUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/46068350/medium.jpeg"
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Pleno sol",
+    "careHint": "Planta trepadeira que necessita de suporte ou tutor para se desenvolver adequadamente."
   },
   {
     "id": "secondatia_densiflora_dc",
@@ -622,6 +795,11 @@ const mergedPlants = [
     "farmacopeia": false,
     "source": "Embrapa",
     "imageUrl": null
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Pleno sol",
+    "careHint": "Cuidado ao manusear, pois a seiva leitosa pode ser irritante para a pele e mucosas."
   },
   {
     "id": "prestonia_coalita_vellwoods",
@@ -638,6 +816,11 @@ const mergedPlants = [
     "farmacopeia": false,
     "source": "Embrapa",
     "imageUrl": null
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Pleno sol",
+    "careHint": "É uma trepadeira vigorosa que precisa de suporte para escalar e solo bem drenado."
   },
   {
     "id": "calendula_officinalis_l",
@@ -653,7 +836,12 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
-    "imageUrl": null
+    "imageUrl": "https://static.inaturalist.org/photos/181570145/medium.jpg"
+  ,
+    "wateringFrequencyDays": 2,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Pleno sol",
+    "careHint": "Prefere climas mais amenos e solo sempre úmido, mas nunca encharcado."
   },
   {
     "id": "matricaria_chamomilla_l",
@@ -669,7 +857,12 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
-    "imageUrl": null
+    "imageUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/528185258/medium.jpg"
+  ,
+    "wateringFrequencyDays": 2,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Pleno sol",
+    "careHint": "Necessita de regas frequentes e solo rico em matéria orgânica para florescer bem."
   },
   {
     "id": "artemisia_alba_turra",
@@ -686,6 +879,11 @@ const mergedPlants = [
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
     "imageUrl": null
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Pleno sol",
+    "careHint": "Exige solo com excelente drenagem e pouca umidade nas folhas para evitar fungos."
   },
   {
     "id": "cymbopogon_citratus_dc_stapf",
@@ -704,6 +902,11 @@ const mergedPlants = [
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
     "imageUrl": null
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Pleno sol",
+    "careHint": "Planta de crescimento rápido que precisa de espaço e luz solar direta para produzir óleos essenciais."
   },
   {
     "id": "baccharis_trimera_less_dc",
@@ -720,6 +923,11 @@ const mergedPlants = [
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
     "imageUrl": null
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Pleno sol",
+    "careHint": "Muito rústica, adapta-se bem a solos pobres, mas prefere locais com bastante luminosidade."
   },
   {
     "id": "chenopodium_ambrosioides_l",
@@ -735,7 +943,12 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
-    "imageUrl": null
+    "imageUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/84127806/medium.jpeg"
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": null,
+    "sunlight": "Pleno sol",
+    "careHint": "Planta invasora de fácil cultivo, tolera diversos tipos de solo e cresce rapidamente."
   },
   {
     "id": "justicia_pectoralis_jacq_var_stenophylla",
@@ -755,7 +968,12 @@ const mergedPlants = [
     "renisus": true,
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
-    "imageUrl": null
+    "imageUrl": "https://static.inaturalist.org/photos/61065029/medium.jpeg"
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Meia sombra",
+    "careHint": "Prefere locais protegidos do sol forte do meio-dia e solo mantido levemente úmido."
   },
   {
     "id": "lippia_alba_mill_ne_br_ex_britton_&_p_wilson",
@@ -772,6 +990,11 @@ const mergedPlants = [
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
     "imageUrl": null
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Pleno sol",
+    "careHint": "Pode ser podada regularmente para estimular o crescimento de novos ramos e manter o formato."
   },
   {
     "id": "cymbopogon_nardus",
@@ -787,7 +1010,12 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
-    "imageUrl": null
+    "imageUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/126610149/medium.jpeg"
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Pleno sol",
+    "careHint": "Necessita de sol pleno para repelir insetos com eficácia e solo fértil para bom desenvolvimento."
   },
   {
     "id": "cosmos_caudatus_kunth",
@@ -804,6 +1032,11 @@ const mergedPlants = [
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
     "imageUrl": null
+  ,
+    "wateringFrequencyDays": 2,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Pleno sol",
+    "careHint": "Mantenha o solo sempre úmido e remova as flores murchas para estimular novas florações."
   },
   {
     "id": "foeniculum_vulgare_miller",
@@ -822,6 +1055,11 @@ const mergedPlants = [
     "farmacopeia": true,
     "source": "IFSULDEMINAS",
     "imageUrl": null
+  ,
+    "wateringFrequencyDays": 2,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Pleno sol",
+    "careHint": "Exige solo rico em matéria orgânica e bem drenado; evite encharcamento para não apodrecer as raízes."
   },
   {
     "id": "zingiber_officinale_roscoe",
@@ -838,6 +1076,11 @@ const mergedPlants = [
     "farmacopeia": true,
     "source": "IFSULDEMINAS",
     "imageUrl": null
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Meia sombra",
+    "careHint": "Prefere locais com luz difusa e solo fértil; proteja de ventos fortes e geadas."
   },
   {
     "id": "stachytarpheta_cayennensis_rich_vahl",
@@ -854,6 +1097,11 @@ const mergedPlants = [
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
     "imageUrl": null
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Pleno sol",
+    "careHint": "Planta rústica que se adapta bem a diversos solos, mas prefere exposição solar direta para florescer."
   },
   {
     "id": "tithonia_diversifolia_hemsl_a_gray",
@@ -870,6 +1118,11 @@ const mergedPlants = [
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
     "imageUrl": null
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Pleno sol",
+    "careHint": "Cresce rapidamente, sendo ideal para cercas vivas; realize podas de formação para controlar seu tamanho."
   },
   {
     "id": "mikania_glomerata_spreng",
@@ -886,6 +1139,11 @@ const mergedPlants = [
     "farmacopeia": true,
     "source": "IFSULDEMINAS",
     "imageUrl": null
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Meia sombra",
+    "careHint": "É uma trepadeira vigorosa que precisa de suporte ou treliça para se desenvolver adequadamente."
   },
   {
     "id": "petiveria_alliacea_l",
@@ -901,7 +1159,12 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
-    "imageUrl": null
+    "imageUrl": "https://static.inaturalist.org/photos/152789991/medium.jpg"
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Meia sombra",
+    "careHint": "Muito resistente, tolera bem diferentes tipos de solo, mas prefere locais com boa luminosidade."
   },
   {
     "id": "mentha_x_piperita_l",
@@ -918,6 +1181,11 @@ const mergedPlants = [
     "farmacopeia": true,
     "source": "IFSULDEMINAS",
     "imageUrl": null
+  ,
+    "wateringFrequencyDays": 2,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Meia sombra",
+    "careHint": "Necessita de regas frequentes e solo rico em nutrientes; pode ser cultivada em vasos com boa drenagem."
   },
   {
     "id": "mentha_sp_1",
@@ -933,7 +1201,11 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
-    "imageUrl": null
+    "imageUrl": null,
+    "wateringFrequencyDays": 2,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Meia sombra",
+    "careHint": "Mantenha o solo sempre úmido e realize podas frequentes para estimular o crescimento."
   },
   {
     "id": "mentha_sp_2",
@@ -949,7 +1221,11 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
-    "imageUrl": null
+    "imageUrl": null,
+    "wateringFrequencyDays": 2,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Meia sombra",
+    "careHint": "Evite o sol direto do meio-dia para não queimar as folhas delicadas."
   },
   {
     "id": "plectranthus_amboinicus_lour_spreng",
@@ -968,6 +1244,11 @@ const mergedPlants = [
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
     "imageUrl": null
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Meia sombra",
+    "careHint": "Planta suculenta que tolera períodos curtos de seca; evite molhar as folhas diretamente para prevenir fungos."
   },
   {
     "id": "mentha_sp_variegata", // ID mais específico
@@ -983,7 +1264,11 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
-    "imageUrl": null
+    "imageUrl": null,
+    "wateringFrequencyDays": 2,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Meia sombra",
+    "careHint": "A variegata precisa de luz indireta brilhante para manter o padrão das cores nas folhas."
   },
   {
     "id": "cissus_verticillata_l_nicolson_&_ce_jarvis",
@@ -1003,6 +1288,11 @@ const mergedPlants = [
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
     "imageUrl": null
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Meia sombra",
+    "careHint": "Trepadeira de crescimento rápido que aprecia solo úmido e suporte para escalar."
   },
   {
     "id": "ziziphus_joazeiro_mart",
@@ -1018,7 +1308,12 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
-    "imageUrl": null
+    "imageUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/20857111/medium.jpg"
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Pleno sol",
+    "careHint": "Árvore de grande porte, ideal para jardins externos amplos; tolera bem a seca após estabelecida."
   },
   {
     "id": "lantana_camara_l",
@@ -1034,7 +1329,12 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
-    "imageUrl": null
+    "imageUrl": "https://static.inaturalist.org/photos/369564698/medium.jpeg"
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Pleno sol",
+    "careHint": "Planta rústica que exige podas regulares para manter o formato e estimular a floração contínua."
   },
   {
     "id": "mentha_sylvestris_l",
@@ -1050,7 +1350,12 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
-    "imageUrl": null
+    "imageUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/254438035/medium.jpeg"
+  ,
+    "wateringFrequencyDays": 2,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Meia sombra",
+    "careHint": "Gosta de solo constantemente úmido e solo rico em matéria orgânica; pode ser invasiva em vasos."
   },
   {
     "id": "hippeastrum_puniceum_lam_o_kuntze",
@@ -1069,6 +1374,11 @@ const mergedPlants = [
     "farmacopeia": false,
     "source": "Embrapa",
     "imageUrl": null
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Meia sombra",
+    "careHint": "Evite encharcar o bulbo para prevenir apodrecimento; deixe o solo secar levemente entre as regas."
   },
   {
     "id": "artemisia_absinthium_l",
@@ -1084,7 +1394,12 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
-    "imageUrl": null
+    "imageUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/45876952/medium.jpeg"
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Pleno sol",
+    "careHint": "Prefere solos bem drenados e pobres em nutrientes; evite excesso de rega para não apodrecer as raízes."
   },
   {
     "id": "achyrocline_satureioides_lam_dc",
@@ -1101,6 +1416,11 @@ const mergedPlants = [
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
     "imageUrl": null
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Pleno sol",
+    "careHint": "Planta nativa que prefere solos arenosos e boa circulação de ar; evite umidade excessiva nas folhas."
   },
   {
     "id": "pelargonium_citrosum_voigt_ex_breiter",
@@ -1117,6 +1437,11 @@ const mergedPlants = [
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
     "imageUrl": null
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Pleno sol",
+    "careHint": "Necessita de muita luz solar direta para manter o aroma e evitar o estiolamento dos ramos."
   },
   {
     "id": "ocimum_basilicum_l",
@@ -1132,7 +1457,12 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
-    "imageUrl": null
+    "imageUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/154769884/medium.jpg"
+  ,
+    "wateringFrequencyDays": 2,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Pleno sol",
+    "careHint": "Remova as flores assim que surgirem para prolongar a vida da planta e manter o sabor das folhas."
   },
   {
     "id": "ocimum_basilicum_l_var_purpureum_hort",
@@ -1148,7 +1478,12 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
-    "imageUrl": null
+    "imageUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/154769884/medium.jpg"
+  ,
+    "wateringFrequencyDays": 2,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Pleno sol",
+    "careHint": "Exige sol pleno para manter a coloração arroxeada intensa das folhas; regue sempre na base."
   },
   {
     "id": "origanum_majorana_l",
@@ -1164,7 +1499,12 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
-    "imageUrl": null
+    "imageUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/63737491/medium.jpg"
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Pleno sol",
+    "careHint": "Prefere solo levemente seco entre as regas e excelente drenagem para evitar fungos."
   },
   {
     "id": "passiflora_sp",
@@ -1181,6 +1521,11 @@ const mergedPlants = [
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
     "imageUrl": null
+  ,
+    "wateringFrequencyDays": 2,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Pleno sol",
+    "careHint": "Necessita de suporte ou treliça para escalar e podas de condução para estimular a floração."
   },
   {
     "id": "melissa_officinalis_l",
@@ -1198,7 +1543,12 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
-    "imageUrl": null
+    "imageUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/612537976/medium.jpg"
+  ,
+    "wateringFrequencyDays": 2,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Meia sombra",
+    "careHint": "Mantenha o solo sempre úmido, mas nunca encharcado, e proteja do sol forte do meio-dia."
   },
   {
     "id": "achillea_millefolium_l",
@@ -1217,7 +1567,12 @@ const mergedPlants = [
     "renisus": true,
     "farmacopeia": true,
     "source": "IFSULDEMINAS",
-    "imageUrl": null
+    "imageUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/4902/medium.jpg"
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Pleno sol",
+    "careHint": "Prefere solos bem drenados e tolera bem períodos curtos de seca após estabelecida."
   },
   {
     "id": "origanum_vulgare_l",
@@ -1233,7 +1588,12 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
-    "imageUrl": null
+    "imageUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/145466748/medium.jpeg"
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Pleno sol",
+    "careHint": "Exige bastante luz solar direta para desenvolver o aroma característico das folhas."
   },
   {
     "id": "capsicum_chinense_jacq",
@@ -1249,7 +1609,12 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
-    "imageUrl": null
+    "imageUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/13473235/medium.jpg"
+  ,
+    "wateringFrequencyDays": 2,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Pleno sol",
+    "careHint": "Precisa de pelo menos 4 a 6 horas de sol direto diariamente para produzir frutos."
   },
   {
     "id": "xylopia_aromatica_lam_mart",
@@ -1269,6 +1634,11 @@ const mergedPlants = [
     "farmacopeia": false,
     "source": "Embrapa",
     "imageUrl": null
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Pleno sol",
+    "careHint": "Espécie arbórea que prefere solos profundos e ricos em matéria orgânica."
   },
   {
     "id": "unonopsis_lindmanii_fries",
@@ -1289,6 +1659,11 @@ const mergedPlants = [
     "farmacopeia": false,
     "source": "Embrapa",
     "imageUrl": null
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Meia sombra",
+    "careHint": "Adapta-se melhor a ambientes com umidade constante e solo levemente ácido."
   },
   {
     "id": "mentha_pulegium_l",
@@ -1304,7 +1679,12 @@ const mergedPlants = [
     "renisus": false,
     "farmacopeia": false,
     "source": "IFSULDEMINAS",
-    "imageUrl": null
+    "imageUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/412164828/medium.jpeg"
+  ,
+    "wateringFrequencyDays": 2,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Meia sombra",
+    "careHint": "Planta de crescimento vigoroso que aprecia solos úmidos e ricos em nutrientes."
   },
   {
     "id": "iresine_macrophyla_r_e_fries",
@@ -1321,60 +1701,320 @@ const mergedPlants = [
     "farmacopeia": false,
     "source": "Embrapa",
     "imageUrl": null
+  ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Meia sombra",
+    "careHint": "Deve ser cultivada em locais protegidos de ventos fortes e com solo bem drenado."
   },
 
   // ── Plantas domésticas comuns ──────────────────────────────────────────────
-  { "id": "monstera_deliciosa", "scientificName": "Monstera deliciosa Liebm.", "commonNamePt": "Costela de Adão", "alternativeNamesPt": ["monstera"], "family": "Araceae", "origin": "América Central", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "epipremnum_aureum", "scientificName": "Epipremnum aureum (Linden & André) G.S.Bunting", "commonNamePt": "Jiboia", "alternativeNamesPt": ["pothos", "devil's ivy"], "family": "Araceae", "origin": "Polinésia", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "phalaenopsis_spp", "scientificName": "Phalaenopsis spp.", "commonNamePt": "Orquídea Phalaenopsis", "alternativeNamesPt": ["orquídea borboleta"], "family": "Orchidaceae", "origin": "Ásia tropical", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "nephrolepis_exaltata", "scientificName": "Nephrolepis exaltata (L.) Schott", "commonNamePt": "Samambaia", "alternativeNamesPt": ["samambaia-americana"], "family": "Nephrolepidaceae", "origin": "Regiões tropicais", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "opuntia_spp", "scientificName": "Opuntia spp.", "commonNamePt": "Cacto", "alternativeNamesPt": ["palma", "figo-da-índia"], "family": "Cactaceae", "origin": "Américas", "habit": "Arbórea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "sansevieria_trifasciata", "scientificName": "Dracaena trifasciata (Prain) Mabb.", "commonNamePt": "Espada de São Jorge", "alternativeNamesPt": ["sansevieria", "língua de sogra"], "family": "Asparagaceae", "origin": "África Ocidental tropical", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "zamioculcas_zamiifolia", "scientificName": "Zamioculcas zamiifolia (Lodd.) Engl.", "commonNamePt": "ZZ Plant", "alternativeNamesPt": ["zamioculcas", "planta do dinheiro"], "family": "Araceae", "origin": "África Oriental", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "ficus_lyrata", "scientificName": "Ficus lyrata Warb.", "commonNamePt": "Ficus Lira", "alternativeNamesPt": ["fiddle-leaf fig"], "family": "Moraceae", "origin": "África Ocidental", "habit": "Arbórea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "ficus_elastica", "scientificName": "Ficus elastica Roxb. ex Hornem.", "commonNamePt": "Ficus Borracha", "alternativeNamesPt": ["figueira borracheira"], "family": "Moraceae", "origin": "Ásia tropical", "habit": "Arbórea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "chlorophytum_comosum", "scientificName": "Chlorophytum comosum (Thunb.) Jacques", "commonNamePt": "Clorofito", "alternativeNamesPt": ["planta-aranha", "fitinha"], "family": "Asparagaceae", "origin": "África do Sul", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "spathiphyllum_wallisii", "scientificName": "Spathiphyllum wallisii Regel", "commonNamePt": "Lírio da Paz", "alternativeNamesPt": ["espatifilo"], "family": "Araceae", "origin": "América do Sul tropical", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "calathea_orbifolia", "scientificName": "Goeppertia orbifolia (Linden) Borchs. & S.Suárez", "commonNamePt": "Calathea", "alternativeNamesPt": ["prayer plant", "planta-oração"], "family": "Marantaceae", "origin": "América do Sul tropical", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "dracaena_marginata", "scientificName": "Dracaena marginata Lam.", "commonNamePt": "Dracena", "alternativeNamesPt": ["drago-vermelho"], "family": "Asparagaceae", "origin": "Madagascar", "habit": "Arbórea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "anthurium_andraeanum", "scientificName": "Anthurium andraeanum Linden ex André", "commonNamePt": "Antúrio", "alternativeNamesPt": ["flamingo flower"], "family": "Araceae", "origin": "Colômbia", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "tradescantia_zebrina", "scientificName": "Tradescantia zebrina Heynh.", "commonNamePt": "Tradescandia Zebrina", "alternativeNamesPt": ["wandering jew", "planta-zebra"], "family": "Commelinaceae", "origin": "México", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "begonia_rex", "scientificName": "Begonia rex Putz.", "commonNamePt": "Begônia Rex", "alternativeNamesPt": [], "family": "Begoniaceae", "origin": "Ásia tropical", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "hedera_helix", "scientificName": "Hedera helix L.", "commonNamePt": "Hera", "alternativeNamesPt": ["ivy"], "family": "Araliaceae", "origin": "Europa", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "ceropegia_woodii", "scientificName": "Ceropegia woodii Schltr.", "commonNamePt": "Coração de Maria", "alternativeNamesPt": ["string of hearts"], "family": "Apocynaceae", "origin": "África do Sul", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "senecio_rowleyanus", "scientificName": "Curio rowleyanus (H.Jacobsen) P.V.Heath", "commonNamePt": "Colar de Pérolas", "alternativeNamesPt": ["string of pearls"], "family": "Asteraceae", "origin": "Namíbia", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "echeveria_spp", "scientificName": "Echeveria spp.", "commonNamePt": "Echeveria", "alternativeNamesPt": ["suculenta roseta"], "family": "Crassulaceae", "origin": "México e América Central", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "haworthia_attenuata", "scientificName": "Haworthiopsis attenuata (Haw.) G.D.Rowley", "commonNamePt": "Haworthia", "alternativeNamesPt": ["zebra plant"], "family": "Asphodelaceae", "origin": "África do Sul", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "aeonium_arboreum", "scientificName": "Aeonium arboreum (L.) Webb & Berthel.", "commonNamePt": "Aeonium", "alternativeNamesPt": [], "family": "Crassulaceae", "origin": "Ilhas Canárias", "habit": "Arbustiva", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "alocasia_amazonica", "scientificName": "Alocasia × amazonica hort.", "commonNamePt": "Alocásia", "alternativeNamesPt": ["elephant ear"], "family": "Araceae", "origin": "Híbrido de jardim", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "philodendron_hederaceum", "scientificName": "Philodendron hederaceum (Jacq.) Schott", "commonNamePt": "Filodendro Coração", "alternativeNamesPt": ["heartleaf philodendron"], "family": "Araceae", "origin": "América Central e Caribe", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "monstera_adansonii", "scientificName": "Monstera adansonii Schott", "commonNamePt": "Monstera Adansonii", "alternativeNamesPt": ["swiss cheese vine"], "family": "Araceae", "origin": "América tropical", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "strelitzia_reginae", "scientificName": "Strelitzia reginae Banks", "commonNamePt": "Estrelícia", "alternativeNamesPt": ["ave do paraíso"], "family": "Strelitziaceae", "origin": "África do Sul", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "aglaonema_commutatum", "scientificName": "Aglaonema commutatum Schott", "commonNamePt": "Aglaonema", "alternativeNamesPt": ["chinese evergreen"], "family": "Araceae", "origin": "Sudeste asiático", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "dieffenbachia_seguine", "scientificName": "Dieffenbachia seguine (Jacq.) Schott", "commonNamePt": "Comigo Ninguém Pode", "alternativeNamesPt": ["dumb cane"], "family": "Araceae", "origin": "América tropical", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "schefflera_arboricola", "scientificName": "Schefflera arboricola (Hayata) Merr.", "commonNamePt": "Cheflera", "alternativeNamesPt": ["umbrella plant"], "family": "Araliaceae", "origin": "Taiwan", "habit": "Arbustiva", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "crassula_ovata", "scientificName": "Crassula ovata (Mill.) Druce", "commonNamePt": "Jade", "alternativeNamesPt": ["planta jade"], "family": "Crassulaceae", "origin": "África do Sul", "habit": "Arbustiva", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "oxalis_triangularis", "scientificName": "Oxalis triangularis A.St.-Hil.", "commonNamePt": "Trevo de Boa Sorte", "alternativeNamesPt": ["purple shamrock"], "family": "Oxalidaceae", "origin": "Brasil", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "maranta_leuconeura", "scientificName": "Maranta leuconeura E.Morren", "commonNamePt": "Maranta", "alternativeNamesPt": ["prayer plant"], "family": "Marantaceae", "origin": "Brasil", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "pilea_peperomioides", "scientificName": "Pilea peperomioides Diels", "commonNamePt": "Pileia", "alternativeNamesPt": ["chinese money plant"], "family": "Urticaceae", "origin": "China", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "peperomia_obtusifolia", "scientificName": "Peperomia obtusifolia (L.) A.Dietr.", "commonNamePt": "Peperômia", "alternativeNamesPt": ["baby rubber plant"], "family": "Piperaceae", "origin": "América tropical", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "asplenium_nidus", "scientificName": "Asplenium nidus L.", "commonNamePt": "Samambaia Ninho", "alternativeNamesPt": ["bird's nest fern"], "family": "Aspleniaceae", "origin": "Ásia tropical", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "yucca_elephantipes", "scientificName": "Yucca guatemalensis Baker", "commonNamePt": "Iuca", "alternativeNamesPt": ["yucca"], "family": "Asparagaceae", "origin": "América Central", "habit": "Arbórea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "caladium_bicolor", "scientificName": "Caladium bicolor (Aiton) Vent.", "commonNamePt": "Caládio", "alternativeNamesPt": ["taro-ornamental"], "family": "Araceae", "origin": "América do Sul tropical", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "guzmania_lingulata", "scientificName": "Guzmania lingulata (L.) Mez", "commonNamePt": "Bromélia Guzmania", "alternativeNamesPt": ["bromélia"], "family": "Bromeliaceae", "origin": "América tropical", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "vriesea_splendens", "scientificName": "Vriesea splendens (Brongn.) Lem.", "commonNamePt": "Vriesea", "alternativeNamesPt": ["bromélia flaming sword"], "family": "Bromeliaceae", "origin": "América do Sul", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "hoya_carnosa", "scientificName": "Hoya carnosa (L.f.) R.Br.", "commonNamePt": "Hoya", "alternativeNamesPt": ["flor de cera", "porcelain flower"], "family": "Apocynaceae", "origin": "Ásia", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "aeschynanthus_radicans", "scientificName": "Aeschynanthus radicans Jack", "commonNamePt": "Batom", "alternativeNamesPt": ["lipstick plant"], "family": "Gesneriaceae", "origin": "Malásia", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "rhipsalis_baccifera", "scientificName": "Rhipsalis baccifera (J.S.Muell.) Stearn", "commonNamePt": "Rhipsalis", "alternativeNamesPt": ["cacto chorão"], "family": "Cactaceae", "origin": "Florestas tropicais", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "tillandsia_spp", "scientificName": "Tillandsia spp.", "commonNamePt": "Tillandsia", "alternativeNamesPt": ["air plant", "planta do ar"], "family": "Bromeliaceae", "origin": "Américas", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "hylocereus_undatus", "scientificName": "Selenicereus undatus (Haw.) D.R.Hunt", "commonNamePt": "Pitaya", "alternativeNamesPt": ["dragon fruit", "fruta do dragão"], "family": "Cactaceae", "origin": "México e América Central", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "coffea_arabica", "scientificName": "Coffea arabica L.", "commonNamePt": "Cafeeiro", "alternativeNamesPt": ["café arábica"], "family": "Rubiaceae", "origin": "Etiópia", "habit": "Arbustiva", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "citrus_limon", "scientificName": "Citrus × limon (L.) Osbeck", "commonNamePt": "Limoeiro", "alternativeNamesPt": ["limão"], "family": "Rutaceae", "origin": "Ásia", "habit": "Arbórea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "rosa_spp", "scientificName": "Rosa spp.", "commonNamePt": "Rosa", "alternativeNamesPt": ["roseira"], "family": "Rosaceae", "origin": "Ásia", "habit": "Arbustiva", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "hibiscus_rosa_sinensis", "scientificName": "Hibiscus rosa-sinensis L.", "commonNamePt": "Hibisco", "alternativeNamesPt": ["papoula-da-china"], "family": "Malvaceae", "origin": "Ásia tropical", "habit": "Arbustiva", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "bougainvillea_glabra", "scientificName": "Bougainvillea glabra Choisy", "commonNamePt": "Buganvília", "alternativeNamesPt": ["primavera", "três-marias"], "family": "Nyctaginaceae", "origin": "Brasil", "habit": "Arbustiva", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "impatiens_walleriana", "scientificName": "Impatiens walleriana Hook.f.", "commonNamePt": "Maria Sem Vergonha", "alternativeNamesPt": ["beijo-de-frade"], "family": "Balsaminaceae", "origin": "Tanzânia e Moçambique", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null },
-  { "id": "catharanthus_roseus", "scientificName": "Catharanthus roseus (L.) G.Don", "commonNamePt": "Vinca", "alternativeNamesPt": ["boa noite", "maravilhas"], "family": "Apocynaceae", "origin": "Madagascar", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null }
+  { "id": "monstera_deliciosa", "scientificName": "Monstera deliciosa Liebm.", "commonNamePt": "Costela de Adão", "alternativeNamesPt": ["monstera"], "family": "Araceae", "origin": "América Central", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": "https://static.inaturalist.org/photos/10534833/medium.jpeg" ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Meia sombra",
+    "careHint": "Limpe as folhas regularmente com um pano úmido e evite sol direto para não queimar a folhagem."
+  },
+  { "id": "epipremnum_aureum", "scientificName": "Epipremnum aureum (Linden & André) G.S.Bunting", "commonNamePt": "Jiboia", "alternativeNamesPt": ["pothos", "devil's ivy"], "family": "Araceae", "origin": "Polinésia", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Meia sombra",
+    "careHint": "Evite sol direto nas folhas para não queimar e mantenha o solo levemente úmido."
+  },
+  { "id": "phalaenopsis_spp", "scientificName": "Phalaenopsis spp.", "commonNamePt": "Orquídea Phalaenopsis", "alternativeNamesPt": ["orquídea borboleta"], "family": "Orchidaceae", "origin": "Ásia tropical", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Meia sombra",
+    "careHint": "Regue apenas o substrato, evitando molhar as flores e o centro das folhas para prevenir apodrecimento."
+  },
+  { "id": "nephrolepis_exaltata", "scientificName": "Nephrolepis exaltata (L.) Schott", "commonNamePt": "Samambaia", "alternativeNamesPt": ["samambaia-americana"], "family": "Nephrolepidaceae", "origin": "Regiões tropicais", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null ,
+    "wateringFrequencyDays": 2,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Meia sombra",
+    "careHint": "Mantenha o solo sempre úmido e proteja a planta de ventos fortes e correntes de ar."
+  },
+  { "id": "opuntia_spp", "scientificName": "Opuntia spp.", "commonNamePt": "Cacto", "alternativeNamesPt": ["palma", "figo-da-índia"], "family": "Cactaceae", "origin": "Américas", "habit": "Arbórea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null ,
+    "wateringFrequencyDays": 14,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Pleno sol",
+    "careHint": "Garanta excelente drenagem no vaso e regue apenas quando o solo estiver completamente seco."
+  },
+  { "id": "sansevieria_trifasciata", "scientificName": "Dracaena trifasciata (Prain) Mabb.", "commonNamePt": "Espada de São Jorge", "alternativeNamesPt": ["sansevieria", "língua de sogra"], "family": "Asparagaceae", "origin": "África Ocidental tropical", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null ,
+    "wateringFrequencyDays": 14,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Meia sombra",
+    "careHint": "É uma planta extremamente resistente; o maior erro é o excesso de rega que apodrece as raízes."
+  },
+  { "id": "zamioculcas_zamiifolia", "scientificName": "Zamioculcas zamiifolia (Lodd.) Engl.", "commonNamePt": "ZZ Plant", "alternativeNamesPt": ["zamioculcas", "planta do dinheiro"], "family": "Araceae", "origin": "África Oriental", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null ,
+    "wateringFrequencyDays": 14,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Sombra",
+    "careHint": "Tolera ambientes com pouca luz e exige pouca água, sendo ideal para interiores."
+  },
+  { "id": "ficus_lyrata", "scientificName": "Ficus lyrata Warb.", "commonNamePt": "Ficus Lira", "alternativeNamesPt": ["fiddle-leaf fig"], "family": "Moraceae", "origin": "África Ocidental", "habit": "Arbórea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/542743857/medium.jpg" ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Meia sombra",
+    "careHint": "Limpe as folhas grandes com um pano úmido para remover poeira e manter a fotossíntese eficiente."
+  },
+  { "id": "ficus_elastica", "scientificName": "Ficus elastica Roxb. ex Hornem.", "commonNamePt": "Ficus Borracha", "alternativeNamesPt": ["figueira borracheira"], "family": "Moraceae", "origin": "Ásia tropical", "habit": "Arbórea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": "https://static.inaturalist.org/photos/56915457/medium.jpeg" ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Meia sombra",
+    "careHint": "Evite mudanças bruscas de local, pois a planta pode perder folhas ao se estressar."
+  },
+  { "id": "chlorophytum_comosum", "scientificName": "Chlorophytum comosum (Thunb.) Jacques", "commonNamePt": "Clorofito", "alternativeNamesPt": ["planta-aranha", "fitinha"], "family": "Asparagaceae", "origin": "África do Sul", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Meia sombra",
+    "careHint": "Mantenha o solo úmido e remova as mudas laterais se quiser que a planta principal cresça mais vigorosa."
+  },
+  { "id": "spathiphyllum_wallisii", "scientificName": "Spathiphyllum wallisii Regel", "commonNamePt": "Lírio da Paz", "alternativeNamesPt": ["espatifilo"], "family": "Araceae", "origin": "América do Sul tropical", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null ,
+    "wateringFrequencyDays": 5,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Sombra",
+    "careHint": "A planta sinaliza a necessidade de água murchando levemente as folhas; mantenha o solo sempre úmido."
+  },
+  { "id": "calathea_orbifolia", "scientificName": "Goeppertia orbifolia (Linden) Borchs. & S.Suárez", "commonNamePt": "Calathea", "alternativeNamesPt": ["prayer plant", "planta-oração"], "family": "Marantaceae", "origin": "América do Sul tropical", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null ,
+    "wateringFrequencyDays": 5,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Sombra",
+    "careHint": "Exige alta umidade ambiental; borrife água nas folhas regularmente para evitar pontas secas."
+  },
+  { "id": "dracaena_marginata", "scientificName": "Dracaena marginata Lam.", "commonNamePt": "Dracena", "alternativeNamesPt": ["drago-vermelho"], "family": "Asparagaceae", "origin": "Madagascar", "habit": "Arbórea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/85543245/medium.jpg" ,
+    "wateringFrequencyDays": 14,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Meia sombra",
+    "careHint": "Planta muito resistente, mas evite encharcamento para não apodrecer as raízes."
+  },
+  { "id": "anthurium_andraeanum", "scientificName": "Anthurium andraeanum Linden ex André", "commonNamePt": "Antúrio", "alternativeNamesPt": ["flamingo flower"], "family": "Araceae", "origin": "Colômbia", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Meia sombra",
+    "careHint": "Mantenha o solo úmido, mas nunca encharcado, e evite luz solar direta nas folhas."
+  },
+  { "id": "tradescantia_zebrina", "scientificName": "Tradescantia zebrina Heynh.", "commonNamePt": "Tradescandia Zebrina", "alternativeNamesPt": ["wandering jew", "planta-zebra"], "family": "Commelinaceae", "origin": "México", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": "https://static.inaturalist.org/photos/100258841/medium.jpeg" ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Meia sombra",
+    "careHint": "Cresce rápido e precisa de podas ocasionais para manter o formato cheio e compacto."
+  },
+  { "id": "begonia_rex", "scientificName": "Begonia rex Putz.", "commonNamePt": "Begônia Rex", "alternativeNamesPt": [], "family": "Begoniaceae", "origin": "Ásia tropical", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/29233977/medium.jpg" ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Sombra",
+    "careHint": "Evite molhar as folhas ao regar para prevenir fungos e mantenha o solo levemente úmido."
+  },
+  { "id": "hedera_helix", "scientificName": "Hedera helix L.", "commonNamePt": "Hera", "alternativeNamesPt": ["ivy"], "family": "Araliaceae", "origin": "Europa", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/38428455/medium.jpeg" ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Meia sombra",
+    "careHint": "Gosta de solo úmido e ambientes frescos; pode ser cultivada como pendente ou trepadeira."
+  },
+  { "id": "ceropegia_woodii", "scientificName": "Ceropegia woodii Schltr.", "commonNamePt": "Coração de Maria", "alternativeNamesPt": ["string of hearts"], "family": "Apocynaceae", "origin": "África do Sul", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/1353883/medium.jpg" ,
+    "wateringFrequencyDays": 14,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Meia sombra",
+    "careHint": "Deixe o solo secar completamente entre as regas para evitar o apodrecimento dos tubérculos."
+  },
+  { "id": "senecio_rowleyanus", "scientificName": "Curio rowleyanus (H.Jacobsen) P.V.Heath", "commonNamePt": "Colar de Pérolas", "alternativeNamesPt": ["string of pearls"], "family": "Asteraceae", "origin": "Namíbia", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null ,
+    "wateringFrequencyDays": 14,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Meia sombra",
+    "careHint": "Precisa de muita luz indireta e solo com excelente drenagem para não perder as pérolas."
+  },
+  { "id": "echeveria_spp", "scientificName": "Echeveria spp.", "commonNamePt": "Echeveria", "alternativeNamesPt": ["suculenta roseta"], "family": "Crassulaceae", "origin": "México e América Central", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null ,
+    "wateringFrequencyDays": 14,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Pleno sol",
+    "careHint": "Necessita de muita luminosidade para não estiolarem e solo arenoso que drene rápido."
+  },
+  { "id": "haworthia_attenuata", "scientificName": "Haworthiopsis attenuata (Haw.) G.D.Rowley", "commonNamePt": "Haworthia", "alternativeNamesPt": ["zebra plant"], "family": "Asphodelaceae", "origin": "África do Sul", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/19240639/medium.jpg" ,
+    "wateringFrequencyDays": 14,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Meia sombra",
+    "careHint": "Tolera menos luz que outras suculentas; regue apenas quando o substrato estiver totalmente seco."
+  },
+  { "id": "aeonium_arboreum", "scientificName": "Aeonium arboreum (L.) Webb & Berthel.", "commonNamePt": "Aeonium", "alternativeNamesPt": [], "family": "Crassulaceae", "origin": "Ilhas Canárias", "habit": "Arbustiva", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null ,
+    "wateringFrequencyDays": 14,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Pleno sol",
+    "careHint": "Evite molhar as folhas e garanta um solo com excelente drenagem para evitar o apodrecimento das raízes."
+  },
+  { "id": "alocasia_amazonica", "scientificName": "Alocasia × amazonica hort.", "commonNamePt": "Alocásia", "alternativeNamesPt": ["elephant ear"], "family": "Araceae", "origin": "Híbrido de jardim", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Meia sombra",
+    "careHint": "Mantenha o solo levemente úmido e proporcione alta umidade ambiente, evitando correntes de ar frio."
+  },
+  { "id": "philodendron_hederaceum", "scientificName": "Philodendron hederaceum (Jacq.) Schott", "commonNamePt": "Filodendro Coração", "alternativeNamesPt": ["heartleaf philodendron"], "family": "Araceae", "origin": "América Central e Caribe", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Meia sombra",
+    "careHint": "É uma planta muito adaptável, mas prefere luz difusa e regas regulares sem encharcar o substrato."
+  },
+  { "id": "monstera_adansonii", "scientificName": "Monstera adansonii Schott", "commonNamePt": "Monstera Adansonii", "alternativeNamesPt": ["swiss cheese vine"], "family": "Araceae", "origin": "América tropical", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Meia sombra",
+    "careHint": "Aprecia umidade constante e suporta bem o cultivo em suportes ou treliças para escalar."
+  },
+  { "id": "strelitzia_reginae", "scientificName": "Strelitzia reginae Banks", "commonNamePt": "Estrelícia", "alternativeNamesPt": ["ave do paraíso"], "family": "Strelitziaceae", "origin": "África do Sul", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Pleno sol",
+    "careHint": "Necessita de muita luminosidade direta para florescer e solo rico em matéria orgânica."
+  },
+  { "id": "aglaonema_commutatum", "scientificName": "Aglaonema commutatum Schott", "commonNamePt": "Aglaonema", "alternativeNamesPt": ["chinese evergreen"], "family": "Araceae", "origin": "Sudeste asiático", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Sombra",
+    "careHint": "Excelente para interiores com pouca luz; deixe o solo secar levemente entre as regas."
+  },
+  { "id": "dieffenbachia_seguine", "scientificName": "Dieffenbachia seguine (Jacq.) Schott", "commonNamePt": "Comigo Ninguém Pode", "alternativeNamesPt": ["dumb cane"], "family": "Araceae", "origin": "América tropical", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Meia sombra",
+    "careHint": "Planta tóxica, mantenha longe de pets e crianças; prefere solo úmido, mas nunca encharcado."
+  },
+  { "id": "schefflera_arboricola", "scientificName": "Schefflera arboricola (Hayata) Merr.", "commonNamePt": "Cheflera", "alternativeNamesPt": ["umbrella plant"], "family": "Araliaceae", "origin": "Taiwan", "habit": "Arbustiva", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Meia sombra",
+    "careHint": "Planta muito resistente que tolera podas frequentes para controlar o seu crescimento arbustivo."
+  },
+  { "id": "crassula_ovata", "scientificName": "Crassula ovata (Mill.) Druce", "commonNamePt": "Jade", "alternativeNamesPt": ["planta jade"], "family": "Crassulaceae", "origin": "África do Sul", "habit": "Arbustiva", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null ,
+    "wateringFrequencyDays": 14,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Pleno sol",
+    "careHint": "Deixe o solo secar completamente entre as regas e garanta que receba luz solar direta diariamente."
+  },
+  { "id": "oxalis_triangularis", "scientificName": "Oxalis triangularis A.St.-Hil.", "commonNamePt": "Trevo de Boa Sorte", "alternativeNamesPt": ["purple shamrock"], "family": "Oxalidaceae", "origin": "Brasil", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/178300661/medium.jpg" ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Meia sombra",
+    "careHint": "As folhas se fecham à noite e abrem durante o dia; prefere solo mantido sempre levemente úmido."
+  },
+  { "id": "maranta_leuconeura", "scientificName": "Maranta leuconeura E.Morren", "commonNamePt": "Maranta", "alternativeNamesPt": ["prayer plant"], "family": "Marantaceae", "origin": "Brasil", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/135052222/medium.jpeg" ,
+    "wateringFrequencyDays": 5,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Sombra",
+    "careHint": "Mantenha o solo sempre úmido, mas nunca encharcado, e evite luz solar direta para não queimar as folhas."
+  },
+  { "id": "pilea_peperomioides", "scientificName": "Pilea peperomioides Diels", "commonNamePt": "Pileia", "alternativeNamesPt": ["chinese money plant"], "family": "Urticaceae", "origin": "China", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Meia sombra",
+    "careHint": "Gire o vaso regularmente para que a planta cresça de forma uniforme e evite o excesso de água para não apodrecer as raízes."
+  },
+  { "id": "peperomia_obtusifolia", "scientificName": "Peperomia obtusifolia (L.) A.Dietr.", "commonNamePt": "Peperômia", "alternativeNamesPt": ["baby rubber plant"], "family": "Piperaceae", "origin": "América tropical", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Meia sombra",
+    "careHint": "Deixe o solo secar levemente entre as regas e limpe as folhas com um pano úmido para remover o pó."
+  },
+  { "id": "asplenium_nidus", "scientificName": "Asplenium nidus L.", "commonNamePt": "Samambaia Ninho", "alternativeNamesPt": ["bird's nest fern"], "family": "Aspleniaceae", "origin": "Ásia tropical", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": "https://static.inaturalist.org/photos/230834449/medium.jpeg" ,
+    "wateringFrequencyDays": 5,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Sombra",
+    "careHint": "Mantenha o substrato úmido e garanta um ambiente com alta umidade relativa do ar."
+  },
+  { "id": "yucca_elephantipes", "scientificName": "Yucca guatemalensis Baker", "commonNamePt": "Iuca", "alternativeNamesPt": ["yucca"], "family": "Asparagaceae", "origin": "América Central", "habit": "Arbórea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null ,
+    "wateringFrequencyDays": 14,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Pleno sol",
+    "careHint": "Esta planta é muito resistente e prefere solos bem drenados; evite regas excessivas."
+  },
+  { "id": "caladium_bicolor", "scientificName": "Caladium bicolor (Aiton) Vent.", "commonNamePt": "Caládio", "alternativeNamesPt": ["taro-ornamental"], "family": "Araceae", "origin": "América do Sul tropical", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null ,
+    "wateringFrequencyDays": 5,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Meia sombra",
+    "careHint": "O caládio entra em dormência no inverno, reduzindo a rega quando as folhas secarem naturalmente."
+  },
+  { "id": "guzmania_lingulata", "scientificName": "Guzmania lingulata (L.) Mez", "commonNamePt": "Bromélia Guzmania", "alternativeNamesPt": ["bromélia"], "family": "Bromeliaceae", "origin": "América tropical", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Meia sombra",
+    "careHint": "Mantenha sempre água no reservatório central (copo) da bromélia e troque-a semanalmente para evitar larvas."
+  },
+  { "id": "vriesea_splendens", "scientificName": "Vriesea splendens (Brongn.) Lem.", "commonNamePt": "Vriesea", "alternativeNamesPt": ["bromélia flaming sword"], "family": "Bromeliaceae", "origin": "América do Sul", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Meia sombra",
+    "careHint": "Evite sol direto forte e mantenha o substrato levemente úmido, focando a rega no centro da roseta."
+  },
+  { "id": "hoya_carnosa", "scientificName": "Hoya carnosa (L.f.) R.Br.", "commonNamePt": "Hoya", "alternativeNamesPt": ["flor de cera", "porcelain flower"], "family": "Apocynaceae", "origin": "Ásia", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null ,
+    "wateringFrequencyDays": 14,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Meia sombra",
+    "careHint": "Não remova os pedúnculos florais após a floração, pois novas flores podem surgir no mesmo local."
+  },
+  { "id": "aeschynanthus_radicans", "scientificName": "Aeschynanthus radicans Jack", "commonNamePt": "Batom", "alternativeNamesPt": ["lipstick plant"], "family": "Gesneriaceae", "origin": "Malásia", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Meia sombra",
+    "careHint": "Precisa de muita luz indireta para florescer e prefere ambientes com boa umidade."
+  },
+  { "id": "rhipsalis_baccifera", "scientificName": "Rhipsalis baccifera (J.S.Muell.) Stearn", "commonNamePt": "Rhipsalis", "alternativeNamesPt": ["cacto chorão"], "family": "Cactaceae", "origin": "Florestas tropicais", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Meia sombra",
+    "careHint": "Evite sol direto forte nas horas mais quentes para não queimar os ramos. Mantenha o substrato levemente úmido, mas nunca encharcado."
+  },
+  { "id": "tillandsia_spp", "scientificName": "Tillandsia spp.", "commonNamePt": "Tillandsia", "alternativeNamesPt": ["air plant", "planta do ar"], "family": "Bromeliaceae", "origin": "Américas", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Meia sombra",
+    "careHint": "Não plante em terra; fixe em suportes e borrife água regularmente. Garanta boa circulação de ar para evitar o apodrecimento."
+  },
+  { "id": "hylocereus_undatus", "scientificName": "Selenicereus undatus (Haw.) D.R.Hunt", "commonNamePt": "Pitaya", "alternativeNamesPt": ["dragon fruit", "fruta do dragão"], "family": "Cactaceae", "origin": "México e América Central", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null ,
+    "wateringFrequencyDays": 14,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Pleno sol",
+    "careHint": "Necessita de muito sol para florescer e produzir frutos. Use um tutor resistente, pois a planta pode ficar pesada."
+  },
+  { "id": "coffea_arabica", "scientificName": "Coffea arabica L.", "commonNamePt": "Cafeeiro", "alternativeNamesPt": ["café arábica"], "family": "Rubiaceae", "origin": "Etiópia", "habit": "Arbustiva", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/224058295/medium.jpeg" ,
+    "wateringFrequencyDays": 3,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Meia sombra",
+    "careHint": "Prefere luz difusa brilhante e solo rico em matéria orgânica. Mantenha a umidade constante, mas evite o encharcamento das raízes."
+  },
+  { "id": "citrus_limon", "scientificName": "Citrus × limon (L.) Osbeck", "commonNamePt": "Limoeiro", "alternativeNamesPt": ["limão"], "family": "Rutaceae", "origin": "Ásia", "habit": "Arbórea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null ,
+    "wateringFrequencyDays": 3,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Pleno sol",
+    "careHint": "Exige pelo menos 6 horas de sol direto por dia. Em vasos, garanta uma drenagem excelente e adubação frequente para frutificar."
+  },
+  { "id": "rosa_spp", "scientificName": "Rosa spp.", "commonNamePt": "Rosa", "alternativeNamesPt": ["roseira"], "family": "Rosaceae", "origin": "Ásia", "habit": "Arbustiva", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null ,
+    "wateringFrequencyDays": 2,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Pleno sol",
+    "careHint": "Exige sol pleno e podas regulares para estimular novas flores. Mantenha o solo sempre úmido e evite molhar as folhas para prevenir fungos."
+  },
+  { "id": "hibiscus_rosa_sinensis", "scientificName": "Hibiscus rosa-sinensis L.", "commonNamePt": "Hibisco", "alternativeNamesPt": ["papoula-da-china"], "family": "Malvaceae", "origin": "Ásia tropical", "habit": "Arbustiva", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": "https://static.inaturalist.org/photos/25533484/medium.jpg" ,
+    "wateringFrequencyDays": 2,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Pleno sol",
+    "careHint": "Aprecia calor e muita luz solar para florescer intensamente. Mantenha o solo úmido e proteja de ventos fortes."
+  },
+  { "id": "bougainvillea_glabra", "scientificName": "Bougainvillea glabra Choisy", "commonNamePt": "Buganvília", "alternativeNamesPt": ["primavera", "três-marias"], "family": "Nyctaginaceae", "origin": "Brasil", "habit": "Arbustiva", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null ,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Pleno sol",
+    "careHint": "Quanto mais sol, mais flores a planta produz. Regue apenas quando o solo estiver seco e evite podas excessivas durante a floração."
+  },
+  { "id": "impatiens_walleriana", "scientificName": "Impatiens walleriana Hook.f.", "commonNamePt": "Maria Sem Vergonha", "alternativeNamesPt": ["beijo-de-frade"], "family": "Balsaminaceae", "origin": "Tanzânia e Moçambique", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": "https://inaturalist-open-data.s3.amazonaws.com/photos/72834061/medium.jpeg" ,
+    "wateringFrequencyDays": 2,
+    "fertilizingFrequencyDays": 30,
+    "sunlight": "Meia sombra",
+    "careHint": "Mantenha o solo sempre úmido e evite sol direto forte, que pode queimar as pétalas. É ideal para locais sombreados e úmidos."
+  },
+  { "id": "catharanthus_roseus", "scientificName": "Catharanthus roseus (L.) G.Don", "commonNamePt": "Vinca", "alternativeNamesPt": ["boa noite", "maravilhas"], "family": "Apocynaceae", "origin": "Madagascar", "habit": "Herbácea", "biodiversa": false, "dermatologica": false, "hoca": false, "renisus": false, "farmacopeia": false, "source": "Curada", "imageUrl": null,
+    "wateringFrequencyDays": 7,
+    "fertilizingFrequencyDays": 60,
+    "sunlight": "Pleno sol",
+    "careHint": "Muito resistente à seca, prefere solos bem drenados. Evite regar em excesso para prevenir o apodrecimento das raízes."
+  }
 ];
 
 // Funções de busca
