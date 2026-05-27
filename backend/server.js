@@ -55,7 +55,7 @@ app.get('/', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/plants', protect, plantRoutes);
 app.use('/api/trefle', require('./routes/trefleRoutes'));
-app.use('/api/identify', require('./routes/identifyRoutes'));
+app.use('/api/identify', express.json({ limit: '10mb' }), require('./routes/identifyRoutes'));
 app.use('/api/suggest-care', protect, require('./routes/suggestRoutes'));
 
 // Middleware global de erros — deve ficar após todas as rotas
