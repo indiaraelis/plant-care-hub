@@ -39,6 +39,7 @@ export function AuthProvider({ children }) {
     } catch {
       // ignora erro de rede no logout
     }
+    localStorage.removeItem('token');
     setUser(null);
     setIsAuthenticated(false);
   }, []);

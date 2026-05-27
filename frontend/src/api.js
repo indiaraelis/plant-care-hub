@@ -8,6 +8,12 @@ const API = axios.create({
   withCredentials: true,
 });
 
+API.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token');
+  if (token) config.headers.Authorization = `Bearer ${token}`;
+  return config;
+});
+
 // Rotas que podem retornar 401 por design (sem redirecionar)
 const AUTH_ROUTES = ['/api/auth/login', '/api/auth/me'];
 

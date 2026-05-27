@@ -13,10 +13,11 @@ const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: TOKEN_TTL });
 };
 
+const isProduction = process.env.NODE_ENV === 'production';
 const cookieOptions = () => ({
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+    secure: isProduction,
+    sameSite: isProduction ? 'none' : 'lax',
     maxAge: COOKIE_TTL,
 });
 
@@ -46,6 +47,7 @@ exports.registerUser = async (req, res, next) => {
         res.cookie('token', token, cookieOptions());
 
         res.status(201).json({
+            token,
             _id: user._id,
             username: user.username,
             email: user.email,
@@ -83,6 +85,7 @@ exports.loginUser = async (req, res, next) => {
         res.cookie('token', token, cookieOptions());
 
         res.json({
+            token,
             _id: user._id,
             username: user.username,
             email: user.email,

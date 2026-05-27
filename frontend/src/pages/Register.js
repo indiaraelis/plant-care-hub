@@ -23,6 +23,7 @@ function Register() {
     setLoading(true);
     try {
       const res = await API.post('/api/auth/register', { username, email, password });
+      if (res.data.token) localStorage.setItem('token', res.data.token);
       login(res.data);
       toast.success(`Bem-vinda, ${res.data.username}! Vamos adicionar sua primeira planta.`);
       navigate('/add-plant');

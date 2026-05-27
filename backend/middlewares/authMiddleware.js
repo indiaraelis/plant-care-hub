@@ -4,7 +4,10 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
 const protect = async (req, res, next) => {
-    const token = req.cookies.token;
+    const authHeader = req.headers.authorization;
+    const token =
+        (authHeader && authHeader.startsWith('Bearer ') ? authHeader.split(' ')[1] : null)
+        || req.cookies?.token;
 
     if (!token) {
         return res.status(401).json({ msg: 'Não autorizado, nenhum token' });
