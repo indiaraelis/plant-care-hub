@@ -1,7 +1,7 @@
 // frontend/src/pages/AddPlant.js
 
-import React, { useRef, useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import API from '../api';
 import { toast } from 'react-toastify';
 import { Camera, Leaf, Loader, Sparkles } from 'lucide-react';
@@ -24,6 +24,9 @@ function today() {
 }
 
 function AddPlant() {
+  const [searchParams] = useSearchParams();
+  const modo = searchParams.get('modo'); // 'foto' | 'nome' | null
+
   // Step 1 — identification
   const [step, setStep] = useState(1);
   const [selectedPlantInfo, setSelectedPlantInfo] = useState({ id: '', scientificName: '', commonNamePt: '', plant: null });
@@ -49,6 +52,13 @@ function AddPlant() {
   const [notes, setNotes] = useState('');
 
   const navigate = useNavigate();
+
+  // Auto-open file picker when arriving via "Identificar por foto"
+  useEffect(() => {
+    if (modo === 'foto' && photoInputRef.current) {
+      photoInputRef.current.click();
+    }
+  }, [modo]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handlePlantSelection = (selection) => {
     setSelectedPlantInfo(selection);
@@ -297,44 +307,58 @@ function AddPlant() {
 
           <div className="add-plant-section">
             <h2>Qual é a planta?</h2>
-            <p className="text-left mt-0 mb-4 text-text-muted text-sm">
-              Busque pelo nome em português ou científico — ou tire uma foto.
-            </p>
 
-            {/* Photo identify button */}
-            <div className="mb-4">
-              <input
-                ref={photoInputRef}
-                type="file"
-                accept="image/jpeg,image/png,image/webp"
-                capture="environment"
-                className="hidden"
-                onChange={handlePhotoChange}
-                id="photo-input"
-              />
-              <label
-                htmlFor="photo-input"
-                className={`flex items-center justify-center gap-2 w-full rounded-2xl border-2 border-dashed py-4 cursor-pointer transition-colors text-sm font-medium ${
-                  identifying
-                    ? 'border-mint-light text-text-muted cursor-wait'
-                    : 'border-sage-green text-emerald-leaf hover:bg-sage-green/10'
-                }`}
-              >
-                {identifying
-                  ? <><Loader size={16} className="animate-spin" /> Identificando...</>
-                  : <><Camera size={16} /> Identificar por foto</>
-                }
-              </label>
-              <p className="text-xs text-text-muted text-center mt-1 mb-0">
-                Sugestão por IA — confirme e ajuste abaixo
-              </p>
-            </div>
-
-            <PlantAutocomplete
-              value={selectedPlantInfo.id}
-              onChange={handlePlantSelection}
-              placeholder="Ex: Costela de Adão, Pothos, Samambaia..."
+            {/* Hidden file input — always present so ref works */}
+            <input
+              ref={photoInputRef}
+              type="file"
+              accept="image/jpeg,image/png,image/webp"
+              capture="environment"
+              className="hidden"
+              onChange={handlePhotoChange}
+              id="photo-input"
             />
+
+            {/* Photo mode */}
+            {modo !== 'nome' && (
+              <div className="mb-4">
+                <p className="text-left mt-0 mb-4 text-text-muted text-sm">
+                  Tire uma foto e a IA identifica a planta e sugere os cuidados.
+                </p>
+                <label
+                  htmlFor="photo-input"
+                  className={`flex items-center justify-center gap-2 w-full rounded-2xl border-2 border-dashed py-4 cursor-pointer transition-colors text-sm font-medium ${
+                    identifying
+                      ? 'border-mint-light text-text-muted cursor-wait'
+                      : 'border-sage-green text-emerald-leaf hover:bg-sage-green/10'
+                  }`}
+                >
+                  {identifying
+                    ? <><Loader size={16} className="animate-spin" /> Identificando...</>
+                    : <><Camera size={16} /> {modo === 'foto' ? 'Selecionar foto' : 'Identificar por foto'}</>
+                  }
+                </label>
+                <p className="text-xs text-text-muted text-center mt-1 mb-0">
+                  Sugestão por IA — confirme e ajuste abaixo
+                </p>
+              </div>
+            )}
+
+            {/* Name search mode */}
+            {modo !== 'foto' && (
+              <>
+                {modo === 'nome' && (
+                  <p className="text-left mt-0 mb-4 text-text-muted text-sm">
+                    Busque pelo nome em português ou científico — mais de 580 espécies na base.
+                  </p>
+                )}
+                <PlantAutocomplete
+                  value={selectedPlantInfo.id}
+                  onChange={handlePlantSelection}
+                  placeholder="Ex: Costela de Adão, Pothos, Samambaia..."
+                />
+              </>
+            )}
           </div>
 
           <form onSubmit={handleStep1Next}>

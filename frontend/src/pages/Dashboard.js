@@ -381,14 +381,14 @@ function Dashboard() {
           <p className="text-text-muted text-lg font-medium mt-0 mb-1">Seu jardim ainda está em silêncio.</p>
           <p className="text-text-muted text-sm mt-0 mb-8">Adicione sua primeira planta e dê início a essa história verde.</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6 mx-auto" style={{ maxWidth: '440px' }}>
-            <Link to="/add-plant" className="no-underline group">
+            <Link to="/add-plant?modo=foto" className="no-underline group">
               <div className="rounded-2xl border-2 border-dashed border-sage-green bg-sage-green/5 group-hover:bg-sage-green/10 p-5 text-center transition-colors">
                 <Camera size={24} className="text-emerald-leaf mx-auto mb-2" />
                 <p className="font-semibold text-deep-forest text-sm mt-0 mb-1">Identificar por foto</p>
                 <p className="text-xs text-text-muted mt-0 mb-0">Tire uma foto e a IA identifica e sugere os cuidados</p>
               </div>
             </Link>
-            <Link to="/add-plant" className="no-underline group">
+            <Link to="/add-plant?modo=nome" className="no-underline group">
               <div className="rounded-2xl border-2 border-dashed border-mint-light group-hover:border-sage-green bg-white group-hover:bg-sage-green/5 p-5 text-center transition-colors">
                 <Search size={24} className="text-sage-green mx-auto mb-2" />
                 <p className="font-semibold text-deep-forest text-sm mt-0 mb-1">Buscar pelo nome</p>
